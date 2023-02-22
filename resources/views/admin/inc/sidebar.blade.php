@@ -187,7 +187,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
                         <a class="dropdown-item " href="{{ route('admin.applicant.index') }}">Students</a>
-                        <a class="dropdown-item " href="user-profile-lite.html">Patients</a>
+                        <a class="dropdown-item " href="{{ route('admin.patient.index') }}">Patients</a>
                     </div>
                 </li>
                 {{-- <li class="nav-item">

@@ -13,3 +13,10 @@
     padding: 15px 8px;
     font-size: 15px;
 }
+
+.modal-body {
+    padding: 7px 2.1875rem;
+}
+table tr td, table tr th{
+    vertical-align: middle !important;
+}

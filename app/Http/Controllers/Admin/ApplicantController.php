@@ -108,26 +108,26 @@ class ApplicantController extends Controller
         }
     }
 
-    public function getDistrict(Request $request)
-    {
-        $datum = District::whereDivision_id($request->district_id)->get();
-        $district = view('frontend.layouts.includes.district', ['datum' => $datum])->render();
-        return response()->json(['status' => 'success', 'html' => $district, 'district']);
-    }
+    // public function getDistrict(Request $request)
+    // {
+    //     $datum = District::whereDivision_id($request->district_id)->get();
+    //     $district = view('frontend.layouts.includes.district', ['datum' => $datum])->render();
+    //     return response()->json(['status' => 'success', 'html' => $district, 'district']);
+    // }
 
-    public function getUpazila(Request $request)
-    {
-        $datum = Upazila::whereDistrict_id($request->district_id)->get();
-        $upazilas = view('frontend.layouts.includes.upazila', ['datum' => $datum])->render();
-        return response()->json(['status' => 'success', 'html' => $upazilas, 'upazilas']);
-    }
+    // public function getUpazila(Request $request)
+    // {
+    //     $datum = Upazila::whereDistrict_id($request->district_id)->get();
+    //     $upazilas = view('frontend.layouts.includes.upazila', ['datum' => $datum])->render();
+    //     return response()->json(['status' => 'success', 'html' => $upazilas, 'upazilas']);
+    // }
 
-    public function getUnion(Request $request)
-    {
-        $datum = Union::whereUpazilla_id($request->upazila_id)->get();
-        $unions = view('frontend.layouts.includes.union', ['datum' => $datum])->render();
-        return response()->json(['status' => 'success', 'html' => $unions, 'unions']);
-    }
+    // public function getUnion(Request $request)
+    // {
+    //     $datum = Union::whereUpazilla_id($request->upazila_id)->get();
+    //     $unions = view('frontend.layouts.includes.union', ['datum' => $datum])->render();
+    //     return response()->json(['status' => 'success', 'html' => $unions, 'unions']);
+    // }
 
     public function destroy(User $applicant)
     {

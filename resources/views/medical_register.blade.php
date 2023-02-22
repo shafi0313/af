@@ -254,7 +254,7 @@
                                 <input type="file" required="" name="patient_img">
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
-                                <div class="field-label"> ভোটার আইডি কার্ড </div>
+                                <div class="field-label">ভোটার আইডি কার্ড </div>
                                 <input type="file" name="nid">
                             </div>
 
