@@ -306,6 +306,10 @@
 
     @push('script')
         <script>
+            $("form").on('submit', function(e) {
+                $(this).find('button[type="submit"]').attr('disabled', 'disabled');
+                $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+            });
             $(document).ready(function() {
                 $("#division_id").on("change", function() {
                     let division_id = $(this).val();

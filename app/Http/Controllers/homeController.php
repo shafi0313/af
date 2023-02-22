@@ -651,22 +651,14 @@ class homeController extends Controller
         $data['blog']       = DB::table('menu_manages')->where('id', 4)->first();
         $data['shop']       = DB::table('menu_manages')->where('id', 5)->first();
         $data['gellery']    = DB::table('menu_manages')->whereIn('id', array('16', '17'))->get();
-
-
+        $data['divisions']  = Division::all();
         return view('medical_register', $data);
     }
-
-
-
-
 
     public function UserRegister(Request $request)
     {
         DB::beginTransaction();
-
         try {
-
-
             $student_image    = time() . '.student.' . $request->student_image->extension();
             $request->student_image->move(public_path('documents'), $student_image);
 
