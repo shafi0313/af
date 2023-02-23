@@ -10,6 +10,8 @@ use App\Models\Division;
 use App\Basic_info_manage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\ApplicantUpdateRequest;
 
@@ -44,6 +46,10 @@ class ApplicantController extends Controller
 
                     $btn .= view('button', ['type' => 'ajax-view', 'route' => route('admin.applicant.show', $row->id), 'row' => $row]);
                     $btn .= view('button', ['type' => 'ajax-edit', 'route' => route('admin.applicant.edit', $row->id), 'row' => $row]);
+                    if (Auth::user()->id == 1){
+                        $btn .= '<button type="button" class="btn btn-success btn-sm accept" onclick="accept('.$row->id.')" title="Accept" data-id="'.$row->id.'"><i class="material-icons">done_outline </i></button>';
+                        $btn .= '<button type="button" class="btn btn-danger btn-sm reject" title="Reject"><i class="material-icons">cancel_presentation</i></button>';
+                    }
                     $btn .= view('button', ['type' => 'ajax-delete', 'route' => route('admin.applicant.destroy', $row->id), 'row' => $row, 'src' => 'dt']);
                     return $btn;
                 })
@@ -128,6 +134,20 @@ class ApplicantController extends Controller
     //     $unions = view('frontend.layouts.includes.union', ['datum' => $datum])->render();
     //     return response()->json(['status' => 'success', 'html' => $unions, 'unions']);
     // }
+
+    public function accept(Request $request)
+    {
+        return $request->id;
+        User::find($request->id)->update(['status' => 1]);
+        try {
+            // User::create($data);
+            Alert::success('Success', 'Application Accepted');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            Alert::error('Error', 'Something went wrong');
+            return redirect()->back();
+        }
+    }
 
     public function destroy(User $applicant)
     {

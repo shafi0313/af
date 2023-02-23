@@ -8,7 +8,7 @@
         <div class="sidebar-header p-1 px-2">
             <h3 id="InputHeader">Applicant List > Student</h3>
         </div>
-        <hr class="my-0">    
+        <hr class="my-0">
     </nav>
     <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
         <div class="main-content-container container-fluid px-4">
@@ -20,20 +20,20 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="card card-small mb-4">                    
+                    <div class="card card-small mb-4">
                         <div class="card-body p-0 text-center ReactTable">
                             <table id="data_table" class="table mb-0 rt-table">
                                 <thead class="bg-light">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Student Name</th> 
-                                    <th>Father Name</th> 
-                                    <th>Mother Name</th>
-                                    <th>Village</th>
-                                    <th>Status</th>
-                                    {{-- <th>Updated At</th> --}}
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Student Name</th>
+                                        <th>Father Name</th>
+                                        <th>Mother Name</th>
+                                        <th>Village</th>
+                                        <th>Status</th>
+                                        {{-- <th>Updated At</th> --}}
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
@@ -44,7 +44,7 @@
             </div>
         </div>
     </main>
-        
+
     <script>
         $(function() {
             $('#data_table').DataTable({
@@ -55,8 +55,7 @@
                 responsive: true,
                 scrollY: 400,
                 ajax: "{{ route('admin.applicant.index') }}",
-                columns: [
-                    {
+                columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         searchable: false,
@@ -94,6 +93,72 @@
                 }
             });
         });
-    </script>
 
+
+        function accept(data){
+            // e.preventDefault();
+            // alert("hello");
+            // let formData = new FormData(form);
+            // let id = $('.accept').data('id');
+            // alert(id);
+            $.ajax({
+                url: '{{ route('admin.applicant.accept') }}',
+                type: 'PUT',
+                data: { id: "data" },
+                contentType: false,
+                processData: false,
+                success: res => {
+                    swal({
+                        icon: 'success',
+                        title: 'Success',
+                        text: res.message
+                    }).then((confirm) => {
+                        if (confirm) {
+                            $('.table').DataTable().ajax.reload();
+                        }
+                    });
+                },
+                error: err => {
+                    swal({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: err.responseJSON.message
+                    });
+                }
+            });
+        }
+        // $(".accept").on("click",function(){
+        //     alert("hello");
+        // });
+        function ajaxStore(e, form) {
+            e.preventDefault();
+            // let formData = $(form).serialize();
+            let formData = new FormData(form);
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: res => {
+                    swal({
+                        icon: 'success',
+                        title: 'Success',
+                        text: res.message
+                    }).then((confirm) => {
+                        if (confirm) {
+                            $('.table').DataTable().ajax.reload();
+                        }
+                    });
+                },
+                error: err => {
+                    swal({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: err.responseJSON.message
+                    });
+                }
+            });
+        }
+    </script>
 @endsection
