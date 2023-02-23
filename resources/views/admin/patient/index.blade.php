@@ -94,6 +94,81 @@
                 }
             });
         });
+
+        function accept(id){
+        swal({
+            title: "Are you sure?",
+            text: "This action will accept this record!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((accept) => {
+            if (accept) {
+                $.ajax({
+                    url: '{{ route('admin.patient.accept') }}',
+                    type: 'POST',
+                    data: { id: id },
+                    success: res => {
+                        swal({
+                            icon: 'success',
+                            title: 'Success',
+                            text: res.message
+                        }).then((confirm) => {
+                            if (confirm) {
+                                $('.table').DataTable().ajax.reload();
+                            }
+                        });
+                    },
+                    error: err => {
+                        swal({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: err.responseJSON.message
+                        });
+                    }
+                });
+            }
+        })
+    }
+    
+
+    function reject(id){
+        swal({
+            title: "Are you sure?",
+            text: "This action will reject this record!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((reject) => {
+            if (reject) {
+                $.ajax({
+                    url: '{{ route('admin.patient.reject') }}',
+                    type: 'POST',
+                    data: { id: id },
+                    success: res => {
+                        swal({
+                            icon: 'success',
+                            title: 'Success',
+                            text: res.message
+                        }).then((confirm) => {
+                            if (confirm) {
+                                $('.table').DataTable().ajax.reload();
+                            }
+                        });
+                    },
+                    error: err => {
+                        swal({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: err.responseJSON.message
+                        });
+                    }
+                });
+            }
+        })
+    }    
     </script>
 
 @endsection

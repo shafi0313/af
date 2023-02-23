@@ -46,9 +46,6 @@
     </main>
 {{-- @push('script') --}}
 <script>
-    $(".f").on("click", function(){
-        alert("hello");
-    })
     $(function() {
         $('#data_table').DataTable({
             processing: true,
@@ -99,59 +96,79 @@
 
 
     function accept(id){
-        $.ajax({
-            url: '{{ route('admin.applicant.accept') }}',
-            type: 'POST',
-            data: { id: id },
-            success: res => {
-                swal({
-                    icon: 'success',
-                    title: 'Success',
-                    text: res.message
-                }).then((confirm) => {
-                    if (confirm) {
-                        $('.table').DataTable().ajax.reload();
+        swal({
+            title: "Are you sure?",
+            text: "This action will accept this record!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((accept) => {
+            if (accept) {
+                $.ajax({
+                    url: '{{ route('admin.applicant.accept') }}',
+                    type: 'POST',
+                    data: { id: id },
+                    success: res => {
+                        swal({
+                            icon: 'success',
+                            title: 'Success',
+                            text: res.message
+                        }).then((confirm) => {
+                            if (confirm) {
+                                $('.table').DataTable().ajax.reload();
+                            }
+                        });
+                    },
+                    error: err => {
+                        swal({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: err.responseJSON.message
+                        });
                     }
                 });
-            },
-            error: err => {
-                swal({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: err.responseJSON.message
-                });
             }
-        });
+        })
     }
+    
 
     function reject(id){
-        $.ajax({
-            url: '{{ route('admin.applicant.reject') }}',
-            type: 'POST',
-            data: { id: id },
-            success: res => {
-                swal({
-                    icon: 'success',
-                    title: 'Success',
-                    text: res.message
-                }).then((confirm) => {
-                    if (confirm) {
-                        $('.table').DataTable().ajax.reload();
+        swal({
+            title: "Are you sure?",
+            text: "This action will reject this record!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((reject) => {
+            if (reject) {
+                $.ajax({
+                    url: '{{ route('admin.applicant.reject') }}',
+                    type: 'POST',
+                    data: { id: id },
+                    success: res => {
+                        swal({
+                            icon: 'success',
+                            title: 'Success',
+                            text: res.message
+                        }).then((confirm) => {
+                            if (confirm) {
+                                $('.table').DataTable().ajax.reload();
+                            }
+                        });
+                    },
+                    error: err => {
+                        swal({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: err.responseJSON.message
+                        });
                     }
                 });
-            },
-            error: err => {
-                swal({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: err.responseJSON.message
-                });
             }
-        });
-    }
-
-    
-    
+        })
+    }    
 </script>
 {{-- @endpush --}}
     

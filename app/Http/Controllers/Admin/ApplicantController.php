@@ -47,7 +47,6 @@ class ApplicantController extends Controller
                     $btn .= view('button', ['type' => 'ajax-view', 'route' => route('admin.applicant.show', $row->id), 'row' => $row]);
                     $btn .= view('button', ['type' => 'ajax-edit', 'route' => route('admin.applicant.edit', $row->id), 'row' => $row]);
                     if (Auth::user()->id == 1){
-                        // $btn .= '<div  class="btn btn-success btn-sm accept" title="Accept" data-id="'.$row->id.'"><i class="material-icons">done_outline </i></div>';
                         $btn .= '<button type="button" class="btn btn-success btn-sm" onclick="accept('.$row->id.')" title="Accept"><i class="material-icons">done_outline </i></button> ';
                         $btn .= '<button type="button" class="btn btn-warning btn-sm" onclick="reject('.$row->id.')" title="Reject"><i class="material-icons">cancel_presentation</i></button> ';
                     }

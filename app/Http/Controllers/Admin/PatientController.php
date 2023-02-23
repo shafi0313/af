@@ -7,6 +7,7 @@ use App\Models\Division;
 use App\Basic_info_manage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class PatientController extends Controller
@@ -40,6 +41,10 @@ class PatientController extends Controller
 
                     $btn .= view('button', ['type' => 'ajax-view', 'route' => route('admin.patient.show', $row->id), 'row' => $row]);
                     $btn .= view('button', ['type' => 'ajax-edit', 'route' => route('admin.patient.edit', $row->id), 'row' => $row]);
+                    if (Auth::user()->id == 1){
+                        $btn .= '<button type="button" class="btn btn-success btn-sm" onclick="accept('.$row->id.')" title="Accept"><i class="material-icons">done_outline </i></button> ';
+                        $btn .= '<button type="button" class="btn btn-warning btn-sm" onclick="reject('.$row->id.')" title="Reject"><i class="material-icons">cancel_presentation</i></button> ';
+                    }
                     $btn .= view('button', ['type' => 'ajax-delete', 'route' => route('admin.patient.destroy', $row->id), 'row' => $row, 'src' => 'dt']);
                     return $btn;
                 })
@@ -104,26 +109,25 @@ class PatientController extends Controller
         }
     }
 
-    // public function getDistrict(Request $request)
-    // {
-    //     $datum = District::whereDivision_id($request->district_id)->get();
-    //     $district = view('frontend.layouts.includes.district', ['datum' => $datum])->render();
-    //     return response()->json(['status' => 'success', 'html' => $district, 'district']);
-    // }
+    public function accept(Request $request)
+    {
+        try {
+            Patient::find($request->id)->update(['status' => 1]);
+            return response()->json(['message'=> 'Patient Accepted'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message'=>__('app.oops')], 500);
+        }        
+    }
 
-    // public function getUpazila(Request $request)
-    // {
-    //     $datum = Upazila::whereDistrict_id($request->district_id)->get();
-    //     $upazilas = view('frontend.layouts.includes.upazila', ['datum' => $datum])->render();
-    //     return response()->json(['status' => 'success', 'html' => $upazilas, 'upazilas']);
-    // }
-
-    // public function getUnion(Request $request)
-    // {
-    //     $datum = Union::whereUpazilla_id($request->upazila_id)->get();
-    //     $unions = view('frontend.layouts.includes.union', ['datum' => $datum])->render();
-    //     return response()->json(['status' => 'success', 'html' => $unions, 'unions']);
-    // }
+    public function reject(Request $request)
+    {
+        try {
+            Patient::find($request->id)->update(['status' => 2]);
+            return response()->json(['message'=> 'Patient Rejected'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message'=>__('app.oops')], 500);
+        }        
+    }
 
     public function destroy(Patient $patient)
     {

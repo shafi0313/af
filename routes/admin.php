@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\ApplicantController;
 
 
 Route::resource('/applicant', ApplicantController::class);
-
 Route::post('/applicant/accept', [ApplicantController::class, 'accept'])->name('applicant.accept');
 Route::post('/applicant/reject', [ApplicantController::class, 'reject'])->name('applicant.reject');
 
@@ -15,3 +14,5 @@ Route::post('/applicant/reject', [ApplicantController::class, 'reject'])->name('
 // Route::get('/getUnion', [ApplicantController::class, 'getUnion'])->name('getUnion');
 
 Route::resource('/patient', PatientController::class);
+Route::post('/patient/accept', [PatientController::class, 'accept'])->name('patient.accept');
+Route::post('/patient/reject', [PatientController::class, 'reject'])->name('patient.reject');
