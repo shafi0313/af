@@ -11,7 +11,7 @@
             <div class="modal-body modalText">
                 <div class="row">
                     <div class="col-md-12">
-                        <table width="100%" border="0">
+                        <table class="table">
                             <tbody>
                                 <tr>
                                     <td>Student Name (ছাত্র/ছাত্রীর নাম) </td>

@@ -35,7 +35,7 @@ class ApplicantStoreRequest extends FormRequest
             'finance'        => 'required',
             'phone'          => 'required|max:30',
             'phone2'         => 'required|max:30',
-            'email'          => 'required|max:30',
+            'email'          => 'nullable|max:30',
             'class'          => 'required|max:255',
             'school'         => 'required|max:255',
             'fee'            => 'required|max:8',
