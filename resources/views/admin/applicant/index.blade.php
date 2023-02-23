@@ -44,121 +44,115 @@
             </div>
         </div>
     </main>
-
-    <script>
-        $(function() {
-            $('#data_table').DataTable({
-                processing: true,
-                serverSide: true,
-                deferRender: true,
-                ordering: true,
-                responsive: true,
-                scrollY: 400,
-                ajax: "{{ route('admin.applicant.index') }}",
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex',
-                        searchable: false,
-                        orderable: false,
-                    },
-                    {
-                        data: 'student_name',
-                        name: 'student_name'
-                    },
-                    {
-                        data: 'father_name',
-                        name: 'father_name'
-                    },
-                    {
-                        data: 'mother_name',
-                        name: 'mother_name'
-                    },
-                    {
-                        data: 'gram',
-                        name: 'gram'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ],
-                scroller: {
-                    loadingIndicator: true
-                }
-            });
+{{-- @push('script') --}}
+<script>
+    $(".f").on("click", function(){
+        alert("hello");
+    })
+    $(function() {
+        $('#data_table').DataTable({
+            processing: true,
+            serverSide: true,
+            deferRender: true,
+            ordering: true,
+            responsive: true,
+            scrollY: 400,
+            ajax: "{{ route('admin.applicant.index') }}",
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    searchable: false,
+                    orderable: false,
+                },
+                {
+                    data: 'student_name',
+                    name: 'student_name'
+                },
+                {
+                    data: 'father_name',
+                    name: 'father_name'
+                },
+                {
+                    data: 'mother_name',
+                    name: 'mother_name'
+                },
+                {
+                    data: 'gram',
+                    name: 'gram'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+            scroller: {
+                loadingIndicator: true
+            }
         });
+    });
 
 
-        function accept(data){
-            // e.preventDefault();
-            // alert("hello");
-            // let formData = new FormData(form);
-            // let id = $('.accept').data('id');
-            // alert(id);
-            $.ajax({
-                url: '{{ route('admin.applicant.accept') }}',
-                type: 'PUT',
-                data: { id: "data" },
-                contentType: false,
-                processData: false,
-                success: res => {
-                    swal({
-                        icon: 'success',
-                        title: 'Success',
-                        text: res.message
-                    }).then((confirm) => {
-                        if (confirm) {
-                            $('.table').DataTable().ajax.reload();
-                        }
-                    });
-                },
-                error: err => {
-                    swal({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: err.responseJSON.message
-                    });
-                }
-            });
-        }
-        // $(".accept").on("click",function(){
-        //     alert("hello");
-        // });
-        function ajaxStore(e, form) {
-            e.preventDefault();
-            // let formData = $(form).serialize();
-            let formData = new FormData(form);
-            $.ajax({
-                url: $(form).attr('action'),
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: res => {
-                    swal({
-                        icon: 'success',
-                        title: 'Success',
-                        text: res.message
-                    }).then((confirm) => {
-                        if (confirm) {
-                            $('.table').DataTable().ajax.reload();
-                        }
-                    });
-                },
-                error: err => {
-                    swal({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: err.responseJSON.message
-                    });
-                }
-            });
-        }
-    </script>
+    function accept(id){
+        $.ajax({
+            url: '{{ route('admin.applicant.accept') }}',
+            type: 'POST',
+            data: { id: id },
+            success: res => {
+                swal({
+                    icon: 'success',
+                    title: 'Success',
+                    text: res.message
+                }).then((confirm) => {
+                    if (confirm) {
+                        $('.table').DataTable().ajax.reload();
+                    }
+                });
+            },
+            error: err => {
+                swal({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.responseJSON.message
+                });
+            }
+        });
+    }
+
+    function reject(id){
+        $.ajax({
+            url: '{{ route('admin.applicant.reject') }}',
+            type: 'POST',
+            data: { id: id },
+            success: res => {
+                swal({
+                    icon: 'success',
+                    title: 'Success',
+                    text: res.message
+                }).then((confirm) => {
+                    if (confirm) {
+                        $('.table').DataTable().ajax.reload();
+                    }
+                });
+            },
+            error: err => {
+                swal({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.responseJSON.message
+                });
+            }
+        });
+    }
+
+    
+    
+</script>
+{{-- @endpush --}}
+    
 @endsection

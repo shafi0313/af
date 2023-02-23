@@ -47,8 +47,9 @@ class ApplicantController extends Controller
                     $btn .= view('button', ['type' => 'ajax-view', 'route' => route('admin.applicant.show', $row->id), 'row' => $row]);
                     $btn .= view('button', ['type' => 'ajax-edit', 'route' => route('admin.applicant.edit', $row->id), 'row' => $row]);
                     if (Auth::user()->id == 1){
-                        $btn .= '<button type="button" class="btn btn-success btn-sm accept" onclick="accept('.$row->id.')" title="Accept" data-id="'.$row->id.'"><i class="material-icons">done_outline </i></button>';
-                        $btn .= '<button type="button" class="btn btn-danger btn-sm reject" title="Reject"><i class="material-icons">cancel_presentation</i></button>';
+                        // $btn .= '<div  class="btn btn-success btn-sm accept" title="Accept" data-id="'.$row->id.'"><i class="material-icons">done_outline </i></div>';
+                        $btn .= '<button type="button" class="btn btn-success btn-sm" onclick="accept('.$row->id.')" title="Accept"><i class="material-icons">done_outline </i></button> ';
+                        $btn .= '<button type="button" class="btn btn-warning btn-sm" onclick="reject('.$row->id.')" title="Reject"><i class="material-icons">cancel_presentation</i></button> ';
                     }
                     $btn .= view('button', ['type' => 'ajax-delete', 'route' => route('admin.applicant.destroy', $row->id), 'row' => $row, 'src' => 'dt']);
                     return $btn;
@@ -114,39 +115,24 @@ class ApplicantController extends Controller
         }
     }
 
-    // public function getDistrict(Request $request)
-    // {
-    //     $datum = District::whereDivision_id($request->district_id)->get();
-    //     $district = view('frontend.layouts.includes.district', ['datum' => $datum])->render();
-    //     return response()->json(['status' => 'success', 'html' => $district, 'district']);
-    // }
-
-    // public function getUpazila(Request $request)
-    // {
-    //     $datum = Upazila::whereDistrict_id($request->district_id)->get();
-    //     $upazilas = view('frontend.layouts.includes.upazila', ['datum' => $datum])->render();
-    //     return response()->json(['status' => 'success', 'html' => $upazilas, 'upazilas']);
-    // }
-
-    // public function getUnion(Request $request)
-    // {
-    //     $datum = Union::whereUpazilla_id($request->upazila_id)->get();
-    //     $unions = view('frontend.layouts.includes.union', ['datum' => $datum])->render();
-    //     return response()->json(['status' => 'success', 'html' => $unions, 'unions']);
-    // }
-
     public function accept(Request $request)
     {
-        return $request->id;
-        User::find($request->id)->update(['status' => 1]);
         try {
-            // User::create($data);
-            Alert::success('Success', 'Application Accepted');
-            return redirect()->back();
+            User::find($request->id)->update(['status' => 1]);
+            return response()->json(['message'=> 'Application Accepted'], 200);
         } catch (\Exception $e) {
-            Alert::error('Error', 'Something went wrong');
-            return redirect()->back();
-        }
+            return response()->json(['message'=>__('app.oops')], 500);
+        }        
+    }
+
+    public function reject(Request $request)
+    {
+        try {
+            User::find($request->id)->update(['status' => 2]);
+            return response()->json(['message'=> 'Application Rejected'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message'=>__('app.oops')], 500);
+        }        
     }
 
     public function destroy(User $applicant)

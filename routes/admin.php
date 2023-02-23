@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ApplicantController;
 Route::resource('/applicant', ApplicantController::class);
 
 Route::post('/applicant/accept', [ApplicantController::class, 'accept'])->name('applicant.accept');
+Route::post('/applicant/reject', [ApplicantController::class, 'reject'])->name('applicant.reject');
 
 // Route::get('/getDistrict', [ApplicantController::class, 'getDistrict'])->name('getDistrict');
 // Route::get('/getUpazila', [ApplicantController::class, 'getUpazila'])->name('getUpazila');

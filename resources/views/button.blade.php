@@ -1,5 +1,5 @@
 @if ($type == 'ajax-edit')
-    <button data-route="{{ $route }}" data-value="{{ $row->id }}" class='text-primary _btn' onclick="ajaxEdit(this)"
+    <button data-route="{{ $route }}" data-value="{{ $row->id }}" class='btn btn-primary btn-sm _btn' onclick="ajaxEdit(this)"
         title='Edit'><i class='fa fa-edit'></i></button>
 @endif
 
@@ -14,7 +14,7 @@
 @endif
 @if ($type == 'ajax-delete')
     <button data-route="{{ $route }}" data-value="{{ $row->id }}"
-        onclick="ajaxDelete(this, '{{ $src }}')" class='text-danger _btn' title='Delete'><i
+        onclick="ajaxDelete(this, '{{ $src }}')" class='btn btn-danger btn-sm _btn' title='Delete'><i
             class='fa fa-trash' style="vertical-align: middle;"></i></button>
 @endif
 @if ($type == 'view')
@@ -22,7 +22,7 @@
             class='fa fa-eye'></i></a>
 @endif
 @if ($type == 'ajax-view')
-    <button data-route="{{ $route }}" data-value="{{ $row->id }}" class='text-info _btn' onclick="ajaxView(this)"
+    <button data-route="{{ $route }}" data-value="{{ $row->id }}" class='btn btn-info btn-sm _btn' onclick="ajaxView(this)"
         title='View'><i class='fa fa-eye'></i></button>
 @endif
 

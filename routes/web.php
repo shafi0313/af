@@ -57,6 +57,7 @@ Route::get('detail/{data}/{data2}', 'homeController@category_details');
 ////////////************** Admin route Starts **************** /////////////////////
   
     Route::get('/login', 'Auth\Admin\LoginController@showLoginForm')->name('admin');
+    Route::get('/login', 'Auth\Admin\LoginController@showLoginForm')->name('login');
     Route::get('/admin', 'Auth\Admin\LoginController@showLoginForm')->name('admin');
     Route::post('/admin/login/submit', 'Auth\Admin\LoginController@login')->name('admin.login.submit');
     Route::get('/admin/dashboard', 'Admin\AdminController@index')->name('admin.index');
