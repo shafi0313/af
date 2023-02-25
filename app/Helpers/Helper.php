@@ -55,7 +55,7 @@ if (!function_exists('imageUpdate')) {
             $image = $request->file($request_name);
             $image_name = $name . uniqueId(20).'.'.$image->getClientOriginalExtension();
             if ($image->isValid()) {
-                $request->$request_name->move(public_path().$path,$image_name);
+                $request->$request_name->move(public_path().'/'.$path,$image_name);
                 return $image_name;
             }
         }
