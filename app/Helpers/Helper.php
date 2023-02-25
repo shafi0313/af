@@ -27,36 +27,36 @@ if (!function_exists('imageStore')) {
     function imageStore(Request $request, $requestName, string $name, string $path)
     {
         if($request->hasFile($requestName)){
-            $pathCreate = public_path().$path;
+            $pathCreate = public_path().'/'.$path;
             !file_exists($pathCreate) ?? File::makeDirectory($pathCreate, 0777, true, true);
 
             $image = $request->file($requestName);
-            $image_name = $name . uniqueId(10).'.'.$image->getClientOriginalExtension();
+            $imageName = $name . uniqueId(10).'.'.$image->getClientOriginalExtension();
             if ($image->isValid()) {
-                $request->$requestName->move($path,$image_name);
-                return $image_name;
+                $request->$requestName->move(public_path().'/'.$path,$imageName);
+                return $imageName;
             }
         }
     }
 }
 
 if (!function_exists('imageUpdate')) {
-    function imageUpdate(Request $request, $request_name ,string $name, string $path, $image)
+    function imageUpdate(Request $request, $requestName ,string $name, string $path, $image)
     {
-        if($request->hasFile($request_name)){
-            $deletePath =  public_path($path.$image);
+        if($request->hasFile($requestName)){
+            $deletePath =  public_path(public_path().'/'.$path.$image);
             if(file_exists($deletePath) && $image != ''){
                 unlink($deletePath);
             }
             // file_exists($deletePath) ? unlink($deletePath) : false;
-            $createPath = public_path().$path;
+            $createPath = public_path().'/'.$path;
             !file_exists($createPath) ?? File::makeDirectory($createPath, 0777, true, true);
 
-            $image = $request->file($request_name);
-            $image_name = $name . uniqueId(20).'.'.$image->getClientOriginalExtension();
+            $image = $request->file($requestName);
+            $imageName = $name . uniqueId(20).'.'.$image->getClientOriginalExtension();
             if ($image->isValid()) {
-                $request->$request_name->move(public_path().'/'.$path,$image_name);
-                return $image_name;
+                $request->$requestName->move(public_path().'/'.$path,$imageName);
+                return $imageName;
             }
         }
     }
