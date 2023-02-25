@@ -87,7 +87,7 @@ class ApplicantController extends Controller
         // }
 
         if($request->hasFile('student_image')){
-            $data['student_image'] = imageUpdate($request, 'student_image','student_image', 'documents/', $applicant->student_image);
+            $data['student_image'] = imageUpdate($request, 'student_image','student_image', 'documents', $applicant->student_image);
         }
         if($request->hasFile('student_idcard')){
             $data['student_idcard'] = imageUpdate($request, 'student_idcard','student_idcard', 'documents/', $applicant->student_idcard);

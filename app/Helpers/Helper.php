@@ -44,12 +44,12 @@ if (!function_exists('imageUpdate')) {
     function imageUpdate(Request $request, $request_name ,string $name, string $path, $image)
     {
         if($request->hasFile($request_name)){
-            $deletePath =  base_path($path.$image);
+            $deletePath =  public_path($path.$image);
             if(file_exists($deletePath) && $image != ''){
                 unlink($deletePath);
             }
             // file_exists($deletePath) ? unlink($deletePath) : false;
-            $createPath = base_path().$path;
+            $createPath = public_path().$path;
             !file_exists($createPath) ?? File::makeDirectory($createPath, 0777, true, true);
 
             $image = $request->file($request_name);
