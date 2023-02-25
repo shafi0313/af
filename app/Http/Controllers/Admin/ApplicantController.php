@@ -86,30 +86,9 @@ class ApplicantController extends Controller
         //     $data['image'] = imageUpdate($request, 'image', 'user', 'uploads/images/user/', $image);
         // }
 
-        // if($request->hasFile('student_image')){
-        //     $data['student_image'] = imageUpdate($request, 'student_image','student_image', 'documents/', $applicant->student_image);
-        // }
-
         if($request->hasFile('student_image')){
-            $deletePath =  public_path('documents/'.$applicant->student_image);
-            if(file_exists($deletePath) && $applicant->student_image != ''){
-                unlink($deletePath);
-            }
-            // file_exists($deletePath) ? unlink($deletePath) : false;
-            // $createPath = public_path().'documents/';
-            // !file_exists($createPath) ?? File::makeDirectory($createPath, 0777, true, true);
-
-            $image = $request->file('student_image');
-            $image_name = 'student_image' . uniqueId(20).'.'.$image->getClientOriginalExtension();
-            if ($image->isValid()) {
-                $request->student_image->move('documents/',$image_name);
-                // return $image_name;
-            }
+            $data['student_image'] = imageUpdate($request, 'student_image','student_image', 'documents/', $applicant->student_image);
         }
-
-
-
-
         if($request->hasFile('student_idcard')){
             $data['student_idcard'] = imageUpdate($request, 'student_idcard','student_idcard', 'documents/', $applicant->student_idcard);
         }
