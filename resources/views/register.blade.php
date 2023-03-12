@@ -341,26 +341,7 @@
                         }
                     });
                 })
-
-                // $("#upazila").on("change", function() {
-                //     let upazila_id = $("#upazila_id").val();
-                //     $.ajax({
-                //         url: '{{ route('frontend.getUnion') }}',
-                //         method: 'get',
-                //         data: {
-                //             upazila_id: upazila_id,
-                //         },
-                //         success: function(res) {
-                //             if (res.status == 'success') {
-                //                 $('#union').html(res.html);
-                //             }
-                //         }
-                //     });
-                // })
-
             })
         </script>
     @endpush
-
-
 @endsection

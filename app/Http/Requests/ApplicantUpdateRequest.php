@@ -48,12 +48,12 @@ class ApplicantUpdateRequest extends FormRequest
             'exm_fee1'       => 'required|max:8',
             'exm_fee2'       => 'required|max:8',
             'exm_fee3'       => 'required|max:8',
-            'student_image'  => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
-            'student_idcard' => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
-            'parent_idcard'  => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
-            'charac_cer'     => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
-            'marksheet'      => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
-            'document'       => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
+            'student_image'  => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'student_idcard' => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'parent_idcard'  => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'charac_cer'     => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'marksheet'      => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'document'       => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
         ];
     }
 }

@@ -48,12 +48,12 @@ class ApplicantStoreRequest extends FormRequest
             'exm_fee1'       => 'required|max:8',
             'exm_fee2'       => 'required|max:8',
             'exm_fee3'       => 'required|max:8',
-            'student_image'  => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
-            'student_idcard' => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
-            'parent_idcard'  => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
-            'charac_cer'     => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
-            'marksheet'      => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
-            'document'       => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG',
+            'student_image'  => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'student_idcard' => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'parent_idcard'  => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'charac_cer'     => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'marksheet'      => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'document'       => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
         ];
     }
 }
