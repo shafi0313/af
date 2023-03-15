@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\ApplicantController;
+use App\Http\Controllers\Admin\PatientYearlyFundRequestController;
 
 
 Route::resource('/applicant', ApplicantController::class);
@@ -17,3 +18,5 @@ Route::resource('/patient', PatientController::class);
 Route::delete('/patient/delete/{medicine_id}', [PatientController::class, 'delete'])->name('patient.delete');
 Route::post('/patient/accept', [PatientController::class, 'accept'])->name('patient.accept');
 Route::post('/patient/reject', [PatientController::class, 'reject'])->name('patient.reject');
+
+Route::resource('/patient-yearly-fund-request', PatientYearlyFundRequestController::class,['parameters' => ['patient-yearly-fund-request' => 'patient_yearly_fund_request']]);

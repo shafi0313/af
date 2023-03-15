@@ -79,16 +79,28 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
                         <a class="dropdown-item " href="{{ route('admin.applicant.index') }}">Students</a>
-                        <a class="dropdown-item " href="{{ route('admin.patient.index') }}">Patients</a>
+                        <a class="dropdown-item " href="{{ route('admin.patient-yearly-fund-request.index') }}">Patients</a>
                     </div>
                 </li>
 
-                <li class="nav-item {{ Request::is('admin/payment-approve') ? 'active' : '' }}">
+                {{-- <li class="nav-item {{ Request::is('admin/payment-approve') ? 'active' : '' }}">
                     <a class="nav-link {{ Request::is('admin/payment-approve') ? 'active' : '' }} "
                         href="{{ url('admin/payment-approve') }}">
                         <i class="material-icons">view_module</i>
                         <span>Yearly Fund Approval</span>
                     </a>
+                </li> --}}
+
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="true">
+                        <i class="material-icons"></i>
+                        <span>Yearly Fund Approval</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
+                        <a class="dropdown-item " href="{{ url('admin/payment-approve') }}">Students</a>
+                        <a class="dropdown-item " href="{{ route('admin.patient.index') }}">Patients</a>
+                    </div>
                 </li>
 
                 <li class="nav-item">
@@ -118,12 +130,23 @@
                         <a class="dropdown-item " href="{{ route('admin.patient.index') }}">Patients</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/agent-wallet-withdraw') ? 'active' : '' }} "
                         href="{{ route('admin.agent-wallet-transfer') }}">
                         <i class="material-icons">view_module</i>
                         <span>Yearly Fund Request</span>
                     </a>
+                </li> --}}
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="true">
+                        <i class="material-icons"></i>
+                        <span>Yearly Fund Request</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
+                        <a class="dropdown-item " href="{{ route('admin.agent-wallet-transfer') }}">Students</a>
+                        <a class="dropdown-item " href="{{ route('admin.patient.index') }}">Patients</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('all-manage') ? 'active' : '' }}"
