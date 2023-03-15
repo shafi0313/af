@@ -18,4 +18,4 @@ Route::delete('patient/delete/{medicine_id}', [PatientController::class, 'delete
 Route::post('/patient/accept', [PatientController::class, 'accept'])->name('patient.accept');
 Route::post('/patient/reject', [PatientController::class, 'reject'])->name('patient.reject');
 
-Route::resource('/patient-yearly-fund-request', PatientYearlyFundRequestController::class, ['parameters' => ['patient-yearly-fund-request' => 'patient_yearly_fund_request']]);
+Route::resource('patient-fund-request', PatientYearlyFundRequestController::class, ['parameters' => ['patient-fund-request' => 'patient_fund_request']]);

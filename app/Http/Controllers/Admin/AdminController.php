@@ -2,34 +2,31 @@
 
 namespace App\Http\Controllers\admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Admin;
 use App\User;
-use App\Admin_wallet_manage;
-use App\Hold_transfer_amount;
-use App\Income_transaction_record;
-use App\Withdrawel_report;
-use App\Basic_info_manage;
-use App\Product_manage;
-use App\Slide_manage;
+use App\Admin;
+use App\Menu_manage;
 use App\News_manage;
 use App\Crone_record;
 use App\Home_product;
-use App\Menu_manage;
-use Validator;
-use Session;
-use DB;
-use DataTables;
-use Auth;
-use Image;
-use File;
-use Hash;
+use App\Slide_manage;
+use App\Product_manage;
+use App\Basic_info_manage;
+use App\Withdrawel_report;
+use App\Admin_wallet_manage;
+use Illuminate\Http\Request;
+use App\Hold_transfer_amount;
+use App\Income_transaction_record;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-
-
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -41,7 +38,7 @@ class AdminController extends Controller
         $data['admin_info']       = Admin::find(1);
 
         $data['basic_info']       = Basic_info_manage::where('id', 1)->first();
-        return view('admin.index',  $data);
+        return view('admin.index', $data);
     }
 
     public function profile()
@@ -58,13 +55,9 @@ class AdminController extends Controller
 
     public function password_update(Request $request)
     {
-
-
-
         $user_id                  = 1;
         $old_pass_check           = DB::table('admins')->where('id', $user_id)->first();
         if (!(Hash::check($request->old_tran_password, $old_pass_check->password))) {
-
             echo 2;
             exit();
         }
@@ -108,7 +101,7 @@ class AdminController extends Controller
 
         $data['basic_info']       = Basic_info_manage::where('id', 1)->first();
 
-        return view('admin.summary_report',  $data);
+        return view('admin.summary_report', $data);
     }
 
 
@@ -196,10 +189,10 @@ class AdminController extends Controller
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">
                         Pending
                          </div>';
-                } else if ($sell_list->status == 1) {
+                } elseif ($sell_list->status == 1) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">
             Aprroved </div>';
-                } else if ($sell_list->status == 2) {
+                } elseif ($sell_list->status == 2) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">
             Canceled </div>';
                 }
@@ -213,7 +206,6 @@ class AdminController extends Controller
 
     public function approve_amnt_req(Request $request)
     {
-
         DB::table('order')->insert([
             'student_id' => $request->student_id,
             'req_amnt' => $request->grand_total,
@@ -312,9 +304,9 @@ class AdminController extends Controller
         return DataTables::of($item)->addColumn('status', function ($item) {
             if ($item->o_status == 0) {
                 return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">Pending</div>';
-            } else if ($item->o_status == 1) {
+            } elseif ($item->o_status == 1) {
                 return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Aprroved </div>';
-            } else if ($item->o_status == 2) {
+            } elseif ($item->o_status == 2) {
                 return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">Canceled </div>';
             }
         })
@@ -337,9 +329,9 @@ class AdminController extends Controller
         return DataTables::of($item)->addColumn('status', function ($item) {
             if ($item->o_status == 0) {
                 return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">Pending</div>';
-            } else if ($item->o_status == 1) {
+            } elseif ($item->o_status == 1) {
                 return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Aprroved </div>';
-            } else if ($item->o_status == 2) {
+            } elseif ($item->o_status == 2) {
                 return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">Canceled </div>';
             }
         })
@@ -358,7 +350,7 @@ class AdminController extends Controller
     public function approve_amnt($id)
     {
         $data['order'] =   DB::table('order')->where('id', $id)->first();
-        $data['student'] =   DB::table('users')->where('id',  $data['order']->student_id)->first();
+        $data['student'] =   DB::table('users')->where('id', $data['order']->student_id)->first();
         $data['order_d'] =   DB::table('order_details')->where('order_id', $id)->get();
         $data['basic_info'] = Basic_info_manage::where('id', 1)->first();
 
@@ -404,7 +396,6 @@ class AdminController extends Controller
             echo $out;
         }
         if ($request->hasFile('ProductPic')) {
-
             $validator = Validator::make($request->all(), [
                 'ProductPic' => 'max:20000',
             ]);
@@ -423,7 +414,6 @@ class AdminController extends Controller
 
 
         if ($request->hasFile('promo_image')) {
-
             $validator = Validator::make($request->all(), [
                 'promo_image' => 'max:20000',
             ]);
@@ -489,7 +479,6 @@ class AdminController extends Controller
 
     public function home_product_manage()
     {
-
         $data['basic_info'] = Basic_info_manage::where('id', 1)->first();
         return view('admin.home_product', $data);
     }
@@ -590,7 +579,6 @@ class AdminController extends Controller
 
     public function view_edit_unit(Request $request)
     {
-
         $item = DB::table('content_manages')->find($request->input('id'));
         echo json_encode($item);
     }
@@ -621,7 +609,6 @@ class AdminController extends Controller
         }
 
         if ($request->hasFile('ProductPic')) {
-
             $validator = Validator::make($request->all(), [
                 'ProductPic' => 'max:200000',
             ]);
@@ -642,13 +629,13 @@ class AdminController extends Controller
             if ($request->hasFile('promo_image')) {
 
                 $validator = Validator::make($request->all(), [
-                'promo_image' => 'max:20000',                   
+                'promo_image' => 'max:20000',
                 ]);
-                if ($validator->fails()) {                    
+                if ($validator->fails()) {
                     return ;
                 }
 
-                if (File::exists('images/' .$Basic_info->promo_image)) 
+                if (File::exists('images/' .$Basic_info->promo_image))
                 {
                   File::delete('images/' .$Basic_info->promo_image);
                 }
@@ -683,7 +670,6 @@ class AdminController extends Controller
         }
 
         if ($request->hasFile('ProductPic')) {
-
             $validator = Validator::make($request->all(), [
                 'ProductPic' => 'max:200000',
             ]);
@@ -704,13 +690,13 @@ class AdminController extends Controller
             if ($request->hasFile('promo_image')) {
 
                 $validator = Validator::make($request->all(), [
-                'promo_image' => 'max:200000',                   
+                'promo_image' => 'max:200000',
                 ]);
-                if ($validator->fails()) {                    
+                if ($validator->fails()) {
                     return ;
                 }
 
-                if (File::exists('images/' .$Basic_info->promo_image)) 
+                if (File::exists('images/' .$Basic_info->promo_image))
                 {
                   File::delete('images/' .$Basic_info->promo_image);
                 }
@@ -757,9 +743,9 @@ class AdminController extends Controller
             ->addColumn('type', function ($item) {
                 if ($item->type == 1) {
                     return 'SLIDE';
-                } else if ($item->type == 2) {
+                } elseif ($item->type == 2) {
                     return 'ABOUT';
-                } else if ($item->type == 3) {
+                } elseif ($item->type == 3) {
                     return 'OUR PLANING';
                 }
             })
@@ -871,10 +857,10 @@ class AdminController extends Controller
 
         if ($request->hasFile('ProductPic')) {
             /*  $validator = Validator::make($request->all(), [
-            'ProductPic' => 'max:100000',                   
+            'ProductPic' => 'max:100000',
             ]);
 
-            if ($validator->fails()) {                    
+            if ($validator->fails()) {
                 return ;
             }
 */
@@ -947,10 +933,10 @@ class AdminController extends Controller
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">
                          Pending
                           </div>';
-                } else if ($item->short_details == 1) {
+                } elseif ($item->short_details == 1) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">
              Aprroved </div>';
-                } else if ($item->short_details == 2) {
+                } elseif ($item->short_details == 2) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">
              Canceled </div>';
                 }
@@ -976,10 +962,10 @@ class AdminController extends Controller
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">
                          Pending
                           </div>';
-                } else if ($item->short_details == 1) {
+                } elseif ($item->short_details == 1) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">
              Aprroved </div>';
-                } else if ($item->short_details == 2) {
+                } elseif ($item->short_details == 2) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">
              Canceled </div>';
                 }
@@ -1075,7 +1061,7 @@ class AdminController extends Controller
             ->addColumn('type', function ($sell_list) {
                 if ($sell_list->type == 1) {
                     return 'About Us';
-                } else if ($sell_list->type == 2) {
+                } elseif ($sell_list->type == 2) {
                     return 'Terms & Condition';
                 }
             })
@@ -1164,10 +1150,10 @@ class AdminController extends Controller
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">
                         Pending
                          </div>';
-                } else if ($sell_list->status == 1) {
+                } elseif ($sell_list->status == 1) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">
             Aprroved </div>';
-                } else if ($sell_list->status == 2) {
+                } elseif ($sell_list->status == 2) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">
             Canceled </div>';
                 }
@@ -1210,10 +1196,10 @@ class AdminController extends Controller
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">
                         Pending
                          </div>';
-                } else if ($sell_list->status == 1) {
+                } elseif ($sell_list->status == 1) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">
             Aprroved </div>';
-                } else if ($sell_list->status == 2) {
+                } elseif ($sell_list->status == 2) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">
             Canceled </div>';
                 }
@@ -1240,7 +1226,6 @@ class AdminController extends Controller
 
     public function wallet_tran_list()
     {
-
         $new_list =  DB::table('hold_transfer_amounts')
             ->select('*', 'hold_transfer_amounts.status as p_status', 'hold_transfer_amounts.id as h_id')
             ->join('users', 'users.id', '=', 'hold_transfer_amounts.sender')
@@ -1322,7 +1307,6 @@ class AdminController extends Controller
 
     public function wallet_move_list()
     {
-
         $new_list =  DB::table('hold_transfer_amounts')
             ->select('*', 'hold_transfer_amounts.status as p_status', 'hold_transfer_amounts.id as h_id')
             ->join('users', 'users.id', '=', 'hold_transfer_amounts.sender')
@@ -1650,7 +1634,6 @@ class AdminController extends Controller
 
     public function profit_return(Request $request)
     {
-
         $all_user         = DB::table('users')->where('activation_limit', '<', '365')->get();
         $amount           = $request->amount;
         foreach ($all_user as $key) {

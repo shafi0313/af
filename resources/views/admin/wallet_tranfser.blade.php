@@ -2,144 +2,145 @@
 
 @section('content')
 
-    @include('admin.inc.sidebar')
-    <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-        <!-- / .main-navbar -->
-        <div class="main-content-container container-fluid px-4">
+@include('admin.inc.sidebar')
+<main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+    <!-- / .main-navbar -->
+    <div class="main-content-container container-fluid px-4">
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-8 text-center text-sm-left mb-4 mb-sm-0">
-                <span class="text-uppercase page-subtitle">Yearly Fund Request</span>                 
+                <span class="text-uppercase page-subtitle">Yearly Fund Request</span>
             </div>
             <div class="col-12 col-sm-4 d-flex align-items-center">
                 <div class="d-inline-flex mb-sm-0 mx-auto ml-sm-auto mr-sm-0" role="group" aria-label="Page actions">
-                    <a id="add-new-event" role="button" href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <a id="add-new-event" role="button" href="#" class="btn btn-primary" data-toggle="modal"
+                        data-target="#exampleModal">
                         <i class="material-icons">add</i> Request </a>
                 </div>
             </div>
         </div>
 
-            <div class="row">
-           
-                <div class="col">
-                    <div class="card card-small mb-4">
+        <div class="row">
+
+            <div class="col">
+                <div class="card card-small mb-4">
                     @if(Session::has('msg'))
                     <p class="alert {{ Session::get('class') }}">{{ Session::get('msg') }}</p>
                     @endif
-                
-                        <div class="card-body p-0 text-center ReactTable">
-                            <table class="table mb-0 rt-table">
-                                <thead class="bg-light">
+
+                    <div class="card-body p-0 text-center ReactTable">
+                        <table class="table mb-0 rt-table">
+                            <thead class="bg-light">
                                 <tr>
                                     <th scope="col" class="border-0">No</th>
-                                       <th scope="col" class="border-0">Student Name</th>
-                                    <th scope="col" class="border-0">Requested Amount</th>                                 
-                                    <th scope="col" class="border-0">Approved Amount</th>                                 
-                                    <th scope="col" class="border-0">Total Paid</th>                                 
-                                    <th scope="col" class="border-0">Year</th>                    
-                                    <th scope="col" class="border-0">Status</th>                    
-                                    <th scope="col" class="border-0">Created</th>             
-                                    <th scope="col" class="border-0">Updated</th>                 
+                                    <th scope="col" class="border-0">Student Name</th>
+                                    <th scope="col" class="border-0">Requested Amount</th>
+                                    <th scope="col" class="border-0">Approved Amount</th>
+                                    <th scope="col" class="border-0">Total Paid</th>
+                                    <th scope="col" class="border-0">Year</th>
+                                    <th scope="col" class="border-0">Status</th>
+                                    <th scope="col" class="border-0">Created</th>
+                                    <th scope="col" class="border-0">Updated</th>
                                 </tr>
-                                </thead>    
-                                            
-                            </table>
-                        </div>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
 
 
 
-    <div class="modal fade abc" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="padding-right: 17px; display: none;">
-        <div class="modal-dialog modal-dialog-centered "" role="document">
-            <div class="modal-content">               
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">  Yearly Fund Request </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">                     
-                    @php
-                        $product = DB::table('expenses')->orderby('id','asc')->get();
-                        $users = DB::table('users')->orderby('id','desc')->get();
-                    @endphp                     
-                    <form method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" id="loadingId" action="{{  url('admin/approve_amnt_req')  }}" /> 
-                        @csrf
-                            <div style="padding:10px;">
-                                <div class="row">
-                                <div class="form-group col-md-6">
-                                        <select name="student_id" class="form-control border rounded float-right" required id="CategoryId" data-live-search="true" autocomplete="off">
-                                            <option value="">Select Student</option>     
-                                                @foreach($users as $v)                
-                                                <option value="{{$v->id}}"
-                                                monthly_fee="{{ $v->fee }}"
-                                                admission_fee="{{ $v->admission_fee }}"
-                                                board_reg_fee="{{ $v->board_reg_fee }}"
-                                                book_purchase="{{ $v->book_purchase }}"
-                                                exm_fee1="{{ $v->exm_fee1 }}"
-                                                exm_fee2="{{ $v->exm_fee2 }}"
-                                                exm_fee3="{{ $v->exm_fee3 }}"
-                                                >{{$v->student_name}}</option>  
-                                                @endforeach                       
-                                        </select>
-                                    </div><div class="form-group col-md-6">
-                                        <select name="year" class="form-control border rounded float-right" required >
-                                            <option value="">Select Year</option>     
-                                            @php
-                                                $current_year = date('Y')-1;                                                               
-                                                for ($i=$current_year; $i < $current_year+90; $i++) {
-                                            @endphp
-                                                <option value="{{ $i }}">{{ $i }}</option>     
-                                            @php } @endphp                  
-                                        </select>
-                                    </div>
-
-                                <table id="customers">
-                                    <thead>
-                                        <tr width="100%">
-                                            <td width="80%" align="center">Expense Name</td>                                      
-                                            <td width="10%" align="center">Application Amount</td>
-                                            <td width="10%" align="center">Recommendation Amount</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                 
-                                    @foreach($product as $v)
-                                  
-                                    <input type="hidden" name="expense[]" value="{{ $v->id }}" />
-                                    <tr>
-                                        <td class="serial" align="center" style="color:#0909EC;">{{ $v->name }}</td>
-                                        <td align="center" ><input type="text" readonly  data-idd="{{ $v->id }}" value=""/></td>
-                                        <td align="center" ><input type="text" required class="applynow input-sm applynow_{{ $v->id }}" name="quantity[]" data-id="{{ $v->id }}" id="applynow" /></td>
-                                    </tr>
-                                    @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <td align="right"> Total </td>
-                                        <td class="text-left ttl"> </td>
-                                        <td class="text-left sub-total"></td>
-                                        <input type="hidden" name="grand_total" id="total_amount_pay_amount" />
-                                    </tr>
-                                    </tfoot>
-                                </table>                             
-                                </div>                              
-                            </div>
-                        </div>  
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="">Save</button>
-                    </div>
-                        </form>
-                    </div>
+<div class="modal fade abc" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    style="padding-right: 17px; display: none;">
+    <div class="modal-dialog modal-dialog-centered "" role=" document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Yearly Fund Request </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
-        </div>
-    <script>
+            <div class="modal-body">
+                @php
+                $product = DB::table('expenses')->orderby('id','asc')->get();
+                $users = DB::table('users')->orderby('id','desc')->get();
+                @endphp
+                <form method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" id="loadingId"
+                    action="{{  url('admin/approve_amnt_req')  }}" />
+                @csrf
+                <div style="padding:10px;">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <select name="student_id" class="form-control border rounded float-right" required
+                                id="CategoryId" data-live-search="true" autocomplete="off">
+                                <option value="">Select Student</option>
+                                @foreach($users as $v)
+                                <option value="{{$v->id}}" monthly_fee="{{ $v->fee }}"
+                                    admission_fee="{{ $v->admission_fee }}" board_reg_fee="{{ $v->board_reg_fee }}"
+                                    book_purchase="{{ $v->book_purchase }}" exm_fee1="{{ $v->exm_fee1 }}"
+                                    exm_fee2="{{ $v->exm_fee2 }}" exm_fee3="{{ $v->exm_fee3 }}">{{$v->student_name}}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <select name="year" class="form-control border rounded float-right" required>
+                                <option value="">Select Year</option>
+                                @php
+                                $current_year = date('Y')-1;
+                                for ($i=$current_year; $i < $current_year+90; $i++) { @endphp <option value="{{ $i }}">
+                                    {{ $i }}</option>
+                                    @php } @endphp
+                            </select>
+                        </div>
 
+                        <table id="customers">
+                            <thead>
+                                <tr width="100%">
+                                    <td width="80%" align="center">Expense Name</td>
+                                    <td width="10%" align="center">Application Amount</td>
+                                    <td width="10%" align="center">Recommendation Amount</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach($product as $v)
+
+                                <input type="hidden" name="expense[]" value="{{ $v->id }}" />
+                                <tr>
+                                    <td class="serial" align="center" style="color:#0909EC;">{{ $v->name }}</td>
+                                    <td align="center"><input type="text" readonly data-idd="{{ $v->id }}" value="" />
+                                    </td>
+                                    <td align="center"><input type="text" required
+                                            class="applynow input-sm applynow_{{ $v->id }}" name="quantity[]"
+                                            data-id="{{ $v->id }}" id="applynow" /></td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td align="right"> Total </td>
+                                    <td class="text-left ttl"> </td>
+                                    <td class="text-left sub-total"></td>
+                                    <input type="hidden" name="grand_total" id="total_amount_pay_amount" />
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="">Save</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
     $("#CategoryId").on('change', function(){
             
         let admission_fee = $('#CategoryId option:selected').attr('admission_fee');
@@ -300,5 +301,5 @@
             });
             $('.selectpicker').selectpicker();
         });
-    </script>
+</script>
 @endsection
