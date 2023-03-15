@@ -38,10 +38,10 @@ class PatientStoreRequest extends FormRequest
             'hospital'     => 'required|string|max:191',
             'doctor'       => 'required|string|max:191',
             'total_income' => 'required',
-            'patient_img'  => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
-            'nid'          => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'patient_img'  => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'nid'          => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
             'sonod'        => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
-            'prescription' => 'required|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'prescription' => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
         ];
     }
 }

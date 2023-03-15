@@ -16,21 +16,21 @@ class PatientController extends Controller
         $data = $patient->validated();
         // $data['user_id'] = user()->id;
 
-        if($patient->hasFile('patient_img')){
-            $data['patient_img'] = imageStore($patient, 'patient_img','patient_img', 'patients/');
+        if ($patient->hasFile('patient_img')) {
+            $data['patient_img'] = imageStore($patient, 'patient_img', 'patient_img', 'patients/');
         }
-        if($patient->hasFile('nid')){
-            $data['nid'] = imageStore($patient, 'nid','nid', 'patients/');
+        if ($patient->hasFile('nid')) {
+            $data['nid'] = imageStore($patient, 'nid', 'nid', 'patients/');
         }
-        if($patient->hasFile('sonod')){
-            $data['sonod'] = imageStore($patient, 'sonod','sonod', 'patients/');
+        if ($patient->hasFile('sonod')) {
+            $data['sonod'] = imageStore($patient, 'sonod', 'sonod', 'patients/');
         }
-        if($patient->hasFile('prescription')){
-            $data['prescription'] = imageStore($patient, 'prescription','prescription', 'patients/');
+        if ($patient->hasFile('prescription')) {
+            $data['prescription'] = imageStore($patient, 'prescription', 'prescription', 'patients/');
         }
         $patientCreate = Patient::create($data);
 
-        foreach($patient->price as $key => $value){
+        foreach ($patient->price as $key => $value) {
             $medicine = [
                 'patient_id' => $patientCreate->id,
                 'medicine'   => $patient->medicine[$key],

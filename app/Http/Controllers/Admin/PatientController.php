@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\PatientStoreRequest;
+use App\Http\Requests\ApplicantUpdateRequest;
 
 class PatientController extends Controller
 {
@@ -20,20 +22,20 @@ class PatientController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $applicants = Patient::latest();
-            return DataTables::of($applicants)
+            $patients = Patient::latest();
+            return DataTables::of($patients)
                 ->addIndexColumn()
                 ->addColumn('created_at', function ($row) {
                     return $row->created_at->diffForHumans();
                     // return $row->created_at;
-                })           
+                })
                 ->addColumn('status', function ($row) {
                     if ($row->status == 0) {
                         return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block">Pending
                              </div>';
-                    } else if ($row->status == 1) {
+                    } elseif ($row->status == 1) {
                         return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Approved </div>';
-                    } else if ($row->status == 2) {
+                    } elseif ($row->status == 2) {
                         return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block">Canceled </div>';
                     }
                 })
@@ -42,7 +44,7 @@ class PatientController extends Controller
 
                     $btn .= view('button', ['type' => 'ajax-view', 'route' => route('admin.patient.show', $row->id), 'row' => $row]);
                     $btn .= view('button', ['type' => 'ajax-edit', 'route' => route('admin.patient.edit', $row->id), 'row' => $row]);
-                    if (Auth::user()->id == 1){
+                    if (Auth::user()->id == 1) {
                         $btn .= '<button type="button" class="btn btn-success btn-sm" onclick="accept('.$row->id.')" title="Accept"><i class="material-icons">done_outline </i></button> ';
                         $btn .= '<button type="button" class="btn btn-warning btn-sm" onclick="reject('.$row->id.')" title="Reject"><i class="material-icons">cancel_presentation</i></button> ';
                     }
@@ -58,7 +60,7 @@ class PatientController extends Controller
 
     public function show(Request $request, Patient $patient)
     {
-        if ($request->ajax()) {            
+        if ($request->ajax()) {
             $modal = view('admin.patient.show')->with(['patient' => $patient])->render();
             return response()->json(['modal' => $modal], 200);
         }
@@ -84,34 +86,41 @@ class PatientController extends Controller
         return abort(500);
     }
 
-    public function update(ApplicantUpdateRequest $request, Patient $patient)
-    {        
+    public function update(PatientStoreRequest $request, Patient $patient)
+    {
         $data = $request->validated();
-        // if($request->hasFile('image')){
-        //     $data['image'] = imageUpdate($request, 'image', 'user', 'uploads/images/user/', $image);
-        // }
-
-        if($request->hasFile('student_image')){
-            $data['student_image'] = imageUpdate($request, 'student_image','student_image', 'documents/', $applicant->student_image);
+        if ($request->hasFile('patient_img')) {
+            $data['patient_img'] = imageUpdate($request, 'patient_img', 'patient_img', 'patients/', $patient->patient_img);
+        } else {
+            $data['patient_img'] = $patient->patient_img;
         }
-        if($request->hasFile('student_idcard')){
-            $data['student_idcard'] = imageUpdate($request, 'student_idcard','student_idcard', 'documents/', $applicant->student_idcard);
+        if ($request->hasFile('nid')) {
+            $data['nid'] = imageUpdate($request, 'nid', 'nid', 'documents/', $patient->nid);
+        } else {
+            $data['nid'] = $patient->nid;
         }
-        if($request->hasFile('parent_idcard')){
-            $data['parent_idcard'] = imageUpdate($request, 'parent_idcard','parent_idcard', 'documents/', $applicant->parent_idcard);
+        if ($request->hasFile('sonod')) {
+            $data['sonod'] = imageUpdate($request, 'sonod', 'sonod', 'documents/', $patient->sonod);
+        } else {
+            $data['sonod'] = $patient->sonod;
         }
-        if($request->hasFile('charac_cer')){
-            $data['charac_cer'] = imageUpdate($request, 'charac_cer','charac_cer', 'documents/', $applicant->charac_cer);
+        if ($request->hasFile('prescription')) {
+            $data['prescription'] = imageUpdate($request, 'prescription', 'prescription', 'documents/', $patient->prescription);
+        } else {
+            $data['prescription'] = $patient->prescription;
         }
-        if($request->hasFile('marksheet')){
-            $data['marksheet'] = imageUpdate($request, 'marksheet','marksheet', 'documents/', $applicant->marksheet);
-        }
-        if($request->hasFile('document')){
-            $data['document'] = imageUpdate($request, 'document','document', 'documents/', $applicant->document);
+        if ($request->has('medicine')) {
+            foreach ($request->medicine as $key => $value) {
+                Medicine::create([
+                    'patient_id' => $patient->id,
+                    'medicine'   => $value,
+                    'price'      => $request->price[$key],
+                ]);
+            }
         }
 
         try {
-            $applicant->update($data);
+            $patient->update($data);
             return response()->json(['message'=> 'Data Successfully Inserted'], 200);
         } catch (\Exception $e) {
             return response()->json(['message'=>__('app.oops')], 500);
@@ -126,7 +135,7 @@ class PatientController extends Controller
             return response()->json(['message'=> 'Patient Accepted'], 200);
         } catch (\Exception $e) {
             return response()->json(['message'=>__('app.oops')], 500);
-        }        
+        }
     }
 
     public function reject(Request $request)
@@ -136,19 +145,30 @@ class PatientController extends Controller
             return response()->json(['message'=> 'Patient Rejected'], 200);
         } catch (\Exception $e) {
             return response()->json(['message'=>__('app.oops')], 500);
-        }        
+        }
     }
 
     public function delete($id)
     {
-        // return $id;
         try {
-            return Medicine::find($id);
-            // $patient->delete();
-            // return response()->json(['message' => __('app.success-message')], 200);
+            $medicine = Medicine::find($id);
+            $medicine->delete();
+            $medicines = Medicine::where('patient_id', $medicine->patient_id)->get();
+            $html = '';
+            foreach ($medicines as $i => $medicine) {
+                $html .= "<tr>
+                        <td>". $i+1 ."</td>
+                        <td>{$medicine->medicine }</td>
+                        <td>{$medicine->price}</td>
+                        <td>
+                            <a href='javascript:;' onclick='meddel(event, $medicine->id)'  class='btn btn-success btn-sm'  title='Delete'> <i class='fa fa-trash'></i></a>
+                        </td>
+                    </tr>";
+            }
+            return response()->json(['message' => __('app.success-message'), 'html' => $html], 200);
         } catch (\Exception $e) {
-            // return response()->json(['message' => __('app.oops')], 500);
-            return response()->json(['message'=>$e->getMessage()], 500);
+            return response()->json(['message' => __('app.oops')], 500);
+            // return response()->json(['message'=>$e->getMessage()], 500);
         }
     }
 

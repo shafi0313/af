@@ -20,6 +20,11 @@
             </div>
             <div class="row">
                 <div class="col">
+                    @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger">{{ $error }}</div>
+                    @endforeach                            
+                    @endif
                     <div class="card card-small mb-4">                    
                         <div class="card-body p-0 text-center ReactTable">
                             <table id="data_table" class="table mb-0 rt-table">

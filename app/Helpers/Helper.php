@@ -6,19 +6,22 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Authorization\AuthorizationChecker;
 
-if(!function_exists('bdDate')){
-    function bdDate($date){
+if (!function_exists('bdDate')) {
+    function bdDate($date)
+    {
         return Carbon::parse($date)->format('d/m/Y');
     }
 }
 
-if(!function_exists('ageWithDays')){
-    function ageWithDays($d_o_b){
+if (!function_exists('ageWithDays')) {
+    function ageWithDays($d_o_b)
+    {
         return Carbon::parse($d_o_b)->diff(Carbon::now())->format('%y years, %m months and %d days');
     }
 }
-if(!function_exists('ageWithMonths')){
-    function ageWithMonths($d_o_b){
+if (!function_exists('ageWithMonths')) {
+    function ageWithMonths($d_o_b)
+    {
         return Carbon::parse($d_o_b)->diff(Carbon::now())->format('%y years, %m months');
     }
 }
@@ -26,14 +29,14 @@ if(!function_exists('ageWithMonths')){
 if (!function_exists('imageStore')) {
     function imageStore(Request $request, $requestName, string $name, string $path)
     {
-        if($request->hasFile($requestName)){
+        if ($request->hasFile($requestName)) {
             $pathCreate = public_path().'/'.$path;
             !file_exists($pathCreate) ?? File::makeDirectory($pathCreate, 0777, true, true);
 
             $image = $request->file($requestName);
             $imageName = $name . uniqueId(10).'.'.$image->getClientOriginalExtension();
             if ($image->isValid()) {
-                $request->$requestName->move(public_path().'/'.$path,$imageName);
+                $request->$requestName->move(public_path().'/'.$path, $imageName);
                 return $imageName;
             }
         }
@@ -41,11 +44,11 @@ if (!function_exists('imageStore')) {
 }
 
 if (!function_exists('imageUpdate')) {
-    function imageUpdate(Request $request, $requestName ,string $name, string $path, $image)
+    function imageUpdate(Request $request, $requestName, string $name, string $path, $image)
     {
-        if($request->hasFile($requestName)){
+        if ($request->hasFile($requestName)) {
             $deletePath =  public_path(public_path().'/'.$path.$image);
-            if(file_exists($deletePath) && $image != ''){
+            if (file_exists($deletePath) && $image != '') {
                 unlink($deletePath);
             }
             // file_exists($deletePath) ? unlink($deletePath) : false;
@@ -55,18 +58,19 @@ if (!function_exists('imageUpdate')) {
             $image = $request->file($requestName);
             $imageName = $name . uniqueId(20).'.'.$image->getClientOriginalExtension();
             if ($image->isValid()) {
-                $request->$requestName->move(public_path().'/'.$path,$imageName);
+                $request->$requestName->move(public_path().'/'.$path, $imageName);
                 return $imageName;
             }
         }
     }
 }
 
-if(!function_exists('profileImg')){
-    function profileImg(){
-        if(file_exists(asset('uploads/images/user/'.user()->image))){
+if (!function_exists('profileImg')) {
+    function profileImg()
+    {
+        if (file_exists(asset('uploads/images/user/'.user()->image))) {
             return asset('uploads/images/user/'.user()->image);
-        }else{
+        } else {
             return asset('uploads/images/user/profile_blank.png');
         }
     }
@@ -77,9 +81,9 @@ if (!function_exists('imagePath')) {
     function imagePath($folder, $image)
     {
         $path = 'uploads/images/'.$folder.'/'.$image;
-        if(@GetImageSize($path)){
+        if (@GetImageSize($path)) {
             return asset($path);
-        }else{
+        } else {
             // return setting('app_logo');
         }
     }
@@ -161,5 +165,3 @@ if (!function_exists('user')) {
         return auth()->user();
     }
 }
-
-

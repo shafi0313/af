@@ -11,8 +11,8 @@
             <div class="modal-body modalText">
                 <div class="row">
                     <div class="col-md-12">
-                        <form method="post" action="{{ route('frontend.patient.store') }}" enctype="multipart/form-data">
-                            @csrf @method('POST')
+                        <form method="post" id="updateForm" action="{{ route('admin.patient.update', $patient->id) }}" enctype="multipart/form-data">
+                            @csrf @method('put')
                             <!--Form Portlet-->
                             <div class="form-portlet">
                                 <div class="row clearfix">
@@ -51,19 +51,19 @@
 
                                     <div class="form-group col-md-6">
                                         <div class="field-label">জেলাঃ <span class="required">*</span></div>
-                                        <select name="disctrict" id="district" required class="form-control">
+                                        <select name="district_id" id="district" required class="form-control">
                                         </select>
-                                        @if ($errors->has('disctrict'))
-                                            <div class="alert alert-danger">{{ $errors->first('disctrict') }}</div>
+                                        @if ($errors->has('district_id'))
+                                            <div class="alert alert-danger">{{ $errors->first('district_id') }}</div>
                                         @endif
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <div class="field-label">থানাঃ <span class="required">*</span></div>
-                                        <select name="thana" id="thana" required class="form-control">
+                                        <select name="upazila_id" id="thana" required class="form-control">
                                         </select>
-                                        @if ($errors->has('thana'))
-                                            <div class="alert alert-danger">{{ $errors->first('thana') }}</div>
+                                        @if ($errors->has('upazila_id'))
+                                            <div class="alert alert-danger">{{ $errors->first('upazila_id') }}</div>
                                         @endif
                                     </div>
         
@@ -136,9 +136,9 @@
                                                 </tr>
                                             </thead>
                                             <tr>
-                                                <td><input type="text" id="medicine" data-type="product"
+                                                <td><input type="search" id="medicine" data-type="product"
                                                         class="form-control" style="" placeholder="Medicine name" /></td>
-                                                <td><input type="text" id="price" data-type="price" class="form-control"
+                                                <td><input type="number" step="any" id="price" data-type="price" class="form-control"
                                                         style="" placeholder="Price" /></td>
                                                 <td><button class="btn btn-success btn-sm add_btn" type="button">Add</button>
                                                 </td>
@@ -188,21 +188,28 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <table class="table table-bordered">
+                                            <thead>
                                             <tr>
                                                 <th>SN</th>
                                                 <th>ঔষধের নাম</th>
                                                 <th>মূল্য</th>
                                                 <th>Action</th>
                                             </tr>
+                                            </thead>
+                                            <tbody id="medicine_table_body">
                                             @foreach ($patient->medicines as $medicine)
                                                 <tr>
                                                     <td>{{ @$x += 1 }}</td>
                                                     <td>{{ $medicine->medicine }}</td>
                                                     <td>{{ $medicine->price }}</td>
                                                     {{-- <td><button type="button" class="btn btn-success btn-sm delete" onclick="deletee('{{ $medicine->id }}')" title="Accept"><i class="material-icons">done_outline </i></button></td> --}}
-                                                    <td><a href="{{ route('admin.patient.delete', $medicine->id) }}" class="btn btn-success btn-sm"  title="Delete"><i class="material-icons">done_outline </i></a></td>
+                                                    <td>
+                                                        <a onclick="meddel(event, {{$medicine->id}})" href="javascript:;" class="btn btn-success btn-sm"  title="Delete"> <i class="fa fa-trash"></i></a>
+
+                                                    </td>
                                                 </tr>
-                                            @endforeach                                            
+                                            @endforeach
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>   
@@ -214,12 +221,12 @@
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                         <div class="field-label">রোগীর ছবিঃ <span class="required">*</span></div>
-                                        <input type="file" required="" name="patient_img" class="form-control">
+                                        <input type="file"  name="patient_img" class="form-control">
                                     </div>
 
                                     <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                         <div class="field-label">ভোটার আইডি কার্ড <span class="required">*</span></div>
-                                        <img src="{{ asset('patients/' . $patient->nid) }}" width="100px" alt="">
+                                        <img src="{{ asset('documents/' . $patient->nid) }}" width="100px" alt="">
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                         <div class="field-label">ভোটার আইডি কার্ড </div>
@@ -228,22 +235,22 @@
 
                                     <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                         <div class="field-label">ডাক্তার প্রদত্ত চিকিৎসা পত্র <span class="required">*</span></div>
-                                        <img src="{{ asset('patients/' . $patient->prescription) }}" width="100px" alt="">
+                                        <img src="{{ asset('documents/' . $patient->prescription) }}" width="100px" alt="">
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                         <div class="field-label">ডাক্তার প্রদত্ত চিকিৎসা পত্র : <span class="required">*</span>
                                         </div>
-                                        <input type="file" required="" name="prescription" class="form-control">
+                                        <input type="file"  name="prescription" class="form-control">
                                     </div>
 
                                     <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                         <div class="field-label">চেয়ারম্যান প্রদত্ত চারিত্রিক সনদঃ <span class="required">*</span></div>
-                                        <img src="{{ asset('patients/' . $patient->sonod) }}" width="100px" alt="">
+                                        <img src="{{ asset('documents/' . $patient->sonod) }}" width="100px" alt="">
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                         <div class="field-label">চেয়ারম্যান প্রদত্ত চারিত্রিক সনদঃ <span class="required">*</span>
                                         </div>
-                                        <input type="file" required="" name="sonod" class="form-control">
+                                        <input type="file"  name="sonod" class="form-control">
                                     </div>
                                 </div>
                                     <hr>
@@ -323,82 +330,78 @@
                 }
             });
         })
+        $("#updateForm").on("submit", function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            var url = $(this).attr('action');
+            $.ajax({
+                url: url,
+                method: 'post',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    // if (res.status == 'success') {
+                        swal({
+                            icon: 'success',
+                            title: 'Success',
+                            text: res.message
+                        }).then((confirm) => {
+                            if (confirm) {
+                                window.location.href = '{{ route('admin.patient.index') }}';
+                            }
+                        })
+                    // }
+                }
+            })
+        })
 
     })
 
-    // $(".delete").on("click", function(){
-    //     swal({
-    //         title: "Are you sure?",
-    //         text: "This action will accept this record!",
-    //         icon: "warning",
-    //         buttons: true,
-    //         dangerMode: true,
-    //     })
-    //     .then((accept) => {
-    //         if (accept) {
-    //             $.ajax({
-    //                 url: '{{ route('admin.patient.destroy',$patient->id ) }}',
-    //                 type: 'DELETE',
-    //                 // data: { id: id },
-    //                 success: res => {
-    //                     swal({
-    //                         icon: 'success',
-    //                         title: 'Success',
-    //                         text: res.message
-    //                     }).then((confirm) => {
-    //                         if (confirm) {
-    //                             // $('.table').DataTable().ajax.reload();
-    //                         }
-    //                     });
-    //                 },
-    //                 error: err => {
-    //                     swal({
-    //                         icon: 'error',
-    //                         title: 'Oops...',
-    //                         text: err.responseJSON.message
-    //                     });
-    //                 }
-    //             });
-    //         }
-    //     })
-    // })
+    function meddel(e, id) {
+        e.preventDefault();
+        var id = id;
+        var url = "{{ route('admin.patient.medicine.delete', ':id') }}";
+        url = url.replace(':id', id);
+        swal({
+            title: "Are you sure?",
+            text: "This action will accept this record!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((accept) => {
+            if (accept) {
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    // data: { id: id },
+                    success: res => {
+                        swal({
+                            icon: 'success',
+                            title: 'Success',
+                            text: res.message
+                        }).then((confirm) => {
+                            if (confirm) {
+                                // $('.table').DataTable().ajax.reload();
+                                var tbody = $("#medicine_table_body");
+                                tbody.empty();
+                                tbody.append(res.html);
+                            }
+                        });
+                    },
+                    error: err => {
+                        swal({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: err.responseJSON.message
+                        });
+                    }
+                });
+            }
+        })
+    }
 
-    // function deletee(id){
-    //     swal({
-    //         title: "Are you sure?",
-    //         text: "This action will delete this record!",
-    //         icon: "warning",
-    //         buttons: true,
-    //         dangerMode: true,
-    //     })
-    //     .then((accept) => {
-    //         if (accept) {
-    //             $.ajax({
-    //                 url: '{{ route('admin.patient.delete' ) }}',
-    //                 type: 'DELETE',
-    //                 data: { id: id },
-    //                 success: res => {
-    //                     swal({
-    //                         icon: 'success',
-    //                         title: 'Success',
-    //                         text: res.message
-    //                     }).then((confirm) => {
-    //                         if (confirm) {
-    //                             // $('.table').DataTable().ajax.reload();
-    //                         }
-    //                     });
-    //                 },
-    //                 error: err => {
-    //                     swal({
-    //                         icon: 'error',
-    //                         title: 'Oops...',
-    //                         text: err.responseJSON.message
-    //                     });
-    //                 }
-    //             });
-    //         }
-    //     })
-    // }
     // $(document).ready(function() {
     //     var applicantDisctrict = '{{ $patient->disctrict }}';
     //     var applicantThana = '{{ $patient->thana }}';
