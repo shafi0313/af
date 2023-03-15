@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Student/Applicant Details</h5>
+                <h5 class="modal-title" id="editModalLabel">Patient Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -34,36 +34,36 @@
                                             name="m_name" class="form-control">
                                     </div>
         
-                                    <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                    <div class="form-group col-md-6">
                                         <div class="field-label">বিভাগ <span class="required">*</span></div>
                                         <select name="division_id" id="division_id" required class="form-control">
                                             <option value="">নির্বাচন করুন</option>
                                             @foreach ($divisions as $division)
-                                                <option value="{{ $division->id }}">{{ $division->bn_name }}</option>
+                                                <option value="{{ $division->id }}"
+                                                    {{ $division->id == $patient->division_id ? 'selected' : '' }}>
+                                                    {{ $division->bn_name }}</option>
                                             @endforeach
                                         </select>
                                         @if ($errors->has('division_id'))
                                             <div class="alert alert-danger">{{ $errors->first('division_id') }}</div>
                                         @endif
                                     </div>
-        
-                                    <div class="form-group col-lg-6 col-md-6 col-xs-12">
+
+                                    <div class="form-group col-md-6">
                                         <div class="field-label">জেলাঃ <span class="required">*</span></div>
-                                        <select name="district_id" id="district" required class="form-control">
-                                            <option value="{{ $patient->name }}">নির্বাচন করুন</option>
+                                        <select name="disctrict" id="district" required class="form-control">
                                         </select>
-                                        @if ($errors->has('district_id'))
-                                            <div class="alert alert-danger">{{ $errors->first('district_id') }}</div>
+                                        @if ($errors->has('disctrict'))
+                                            <div class="alert alert-danger">{{ $errors->first('disctrict') }}</div>
                                         @endif
                                     </div>
-        
-                                    <div class="form-group col-lg-6 col-md-6 col-xs-12">
+
+                                    <div class="form-group col-md-6">
                                         <div class="field-label">থানাঃ <span class="required">*</span></div>
-                                        <select name="upazila_id" id="thana" required class="form-control">
-                                            <option value="">নির্বাচন করুন</option>
+                                        <select name="thana" id="thana" required class="form-control">
                                         </select>
-                                        @if ($errors->has('upazila_id'))
-                                            <div class="alert alert-danger">{{ $errors->first('upazila_id') }}</div>
+                                        @if ($errors->has('thana'))
+                                            <div class="alert alert-danger">{{ $errors->first('thana') }}</div>
                                         @endif
                                     </div>
         
@@ -184,27 +184,62 @@
                                         </table>
                                     </div>
                                 </div>
-        
-        
-        
-                                <div class="row">        
-                                    
-        
+                                <hr class="bg-danger">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>ঔষধের নাম</th>
+                                                <th>মূল্য</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            @foreach ($patient->medicines as $medicine)
+                                                <tr>
+                                                    <td>{{ @$x += 1 }}</td>
+                                                    <td>{{ $medicine->medicine }}</td>
+                                                    <td>{{ $medicine->price }}</td>
+                                                    {{-- <td><button type="button" class="btn btn-success btn-sm delete" onclick="deletee('{{ $medicine->id }}')" title="Accept"><i class="material-icons">done_outline </i></button></td> --}}
+                                                    <td><a href="{{ route('admin.patient.delete', $medicine->id) }}" class="btn btn-success btn-sm"  title="Delete"><i class="material-icons">done_outline </i></a></td>
+                                                </tr>
+                                            @endforeach                                            
+                                        </table>
+                                    </div>
+                                </div>   
+                                <hr class="bg-danger">
+                                <div class="row">
+                                    <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                        <div class="field-label">রোগীর ছবিঃ <span class="required">*</span></div>
+                                        <img src="{{ asset('patients/' . $patient->patient_img) }}" width="100px" alt="">
+                                    </div>
                                     <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                         <div class="field-label">রোগীর ছবিঃ <span class="required">*</span></div>
                                         <input type="file" required="" name="patient_img" class="form-control">
+                                    </div>
+
+                                    <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                        <div class="field-label">ভোটার আইডি কার্ড <span class="required">*</span></div>
+                                        <img src="{{ asset('patients/' . $patient->nid) }}" width="100px" alt="">
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                         <div class="field-label">ভোটার আইডি কার্ড </div>
                                         <input type="file" name="nid" class="form-control">
                                     </div>
-        
+
+                                    <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                        <div class="field-label">ডাক্তার প্রদত্ত চিকিৎসা পত্র <span class="required">*</span></div>
+                                        <img src="{{ asset('patients/' . $patient->prescription) }}" width="100px" alt="">
+                                    </div>
                                     <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                         <div class="field-label">ডাক্তার প্রদত্ত চিকিৎসা পত্র : <span class="required">*</span>
                                         </div>
                                         <input type="file" required="" name="prescription" class="form-control">
                                     </div>
-        
+
+                                    <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                        <div class="field-label">চেয়ারম্যান প্রদত্ত চারিত্রিক সনদঃ <span class="required">*</span></div>
+                                        <img src="{{ asset('patients/' . $patient->sonod) }}" width="100px" alt="">
+                                    </div>
                                     <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                         <div class="field-label">চেয়ারম্যান প্রদত্ত চারিত্রিক সনদঃ <span class="required">*</span>
                                         </div>
@@ -225,9 +260,9 @@
 </div>
 <script>
     $(document).ready(function() {
-        var applicantDisctrict = '{{ $patient->disctrict }}';
-        var applicantThana = '{{ $patient->thana }}';
-        let division_id = '{{ $patient->division_id }}';
+        var applicantDisctrict = '{{ $patient->district_id }}';
+        var applicantThana = '{{ $patient->upazila_id }}';
+        let division_id = '{{ $patient->division_id	 }}';
         $.ajax({
             url: '{{ route('frontend.getDistrict') }}',
             method: 'get',
@@ -243,6 +278,7 @@
         });
 
         let district_id = applicantDisctrict;
+    
         $.ajax({
             url: '{{ route('frontend.getUpazila') }}',
             method: 'get',
@@ -256,22 +292,6 @@
                 }
             }
         });
-
-        // $("#upazila").on("change", function() {
-        //     let upazila_id = $("#upazila_id").val();
-        //     $.ajax({
-        //         url: '{{ route('frontend.getUnion') }}',
-        //         method: 'get',
-        //         data: {
-        //             upazila_id: upazila_id,
-        //         },
-        //         success: function(res) {
-        //             if (res.status == 'success') {
-        //                 $('#union').html(res.html);
-        //             }
-        //         }
-        //     });
-        // })
 
         $("#division_id").on("change", function() {
             let division_id = $(this).val();
@@ -305,6 +325,161 @@
         })
 
     })
+
+    // $(".delete").on("click", function(){
+    //     swal({
+    //         title: "Are you sure?",
+    //         text: "This action will accept this record!",
+    //         icon: "warning",
+    //         buttons: true,
+    //         dangerMode: true,
+    //     })
+    //     .then((accept) => {
+    //         if (accept) {
+    //             $.ajax({
+    //                 url: '{{ route('admin.patient.destroy',$patient->id ) }}',
+    //                 type: 'DELETE',
+    //                 // data: { id: id },
+    //                 success: res => {
+    //                     swal({
+    //                         icon: 'success',
+    //                         title: 'Success',
+    //                         text: res.message
+    //                     }).then((confirm) => {
+    //                         if (confirm) {
+    //                             // $('.table').DataTable().ajax.reload();
+    //                         }
+    //                     });
+    //                 },
+    //                 error: err => {
+    //                     swal({
+    //                         icon: 'error',
+    //                         title: 'Oops...',
+    //                         text: err.responseJSON.message
+    //                     });
+    //                 }
+    //             });
+    //         }
+    //     })
+    // })
+
+    // function deletee(id){
+    //     swal({
+    //         title: "Are you sure?",
+    //         text: "This action will delete this record!",
+    //         icon: "warning",
+    //         buttons: true,
+    //         dangerMode: true,
+    //     })
+    //     .then((accept) => {
+    //         if (accept) {
+    //             $.ajax({
+    //                 url: '{{ route('admin.patient.delete' ) }}',
+    //                 type: 'DELETE',
+    //                 data: { id: id },
+    //                 success: res => {
+    //                     swal({
+    //                         icon: 'success',
+    //                         title: 'Success',
+    //                         text: res.message
+    //                     }).then((confirm) => {
+    //                         if (confirm) {
+    //                             // $('.table').DataTable().ajax.reload();
+    //                         }
+    //                     });
+    //                 },
+    //                 error: err => {
+    //                     swal({
+    //                         icon: 'error',
+    //                         title: 'Oops...',
+    //                         text: err.responseJSON.message
+    //                     });
+    //                 }
+    //             });
+    //         }
+    //     })
+    // }
+    // $(document).ready(function() {
+    //     var applicantDisctrict = '{{ $patient->disctrict }}';
+    //     var applicantThana = '{{ $patient->thana }}';
+    //     let division_id = '{{ $patient->division_id }}';
+    //     $.ajax({
+    //         url: '{{ route('frontend.getDistrict') }}',
+    //         method: 'get',
+    //         data: {
+    //             division_id: division_id,
+    //             applicantDisctrict: applicantDisctrict,
+    //         },
+    //         success: function(res) {
+    //             if (res.status == 'success') {
+    //                 $('#district').html(res.html);
+    //             }
+    //         }
+    //     });
+
+    //     let district_id = applicantDisctrict;
+    //     $.ajax({
+    //         url: '{{ route('frontend.getUpazila') }}',
+    //         method: 'get',
+    //         data: {
+    //             district_id: district_id,
+    //             applicantThana: applicantThana,
+    //         },
+    //         success: function(res) {
+    //             if (res.status == 'success') {
+    //                 $('#thana').html(res.html);
+    //             }
+    //         }
+    //     });
+
+        // $("#upazila").on("change", function() {
+        //     let upazila_id = $("#upazila_id").val();
+        //     $.ajax({
+        //         url: '{{ route('frontend.getUnion') }}',
+        //         method: 'get',
+        //         data: {
+        //             upazila_id: upazila_id,
+        //         },
+        //         success: function(res) {
+        //             if (res.status == 'success') {
+        //                 $('#union').html(res.html);
+        //             }
+        //         }
+        //     });
+        // })
+
+    //     $("#division_id").on("change", function() {
+    //         let division_id = $(this).val();
+    //         $.ajax({
+    //             url: '{{ route('frontend.getDistrict') }}',
+    //             method: 'get',
+    //             data: {
+    //                 division_id: division_id,
+    //             },
+    //             success: function(res) {
+    //                 if (res.status == 'success') {
+    //                     $('#district').html(res.html);
+    //                 }
+    //             }
+    //         });
+    //     })
+    //     $("#district").on("change", function() {
+    //         let district_id = $(this).val();
+    //         $.ajax({
+    //             url: '{{ route('frontend.getUpazila') }}',
+    //             method: 'get',
+    //             data: {
+    //                 district_id: district_id,
+    //             },
+    //             success: function(res) {
+    //                 if (res.status == 'success') {
+    //                     $('#thana').html(res.html);
+    //                 }
+    //             }
+    //         });
+    //     })
+
+    // })
 </script>
 
 

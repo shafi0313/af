@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Patient;
 use App\Models\Division;
+use App\Models\Medicine;
 use App\Basic_info_manage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -63,6 +64,15 @@ class PatientController extends Controller
         }
         return abort(500);
     }
+
+    // public function medicine(Request $request, Patient $patient)
+    // {
+    //     if ($request->ajax()) {
+    //         $modal = view('admin.patient.edit')->with(['patient' => $patient, 'divisions' => $divisions])->render();
+    //         return response()->json(['modal' => $modal], 200);
+    //     }
+    //     return abort(500);
+    // }
 
     public function edit(Request $request, Patient $patient)
     {
@@ -127,6 +137,19 @@ class PatientController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message'=>__('app.oops')], 500);
         }        
+    }
+
+    public function delete($id)
+    {
+        // return $id;
+        try {
+            return Medicine::find($id);
+            // $patient->delete();
+            // return response()->json(['message' => __('app.success-message')], 200);
+        } catch (\Exception $e) {
+            // return response()->json(['message' => __('app.oops')], 500);
+            return response()->json(['message'=>$e->getMessage()], 500);
+        }
     }
 
     public function destroy(Patient $patient)

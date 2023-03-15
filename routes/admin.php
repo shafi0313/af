@@ -14,5 +14,6 @@ Route::post('/applicant/reject', [ApplicantController::class, 'reject'])->name('
 // Route::get('/getUnion', [ApplicantController::class, 'getUnion'])->name('getUnion');
 
 Route::resource('/patient', PatientController::class);
+Route::delete('/patient/delete/{medicine_id}', [PatientController::class, 'delete'])->name('patient.delete');
 Route::post('/patient/accept', [PatientController::class, 'accept'])->name('patient.accept');
 Route::post('/patient/reject', [PatientController::class, 'reject'])->name('patient.reject');
