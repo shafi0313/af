@@ -286,7 +286,7 @@
             let table = $('.table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ url('admin/agent_with_report') }}",
+                ajax: "{{ route('admin.patient-fund-request.index') }}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'student_name'},
