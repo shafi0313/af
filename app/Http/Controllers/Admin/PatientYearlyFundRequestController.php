@@ -54,25 +54,25 @@ class PatientYearlyFundRequestController extends Controller
         $data['basic_info'] = Basic_info_manage::where('id', 1)->first();
         return view('admin.yearly_fund_request.patient.index', $data);
     }
-    public function getPatient()
-    {
-        $item = DB::table('order')
-            ->select('*', 'users.id as c_id', 'order.id as p_id', 'order.status as o_status')
-            ->join('users', 'users.id', '=', 'order.student_id')
-            ->orderBy('p_id', 'desc')
-            ->get();
+    // public function getPatient()
+    // {
+    //     $item = DB::table('order')
+    //         ->select('*', 'users.id as c_id', 'order.id as p_id', 'order.status as o_status')
+    //         ->join('users', 'users.id', '=', 'order.student_id')
+    //         ->orderBy('p_id', 'desc')
+    //         ->get();
 
-        return DataTables::of($item)->addColumn('status', function ($item) {
-            if ($item->o_status == 0) {
-                return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">Pending</div>';
-            } elseif ($item->o_status == 1) {
-                return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Aprroved </div>';
-            } elseif ($item->o_status == 2) {
-                return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">Canceled </div>';
-            }
-        })
-            ->rawColumns(['image', 'status'])
-            ->addIndexColumn()
-            ->make(true);
-    }
+    //     return DataTables::of($item)->addColumn('status', function ($item) {
+    //         if ($item->o_status == 0) {
+    //             return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">Pending</div>';
+    //         } elseif ($item->o_status == 1) {
+    //             return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Aprroved </div>';
+    //         } elseif ($item->o_status == 2) {
+    //             return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">Canceled </div>';
+    //         }
+    //     })
+    //         ->rawColumns(['image', 'status'])
+    //         ->addIndexColumn()
+    //         ->make(true);
+    // }
 }
