@@ -79,7 +79,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
                         <a class="dropdown-item " href="{{ route('admin.applicant.index') }}">Students</a>
-                        <a class="dropdown-item " href="{{ route('admin.patient-yearly-fund-request.index') }}">Patients</a>
+                        <a class="dropdown-item " href="{{ route('admin.patient-fund-request.index') }}">Patients</a>
                     </div>
                 </li>
 
@@ -99,7 +99,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
                         <a class="dropdown-item " href="{{ url('admin/payment-approve') }}">Students</a>
-                        <a class="dropdown-item " href="{{ route('admin.patient.index') }}">Patients</a>
+                        <a class="dropdown-item " href="{{ route('admin.patient-fund-approval.index') }}">Patients</a>
                     </div>
                 </li>
 

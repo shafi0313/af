@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\ApplicantController;
-use App\Http\Controllers\Admin\PatientYearlyFundRequestController;
+use App\Http\Controllers\Admin\PatientFundRequestController;
+use App\Http\Controllers\Admin\PatientFundApprovalController;
 
 Route::resource('applicant', ApplicantController::class);
 Route::post('applicant/accept', [ApplicantController::class, 'accept'])->name('applicant.accept');
@@ -18,4 +19,7 @@ Route::delete('patient/delete/{medicine_id}', [PatientController::class, 'delete
 Route::post('/patient/accept', [PatientController::class, 'accept'])->name('patient.accept');
 Route::post('/patient/reject', [PatientController::class, 'reject'])->name('patient.reject');
 
-Route::resource('patient-fund-request', PatientYearlyFundRequestController::class, ['parameters' => ['patient-fund-request' => 'patient_fund_request']]);
+Route::resource('patient-fund-request', PatientFundRequestController::class, ['parameters' => ['patient-fund-request' => 'patient_fund_request']]);
+Route::get('/getMedicines', [PatientFundRequestController::class, 'getMedicines'])->name('patient_fund_request.getMedicines');
+
+Route::resource('patient-fund-approval', PatientFundApprovalController::class, ['parameters' => ['patient-fund-approval' => 'patient_fund_approval']]);
