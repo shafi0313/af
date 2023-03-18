@@ -37,11 +37,11 @@ class PatientFundRequestController extends Controller
                 return $row->updated_at ? $row->updated_at->diffForHumans() : 'Not Updated';
             })
             ->addColumn('status', function ($row) {
-                if ($row->o_status == 0) {
+                if ($row->status == 0) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">Pending</div>';
-                } elseif ($row->o_status == 1) {
+                } elseif ($row->status == 1) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Approved </div>';
-                } elseif ($row->o_status == 2) {
+                } elseif ($row->status == 2) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">Canceled </div>';
                 }
             })

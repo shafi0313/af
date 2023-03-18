@@ -16,7 +16,6 @@
             <div class="page-header row no-gutters py-4">
                 <div class="col-12 mb-0 d-flex justify-content-between">
                     <h3 class="page-title">Yearly Fund Approval > Patient</h3>
-                    {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Request</button> --}}
                 </div>
             </div>
             <div class="row">
@@ -34,6 +33,7 @@
                                         <th>No</th>
                                         <th>Patient Name</th>
                                         <th>Requested Amount</th>
+                                        <th>Approved Amount</th>
                                         <th>Year</th>
                                         <th>Status</th>
                                         <th>Created at</th>
@@ -41,8 +41,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                     </div>
@@ -77,6 +76,10 @@
                         name: 'requested_amt'
                     },
                     {
+                        data: 'approved_amt',
+                        name: 'approved_amt'
+                    },
+                    {
                         data: 'year',
                         name: 'year'
                     },
@@ -104,106 +107,6 @@
                 }
             });
         });
-
-        // function accept(id) {
-        //     swal({
-        //             title: "Are you sure?",
-        //             text: "This action will accept this record!",
-        //             icon: "warning",
-        //             buttons: true,
-        //             dangerMode: true,
-        //         })
-        //         .then((accept) => {
-        //             if (accept) {
-        //                 $.ajax({
-        //                     url: '{{ route('admin.patient.accept') }}',
-        //                     type: 'POST',
-        //                     data: {
-        //                         id: id
-        //                     },
-        //                     success: res => {
-        //                         swal({
-        //                             icon: 'success',
-        //                             title: 'Success',
-        //                             text: res.message
-        //                         }).then((confirm) => {
-        //                             if (confirm) {
-        //                                 $('.table').DataTable().ajax.reload();
-        //                             }
-        //                         });
-        //                     },
-        //                     error: err => {
-        //                         swal({
-        //                             icon: 'error',
-        //                             title: 'Oops...',
-        //                             text: err.responseJSON.message
-        //                         });
-        //                     }
-        //                 });
-        //             }
-        //         })
-        // }
-
-        $("#patient_id").on("change", function() {
-            var patient_id = $(this).val();
-            $.ajax({
-                url: '{{ route('admin.patient_fund_request.getMedicines') }}',
-                type: 'GET',
-                data: {
-                    patient_id: patient_id
-                },
-                success: res => {
-                    var tbody = $("#medicine_tbody");
-                    tbody.append(res.html);
-                },
-                error: err => {
-                    swal({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: err.responseJSON.message
-                    });
-                }
-            });
-        })
-
-        // function reject(id) {
-        //     swal({
-        //             title: "Are you sure?",
-        //             text: "This action will reject this record!",
-        //             icon: "warning",
-        //             buttons: true,
-        //             dangerMode: true,
-        //         })
-        //         .then((reject) => {
-        //             if (reject) {
-        //                 $.ajax({
-        //                     url: '{{ route('admin.patient.reject') }}',
-        //                     type: 'POST',
-        //                     data: {
-        //                         id: id
-        //                     },
-        //                     success: res => {
-        //                         swal({
-        //                             icon: 'success',
-        //                             title: 'Success',
-        //                             text: res.message
-        //                         }).then((confirm) => {
-        //                             if (confirm) {
-        //                                 $('.table').DataTable().ajax.reload();
-        //                             }
-        //                         });
-        //                     },
-        //                     error: err => {
-        //                         swal({
-        //                             icon: 'error',
-        //                             title: 'Oops...',
-        //                             text: err.responseJSON.message
-        //                         });
-        //                     }
-        //                 });
-        //             }
-        //         })
-        // }
     </script>
 
 @endsection

@@ -79,7 +79,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
                         <a class="dropdown-item " href="{{ route('admin.applicant.index') }}">Students</a>
-                        <a class="dropdown-item " href="{{ route('admin.patient-fund-request.index') }}">Patients</a>
+                        <a class="dropdown-item " href="{{ route('admin.patient.index') }}">Patients</a>
                     </div>
                 </li>
 

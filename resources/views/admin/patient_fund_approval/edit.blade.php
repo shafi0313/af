@@ -17,7 +17,7 @@
                             <h6>Requested Year: <b>{{ $patient_fund_approval->year }}</b></h6>
                         </div>
                         <div class="col-md-12">
-                            <table class="table table-bordered">
+                            <table class="table-bordered" style="width: 100%">
                                 <tr>
                                     <th>SN</th>
                                     <th>ঔষধের নাম</th>

@@ -20,11 +20,14 @@ class PatientFundApprovalController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $patients = PatientFundRequest::with(['patient','ApprovedMedicines'])->latest();
+            $patients = PatientFundRequest::with(['patient','ApprovedMedicines'])->orderBy('created_at', 'desc');
 
             return DataTables::eloquent($patients)
             ->addColumn('requested_amt', function ($row) {
                 return number_format($row->ApprovedMedicines->sum('requested_amt'),2);
+            })
+            ->addColumn('approved_amt', function ($row) {
+                return number_format($row->ApprovedMedicines->sum('approved_amt'),2);
             })
             ->addColumn('created_at', function ($row) {
                 return $row->created_at->diffForHumans();
@@ -58,7 +61,7 @@ class PatientFundApprovalController extends Controller
                     $query->where('patient_id', $request->patient_id);
                 }
             })
-            ->rawColumns(['requested_amt','status','created_at','updated_at','action'])
+            ->rawColumns(['requested_amt','approved_amt','status','created_at','updated_at','action'])
             ->addIndexColumn()
             ->make(true);
         }
@@ -77,14 +80,19 @@ class PatientFundApprovalController extends Controller
 
     public function update(Request $request, PatientFundRequest $patient_fund_approval)
     {
-        foreach ($request->medicine_id as $i => $approvalMedicine) {
-            $data = [
-                'approved_amt' => $request->approved_amt[$i],
-            ];
-            RequestedMedicine::whereId($request->medicine_id[$i])->update($data);
+        try {
+            foreach ($request->medicine_id as $i => $approvalMedicine) {
+                $data = [
+                    'approved_amt' => $request->approved_amt[$i],
+                ];
+                RequestedMedicine::whereId($request->medicine_id[$i])->update($data);
+            }
+            $patient_fund_approval->update(['status' => 1, 'updated_at' => now()]);
+            return response()->json(['message'=> 'Data Successfully Updated'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message'=>__('app.oops')], 500);
+            // return response()->json(['message'=>$e->getMessage()], 500);
         }
-        $patient_fund_approval->update(['status' => 1]);
-        return response()->json(['message' => ''], 200);
     }
 
     public function getMedicines(Request $request)

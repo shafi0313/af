@@ -53,39 +53,42 @@
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
     </script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-    <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script> --}}
+    {{-- <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    {{-- <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script> --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> --}}
     <!-- jQuery Modal -->
-    <script src="{{ asset('vendor/modal/popModal.js') }}"></script>
+    {{-- <script src="{{ asset('vendor/modal/popModal.js') }}"></script> --}}
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script> --}}
     <!-- jQuery Custom Scroller CDN -->
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
     </script>
-    <script src="{{ asset('scripts/extras.1.1.0.min.js') }}"></script>
-    <script src="{{ asset('scripts/shards-dashboards.1.1.0.min.js') }}"></script>
-    <script src="{{ asset('scripts/1.c2333a40.chunk.js') }}"></script>
-    <script src="{{ asset('scripts/main.f1367185.chunk.js') }}"></script>
-    <script src="{{ asset('scripts/app/app-blog-overview.1.1.0.js') }}"></script>
+    {{-- <script src="{{ asset('scripts/extras.1.1.0.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('scripts/shards-dashboards.1.1.0.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('scripts/1.c2333a40.chunk.js') }}"></script> --}}
+    {{-- <script src="{{ asset('scripts/main.f1367185.chunk.js') }}"></script>
+    <script src="{{ asset('scripts/app/app-blog-overview.1.1.0.js') }}"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="{{ asset('custom/script.js') }}"></script>
     <script src="{{ asset('backend/js/plugins-init.js') }}"></script>
-    <script src="{{ asset('backend/js/jquery.magnific-popup.min.js') }}"></script>
+    {{-- <script src="{{ asset('backend/js/jquery.magnific-popup.min.js') }}"></script> --}}
 
     <script>
-        $(document).ready(function() {
-            $('.image-link').magnificPopup({
-                type: 'image'
-            });
-        });
+        // $(document).ready(function() {
+        //     $('.image-link').magnificPopup({
+        //         type: 'image'
+        //     });
+        // });
 
         // $('.test-popup-link').magnificPopup({
         //   type: 'image'

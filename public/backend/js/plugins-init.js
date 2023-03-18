@@ -259,6 +259,7 @@ function ajaxStore(e, form, modal) {
                 text: res.message
             }).then((confirm) => {
                 if (confirm) {
+                    // alert('test')
                     $('.table').DataTable().ajax.reload();
                     $("#" + modal).modal('hide');
                     $(form).trigger("reset");
