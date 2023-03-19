@@ -103,12 +103,24 @@
                     </div>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ Request::is('all-manage2') ? 'active' : '' }}"
                         href="{{ route('admin.menu-manage2') }}">
                         <i class="material-icons">account_circle</i>
                         <span>Requested Payment Approval</span>
                     </a>
+                </li> --}}
+
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="true">
+                        <i class="material-icons"></i>
+                        <span>Requested Payment Approval</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
+                        <a class="dropdown-item " href="{{ route('admin.menu-manage2') }}">Students</a>
+                        <a class="dropdown-item " href="{{ route('admin.patient-payment-approval.index') }}">Patients</a>
+                    </div>
                 </li>
 
                 <li class="nav-item">
@@ -148,13 +160,27 @@
                         <a class="dropdown-item " href="{{ route('admin.patient-fund-request.index') }}">Patients</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ Request::is('all-manage') ? 'active' : '' }}"
                         href="{{ route('admin.menu-manage') }}">
                         <i class="material-icons">account_circle</i>
                         <span>Approved Fund Installment Requetion</span>
                     </a>
+                </li> --}}
+
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="true">
+                        <i class="material-icons"></i>
+                        <span>Approved Fund Installment Requetion</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
+                        <a class="dropdown-item " href="{{ route('admin.menu-manage') }}">Students</a>
+                        <a class="dropdown-item " href="{{ route('admin.patient-fund-requetion.index') }}">Patients</a>
+                    </div>
                 </li>
+
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.logout') }}">
                         <i class="material-icons">repeat</i>

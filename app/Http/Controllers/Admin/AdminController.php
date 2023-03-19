@@ -305,7 +305,7 @@ class AdminController extends Controller
             if ($item->o_status == 0) {
                 return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">Pending</div>';
             } elseif ($item->o_status == 1) {
-                return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Aprroved </div>';
+                return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Approved </div>';
             } elseif ($item->o_status == 2) {
                 return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">Canceled </div>';
             }

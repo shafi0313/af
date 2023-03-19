@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use App\Models\Union;
-use App\Models\Upazila;
-use App\Models\District;
 use App\Models\Division;
 use App\Basic_info_manage;
 use Illuminate\Http\Request;
