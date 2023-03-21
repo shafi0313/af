@@ -49,7 +49,6 @@ class PatientController extends Controller
         }
 
         try {
-            Patient::create($data);
             Alert::success('Success', 'Application Created Successfully');
             return redirect()->back();
         } catch (\Exception $e) {
