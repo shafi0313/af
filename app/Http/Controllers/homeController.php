@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+
 use Mail;
 use Session;
 use App\User;
@@ -14,37 +14,31 @@ use App\Models\Division;
 use App\Basic_info_manage;
 use Illuminate\Http\Request;
 use App\Registration_reocord;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class homeController extends Controller
 {
     public function index()
     {
-        $data['basic_info']       = Basic_info_manage::where('id', 1)->first();
+        $data['basic_info']  = Basic_info_manage::where('id', 1)->first();
+        $data['slide']       = DB::table('slide_manages')->where('type', 1)->orderby('id', 'desc')->get();
+        $data['about_us']    = DB::table('slide_manages')->where('type', 2)->orderby('id', 'desc')->first();
+        $data['our_planing'] = DB::table('slide_manages')->where('type', 3)->orderby('id', 'desc')->get();
+        $data['our_offers']  = DB::table('slide_manages')->where('type', 4)->orderby('id', 'desc')->get();
+        $data['Review']      = DB::table('slide_manages')->where('type', 5)->orderby('id', 'desc')->get();
+        $data['news_man']    = DB::table('news_manages')->orderby('id', 'desc')->take(3)->get();
+        $data['news_man2']   = DB::table('news_manages')->orderby('id', 'desc')->skip(3)->take(4)->get();
 
-        $data['slide']            = DB::table('slide_manages')->where('type', 1)->orderby('id', 'desc')->get();
+        $data['fb']      = DB::table('category_manages')->where('id', 2)->orderby('id', 'desc')->first();
+        $data['twitter'] = DB::table('category_manages')->where('id', 5)->orderby('id', 'desc')->first();
+        $data['linkdin'] = DB::table('category_manages')->where('id', 6)->orderby('id', 'desc')->first();
+        $data['insta']   = DB::table('category_manages')->where('id', 7)->orderby('id', 'desc')->first();
+        $data['youtube'] = DB::table('category_manages')->where('id', 8)->orderby('id', 'desc')->first();
 
-        $data['about_us']         = DB::table('slide_manages')->where('type', 2)->orderby('id', 'desc')->first();
-
-        $data['our_planing']      = DB::table('slide_manages')->where('type', 3)->orderby('id', 'desc')->get();
-
-        $data['our_offers']       = DB::table('slide_manages')->where('type', 4)->orderby('id', 'desc')->get();
-
-        $data['Review']           = DB::table('slide_manages')->where('type', 5)->orderby('id', 'desc')->get();
-
-        $data['news_man']         = DB::table('news_manages')->orderby('id', 'desc')->take(3)->get();
-
-        $data['news_man2']        = DB::table('news_manages')->orderby('id', 'desc')->skip(3)->take(4)->get();
-
-        $data['fb']               = DB::table('category_manages')->where('id', 2)->orderby('id', 'desc')->first();
-        $data['twitter']          = DB::table('category_manages')->where('id', 5)->orderby('id', 'desc')->first();
-        $data['linkdin']          = DB::table('category_manages')->where('id', 6)->orderby('id', 'desc')->first();
-        $data['insta']            = DB::table('category_manages')->where('id', 7)->orderby('id', 'desc')->first();
-        $data['youtube']          = DB::table('category_manages')->where('id', 8)->orderby('id', 'desc')->first();
-
-        $data['bani']             = DB::table('menu_manages')->where('type', 2)->orderby('id', 'desc')->get();
-        $data['porichiti']        = DB::table('menu_manages')->where('type', 3)->orderby('id', 'desc')->get();
-        $data['gallery']           = DB::table('menu_manages')->where('type', 5)->orderby('id', 'desc')->get();
+        $data['bani']      = DB::table('menu_manages')->where('type', 2)->orderby('id', 'desc')->get();
+        $data['porichiti'] = DB::table('menu_manages')->where('type', 3)->orderby('id', 'desc')->get();
+        $data['gallery']   = DB::table('menu_manages')->where('type', 5)->orderby('id', 'desc')->get();
 
         return view('index', $data);
     }
@@ -250,12 +244,12 @@ class homeController extends Controller
     public function porichiti()
     {
 
-        $data['fb']               = DB::table('category_manages')->where('id', 2)->orderby('id', 'desc')->first();
-        $data['twitter']          = DB::table('category_manages')->where('id', 5)->orderby('id', 'desc')->first();
-        $data['linkdin']          = DB::table('category_manages')->where('id', 6)->orderby('id', 'desc')->first();
-        $data['insta']            = DB::table('category_manages')->where('id', 7)->orderby('id', 'desc')->first();
-        $data['youtube']          = DB::table('category_manages')->where('id', 8)->orderby('id', 'desc')->first();
-        $data['news_man']          = DB::table('news_manages')->orderby('id', 'desc')->take(3)->get();
+        $data['fb']       = DB::table('category_manages')->where('id', 2)->orderby('id', 'desc')->first();
+        $data['twitter']  = DB::table('category_manages')->where('id', 5)->orderby('id', 'desc')->first();
+        $data['linkdin']  = DB::table('category_manages')->where('id', 6)->orderby('id', 'desc')->first();
+        $data['insta']    = DB::table('category_manages')->where('id', 7)->orderby('id', 'desc')->first();
+        $data['youtube']  = DB::table('category_manages')->where('id', 8)->orderby('id', 'desc')->first();
+        $data['news_man'] = DB::table('news_manages')->orderby('id', 'desc')->take(3)->get();
 
         $data['porichiti']        = DB::table('menu_manages')->where('type', 3)->orderby('id', 'desc')->get();
 
@@ -586,25 +580,25 @@ class homeController extends Controller
     {
         $data['basic_info']        = Basic_info_manage::where('id', 1)->first();
 
-        $data['slide']            = DB::table('slide_manages')->where('type', 1)->orderby('id', 'desc')->get();
-        $data['about']            = DB::table('slide_manages')->where('type', 2)->orderby('id', 'desc')->first();
-        $data['events']           = DB::table('slide_manages')->where('type', 3)->orderby('id', 'desc')->get();
-        $data['client_says']      = DB::table('slide_manages')->where('type', 16)->orderby('id', 'desc')->get();
-        $data['instructot']       = DB::table('slide_manages')->where('type', 7)->orderby('id', 'desc')->get();
-        $data['news']             = DB::table('slide_manages')->where('type', 4)->orderby('id', 'desc')->get();
-        $data['fb']               = DB::table('content_manages')->where('id', 1)->orderby('id', 'desc')->first();
-        $data['fb']               = DB::table('category_manages')->where('id', 2)->orderby('id', 'desc')->first();
-        $data['twitter']          = DB::table('category_manages')->where('id', 5)->orderby('id', 'desc')->first();
-        $data['linkdin']          = DB::table('category_manages')->where('id', 6)->orderby('id', 'desc')->first();
-        $data['insta']            = DB::table('category_manages')->where('id', 7)->orderby('id', 'desc')->first();
-        $data['youtube']          = DB::table('category_manages')->where('id', 8)->orderby('id', 'desc')->first();
-        $data['about_menu']       = DB::table('slide_manages')->whereIn('type', array('5', '18', '6', '7', '8', '9', '10', '11'))->get();
-        $data['events']           = DB::table('slide_manages')->whereIn('type', array('12', '13'))->get();
-        $data['newsss']           = DB::table('slide_manages')->where('type', 4)->first();
-        $data['blog']             = DB::table('slide_manages')->where('type', 19)->first();
-        $data['shop']             = DB::table('slide_manages')->where('type', 20)->first();
-        $data['gellery']          = DB::table('slide_manages')->whereIn('type', array('14', '15'))->get();
-        $data['countryList']      = DB::table('countries')->get();
+        $data['slide']       = DB::table('slide_manages')->where('type', 1)->orderby('id', 'desc')->get();
+        $data['about']       = DB::table('slide_manages')->where('type', 2)->orderby('id', 'desc')->first();
+        $data['events']      = DB::table('slide_manages')->where('type', 3)->orderby('id', 'desc')->get();
+        $data['client_says'] = DB::table('slide_manages')->where('type', 16)->orderby('id', 'desc')->get();
+        $data['instructot']  = DB::table('slide_manages')->where('type', 7)->orderby('id', 'desc')->get();
+        $data['news']        = DB::table('slide_manages')->where('type', 4)->orderby('id', 'desc')->get();
+        $data['fb']          = DB::table('content_manages')->where('id', 1)->orderby('id', 'desc')->first();
+        $data['fb']          = DB::table('category_manages')->where('id', 2)->orderby('id', 'desc')->first();
+        $data['twitter']     = DB::table('category_manages')->where('id', 5)->orderby('id', 'desc')->first();
+        $data['linkdin']     = DB::table('category_manages')->where('id', 6)->orderby('id', 'desc')->first();
+        $data['insta']       = DB::table('category_manages')->where('id', 7)->orderby('id', 'desc')->first();
+        $data['youtube']     = DB::table('category_manages')->where('id', 8)->orderby('id', 'desc')->first();
+        $data['about_menu']  = DB::table('slide_manages')->whereIn('type', array('5', '18', '6', '7', '8', '9', '10', '11'))->get();
+        $data['events']      = DB::table('slide_manages')->whereIn('type', array('12', '13'))->get();
+        $data['newsss']      = DB::table('slide_manages')->where('type', 4)->first();
+        $data['blog']        = DB::table('slide_manages')->where('type', 19)->first();
+        $data['shop']        = DB::table('slide_manages')->where('type', 20)->first();
+        $data['gellery']     = DB::table('slide_manages')->whereIn('type', array('14', '15'))->get();
+        $data['countryList'] = DB::table('countries')->get();
 
         //$data['all_cat']          = DB::table('slide_manages')->groupBy("slug")->get();
 
@@ -622,26 +616,26 @@ class homeController extends Controller
 
     public function medical_register()
     {
-        $data['basic_info']        = Basic_info_manage::where('id', 1)->first();
-        $data['slide']            = DB::table('slide_manages')->where('type', 1)->orderby('id', 'desc')->get();
-        $data['about']            = DB::table('slide_manages')->where('type', 2)->orderby('id', 'desc')->first();
-        $data['events']           = DB::table('slide_manages')->where('type', 3)->orderby('id', 'desc')->get();
-        $data['client_says']      = DB::table('slide_manages')->where('type', 16)->orderby('id', 'desc')->get();
-        $data['instructot']       = DB::table('slide_manages')->where('type', 7)->orderby('id', 'desc')->get();
-        $data['news']             = DB::table('slide_manages')->where('type', 4)->orderby('id', 'desc')->get();
-        $data['fb']               = DB::table('content_manages')->where('id', 1)->orderby('id', 'desc')->first();
-        $data['fb']               = DB::table('category_manages')->where('id', 2)->orderby('id', 'desc')->first();
-        $data['twitter']          = DB::table('category_manages')->where('id', 5)->orderby('id', 'desc')->first();
-        $data['linkdin']          = DB::table('category_manages')->where('id', 6)->orderby('id', 'desc')->first();
-        $data['insta']            = DB::table('category_manages')->where('id', 7)->orderby('id', 'desc')->first();
-        $data['youtube']          = DB::table('category_manages')->where('id', 8)->orderby('id', 'desc')->first();
-        $data['about_menu']       = DB::table('slide_manages')->whereIn('type', array('5', '18', '6', '7', '8', '9', '10', '11'))->get();
-        $data['events']           = DB::table('slide_manages')->whereIn('type', array('12', '13'))->get();
-        $data['newsss']           = DB::table('slide_manages')->where('type', 4)->first();
-        $data['blog']             = DB::table('slide_manages')->where('type', 19)->first();
-        $data['shop']             = DB::table('slide_manages')->where('type', 20)->first();
-        $data['gellery']          = DB::table('slide_manages')->whereIn('type', array('14', '15'))->get();
-        $data['countryList']      = DB::table('countries')->get();
+        $data['basic_info']  = Basic_info_manage::where('id', 1)->first();
+        $data['slide']       = DB::table('slide_manages')->where('type', 1)->orderby('id', 'desc')->get();
+        $data['about']       = DB::table('slide_manages')->where('type', 2)->orderby('id', 'desc')->first();
+        $data['events']      = DB::table('slide_manages')->where('type', 3)->orderby('id', 'desc')->get();
+        $data['client_says'] = DB::table('slide_manages')->where('type', 16)->orderby('id', 'desc')->get();
+        $data['instructot']  = DB::table('slide_manages')->where('type', 7)->orderby('id', 'desc')->get();
+        $data['news']        = DB::table('slide_manages')->where('type', 4)->orderby('id', 'desc')->get();
+        $data['fb']          = DB::table('content_manages')->where('id', 1)->orderby('id', 'desc')->first();
+        $data['fb']          = DB::table('category_manages')->where('id', 2)->orderby('id', 'desc')->first();
+        $data['twitter']     = DB::table('category_manages')->where('id', 5)->orderby('id', 'desc')->first();
+        $data['linkdin']     = DB::table('category_manages')->where('id', 6)->orderby('id', 'desc')->first();
+        $data['insta']       = DB::table('category_manages')->where('id', 7)->orderby('id', 'desc')->first();
+        $data['youtube']     = DB::table('category_manages')->where('id', 8)->orderby('id', 'desc')->first();
+        $data['about_menu']  = DB::table('slide_manages')->whereIn('type', array('5', '18', '6', '7', '8', '9', '10', '11'))->get();
+        $data['events']      = DB::table('slide_manages')->whereIn('type', array('12', '13'))->get();
+        $data['newsss']      = DB::table('slide_manages')->where('type', 4)->first();
+        $data['blog']        = DB::table('slide_manages')->where('type', 19)->first();
+        $data['shop']        = DB::table('slide_manages')->where('type', 20)->first();
+        $data['gellery']     = DB::table('slide_manages')->whereIn('type', array('14', '15'))->get();
+        $data['countryList'] = DB::table('countries')->get();
 
         //$data['all_cat']          = DB::table('slide_manages')->groupBy("slug")->get();
 
@@ -677,37 +671,39 @@ class homeController extends Controller
             $document         = time() . '.document.' . $request->document->extension();
             $request->document->move(public_path('documents'), $document);
 
-            $data['student_name']  = $request->student_name;
-            $data['father_name']   = $request->father_name;
-            $data['mother_name']   = $request->mother_name;
-            $data['gram']          = $request->gram;
-            $data['post_office']   = $request->post_office;
+            $data['student_name']  = $request->student_name .' ('.$request->student_name_en.')';
+            $data['father_name']   = $request->father_name .' ('.$request->father_name_en.')';
+            $data['mother_name']   = $request->mother_name .' ('.$request->mother_name_en.')';
+            $data['gram']          = $request->gram .' ('.$request->gram_en.')';
+            $data['post_office']   = $request->post_office .' ('.$request->post_office_en.')';
             $data['thana']         = $request->thana;
             $data['disctrict']     = $request->disctrict;
-            $data['finance']       = $request->finance;
-            $data['school']        = $request->school;
-            $data['phone2']        = $request->phone2;
-            $data['phone']         = $request->phone;
+            $data['finance']       = $request->finance .' ('.$request->finance_en.')';
+            $data['school']        = $request->school .' ('.$request->school_en.')';
+            $data['phone2']        = $request->phone2 .' ('.$request->phone2_en.')';
+            $data['phone']         = $request->phone .' ('.$request->phone_en.')';
             $data['email']         = $request->email;
-            $data['class']         = $request->class;
+            $data['class']         = $request->class .' ('.$request->class_en.')';
             $data['expense']       = 0;
-            $data['fee']           = $request->fee;
-            $data['admission_fee'] = $request->admission_fee;
-            $data['board_reg_fee'] = $request->board_reg_fee;
-            $data['book_purchase'] = $request->book_purchase;
-            $data['exm_fee1']      = $request->exm_fee1;
-            $data['exm_fee2']      = $request->exm_fee2;
-            $data['exm_fee3']      = $request->exm_fee3;
+            $data['fee']           = $request->fee .' ('.$request->fee_en.')';
+            $data['admission_fee'] = $request->admission_fee .' ('.$request->admission_fee_en.')';
+            $data['board_reg_fee'] = $request->board_reg_fee .' ('.$request->board_reg_fee_en.')';
+            $data['book_purchase'] = $request->book_purchase .' ('.$request->book_purchase_en.')';
+            $data['exm_fee1']      = $request->exm_fee1 .' ('.$request->exm_fee1_en.')';
+            $data['exm_fee2']      = $request->exm_fee2 .' ('.$request->exm_fee2_en.')';
+            $data['exm_fee3']      = $request->exm_fee3 .' ('.$request->exm_fee3_en.')';
 
-            $data['member']        = $request->member;
-            $data['income']        = $request->income;
-            $data['student_image'] = $student_image;
+            $data['member']         = $request->member .' ('.$request->member_en.')';
+            $data['income']         = $request->income .' ('.$request->income_en.')';
+            $data['student_image']  = $student_image;
             $data['student_idcard'] = $student_idcard;
-            $data['parent_idcard'] = $parent_idcard;
-            $data['charac_cer']    = $charac_cer;
-            $data['marksheet']     = $marksheet;
-            $data['document']      = $document;
-            $data['status']        = 0;
+            $data['parent_idcard']  = $parent_idcard;
+            $data['charac_cer']     = $charac_cer;
+            $data['marksheet']      = $marksheet;
+            $data['document']       = $document;
+            $data['status']         = 0;
+
+            return $data;
 
             DB::table('users')->insert($data);
             DB::commit();

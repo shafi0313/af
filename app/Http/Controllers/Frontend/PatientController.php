@@ -14,7 +14,16 @@ class PatientController extends Controller
     public function store(Request $request, PatientStoreRequest $patient)
     {
         $data = $patient->validated();
-        // $data['user_id'] = user()->id;
+        $data['name'] = $patient->name .'('.$patient->name_en.')';
+        $data['f_name'] = $patient->f_name .'('.$patient->f_name_en.')';
+        $data['m_name'] = $patient->m_name .'('.$patient->m_name_en.')';
+        $data['phone'] = $patient->phone .'('.$patient->phone_en.')';
+        $data['e_phone'] = $patient->e_phone .'('.$patient->e_phone_en.')';
+        $data['post'] = $patient->post .'('.$patient->post_en.')';
+        $data['village'] = $patient->village .'('.$patient->village_en.')';
+        $data['finance'] = $patient->finance .'('.$patient->finance_en.')';
+        $data['hospital'] = $patient->hospital .'('.$patient->hospital_en.')';
+        $data['doctor'] = $patient->doctor .'('.$patient->doctor_en.')';
 
         if ($patient->hasFile('patient_img')) {
             $data['patient_img'] = imageStore($patient, 'patient_img', 'patient_img', 'patients/');
@@ -40,7 +49,7 @@ class PatientController extends Controller
         }
 
         try {
-            // Patient::create($data);
+            Patient::create($data);
             Alert::success('Success', 'Application Created Successfully');
             return redirect()->back();
         } catch (\Exception $e) {

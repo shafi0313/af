@@ -15,8 +15,6 @@
                             action="{{ route('admin.applicant.update', $applicant->id) }}"
                             enctype="multipart/form-data">
                             @csrf @method('PUT')
-                            <!--Form Portlet-->
-                            {{-- <input type="hidden" value="{{ $applicant->disctrict }}" id="applicantDisctrict"> --}}
                             <div class="form-portlet">
                                 <div class="row clearfix">
                                     <div class="form-group col-md-6">
@@ -29,7 +27,7 @@
                                             <div class="alert alert-danger">{{ $errors->first('student_name') }}</div>
                                         @endif
                                     </div>
-
+                                    
                                     <div class="form-group col-md-6">
                                         <div class="field-label">পিতার নামঃ <span class="required">*</span></div>
                                         <input type="text" required="" placeholder="Father's name"
@@ -344,32 +342,11 @@
                                         </div>
                                         <input type="file" name="document" class="form-control">
                                     </div>
-
-                                    <div class="form-group col-lg-12 col-md-12">
-                                        <p class="text-danger">সতর্কীকরণঃ</p>
-                                        <p class="text-danger"><b style="color: red; font-size:16px;"> ০১. আবেদন পত্র
-                                                দাখিল করার
-                                                পূর্বে অবশ্যই প্রদত্ত তথ্যের সঠিকতা যাচাই করুন অন্যথায় আবেদন পত্রটি
-                                                বাতিল হিসেবে
-                                                গন্য করা হবে। </b></p>
-                                        <p class="text-danger" style="color: red;"> ০২.যদি কোন ছাত্র/ছাত্রী যে কোন
-                                            কারনে উল্লেখিত
-                                            শিক্ষা প্রতিষ্ঠান হতে প্রস্থান গ্রহন করেন, অবশ্যই শিক্ষা প্রতিষ্ঠান প্রধান
-                                            এবং আবেদনকারী
-                                            দাতা প্রতিষ্ঠান কে অবহিত করতে বাধ্য থাকিবে। </p>
-                                        <p class="text-danger" style="color: red;"> ০৩.প্রতিষ্ঠানের প্রধান অবশ্যই বেতন
-                                            ও
-                                            আনুসাঙ্গিক খরচ এর সত্যতা যাচাই করে স্বাক্ষর করবেন। </p>
-                                        <p class="text-danger" style="color: red;"> ০৪.সকল প্রকার তথ্যাদি ও সংযুক্তি
-                                            প্রদান না
-                                            করলে ফরম গ্রহনযোগ্য হবে না।</p>
-                                        <hr>
+                                    <div class="col-md-12 text-center">
+                                        <button class="btn btn-primary mt_30 mb_30" type="submit">Update</button>
                                     </div>
-                                    <div class="text-center"><button class="btn btn-primary mt_30 mb_30"
-                                            type="submit">Update</button></div>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>

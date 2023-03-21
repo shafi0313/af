@@ -1,0 +1,23 @@
+.inner-header {
+    padding-top: 26px;
+    padding-bottom: 20px;
+}
+
+.donation-form-outer .form-group {
+    margin-bottom: 5px;
+}
+
+.donation-form-outer .field-label {
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 1px;
+}
+
+.donation-form-outer input[type="text"], .donation-form-outer input[type="email"], .donation-form-outer input[type="tel"], .donation-form-outer input[type="number"], .donation-form-outer input[type="url"], .donation-form-outer input[type="password"], .donation-form-outer select, .donation-form-outer textarea {
+    
+    line-height: 28px;
+    padding: 8px 8px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    height: 30px;
+}

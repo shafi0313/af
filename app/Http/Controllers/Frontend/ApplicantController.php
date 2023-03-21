@@ -15,9 +15,33 @@ class ApplicantController extends Controller
 {
     public function store(ApplicantStoreRequest $request)
     {
-        $data = $request->validated();
+        // $data = $request->validated();
         // $data['user_id'] = user()->id;
-
+        $data = [
+            'student_name'  => $request->student_name .'('.$request->student_name_en.')',
+            'father_name'   => $request->father_name .'('.$request->father_name_en.')',
+            'mother_name'   => $request->mother_name .'('.$request->mother_name_en.')',
+            'gram'          => $request->student_name .'('.$request->student_name_en.')',
+            'disctrict'     => $request->disctrict,
+            'thana'         => $request->thana,
+            'post_office'   => $request->post_office .'('.$request->post_office_en.')',
+            'finance'       => $request->finance .'('.$request->finance_en.')',
+            'school'        => $request->school .'('.$request->school_en.')',
+            'phone'         => $request->phone .'('.$request->phone_en.')',
+            'phone2'        => $request->phone2 .'('.$request->phone2_en.')',
+            'email'         => $request->email,
+            'class'         => $request->class .'('.$request->class_en.')',
+            'expense'       => $request->expense,
+            'fee'           => $request->fee,
+            'book_purchase' => $request->book_purchase,
+            'board_reg_fee' => $request->board_reg_fee,
+            'exm_fee1'      => $request->exm_fee1,
+            'exm_fee2'      => $request->exm_fee2,
+            'exm_fee3'      => $request->exm_fee3,
+            'member'        => $request->member,
+            'income'        => $request->income,
+        ];        
+        
         if($request->hasFile('student_image')){
             $data['student_image'] = imageStore($request, 'student_image','student_image', 'documents/');
         }
@@ -42,6 +66,7 @@ class ApplicantController extends Controller
             Alert::success('Success', 'Application Created Successfully');
             return redirect()->back();
         } catch (\Exception $e) {
+            return $e->getMessage();
             Alert::error('Error', 'Something went wrong');
             return redirect()->back();
         }

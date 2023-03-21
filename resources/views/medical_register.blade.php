@@ -35,20 +35,29 @@
                         <div class="row clearfix">
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                 <div class="field-label">রোগীর নামঃ <span class="required">*</span></div>
-                                <input type="text" required="" placeholder="রোগীর নামঃ" value="{{ old('name') }}"
-                                    name="name">
+                                <input type="text" required="" placeholder="রোগীর নামঃ" value="{{ old('name') }}" name="name">
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                <div class="field-label">Patient's Name <span class="required">*</span></div>
+                                <input type="text" required="" placeholder="Patient's Name" value="{{ old('name') }}" name="name_en">
                             </div>
 
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                 <div class="field-label">পিতার নামঃ <span class="required">*</span></div>
-                                <input type="text" required="" placeholder="পিতার নাম" value="{{ old('f_name') }}"
-                                    name="f_name">
+                                <input type="text" required="" placeholder="পিতার নাম" value="{{ old('f_name') }}" name="f_name">
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                <div class="field-label">Father's Name <span class="required">*</span></div>
+                                <input type="text" required="" placeholder="Father's Name" value="{{ old('f_name') }}" name="f_name_en">
                             </div>
 
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                 <div class="field-label">মাতার নামঃ <span class="required">*</span></div>
-                                <input type="text" required="" placeholder="মাতার নাম" value="{{ old('m_name') }}"
-                                    name="m_name">
+                                <input type="text" required="" placeholder="মাতার নাম" value="{{ old('m_name') }}" name="m_name">
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                <div class="field-label">Mother's Name <span class="required">*</span></div>
+                                <input type="text" required="" placeholder="Mother's Name" value="{{ old('m_name') }}" name="m_name_en">
                             </div>
 
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
@@ -83,23 +92,36 @@
                                     <div class="alert alert-danger">{{ $errors->first('upazila_id') }}</div>
                                 @endif
                             </div>
-
+                        </div>
+                        <div class="row">
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                 <div class="field-label">গ্রামঃ <span class="required">*</span></div>
-                                <input type="text" required="" placeholder="গ্রাম" value="{{ old('village') }}"
-                                    name="village">
+                                <input type="text" required="" placeholder="গ্রাম" value="{{ old('village') }}" name="village">
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                <div class="field-label">Village <span class="required">*</span></div>
+                                <input type="text" required="" placeholder="Village" value="{{ old('village') }}" name="village_en">
                             </div>
 
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                 <div class="field-label">পোস্টঃ অফিসঃ <span class="required">*</span></div>
-                                <input type="text" required="" placeholder="পোস্ট অফিস" value="{{ old('post') }}"
-                                    name="post">
+                                <input type="text" required="" placeholder="পোস্ট অফিস" value="{{ old('post') }}" name="post">
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                <div class="field-label">Post Office <span class="required">*</span></div>
+                                <input type="text" required="" placeholder="Post Office" value="{{ old('post') }}" name="post_en">
                             </div>
 
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                 <div class="field-label">মোবাইল নাম্বারঃ <span class="required">*</span></div>
-                                <input type="text" required="" placeholder="Mobile number"
-                                    value="{{ old('phone') }}" name="phone">
+                                <input type="text" required="" placeholder="Mobile number" value="{{ old('phone') }}" name="phone">
+                                @if ($errors->has('phone'))
+                                    <div class="alert alert-danger">{{ $errors->first('phone') }}</div>
+                                @endif
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                <div class="field-label">Mobile Number <span class="required">*</span></div>
+                                <input type="text" required="" placeholder="Mobile Number" value="{{ old('phone') }}" name="phone_en">
                                 @if ($errors->has('phone'))
                                     <div class="alert alert-danger">{{ $errors->first('phone') }}</div>
                                 @endif
@@ -113,26 +135,48 @@
                                     <div class="alert alert-danger">{{ $errors->first('e_phone') }}</div>
                                 @endif
                             </div>
+                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                <div class="field-label">Emergency Contact Number <span class="required">*</span></div>
+                                <input type="text" required="" placeholder="Emergency Contact Number" value="{{ old('e_phone') }}" name="e_phone_en">
+                                @if ($errors->has('e_phone'))
+                                    <div class="alert alert-danger">{{ $errors->first('e_phone') }}</div>
+                                @endif
+                            </div>
 
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                 <div class="field-label">আর্থিক অবস্থার বর্ণনাঃ <span class="required">*</span></div>
-                                <input type="text" required="" placeholder="আর্থিক অবস্থার বর্ণনা"
-                                    value="{{ old('finance') }}" name="finance">
+                                <input type="text" required="" placeholder="আর্থিক অবস্থার বর্ণনা" value="{{ old('finance') }}" name="finance">
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                <div class="field-label">Description of financial position: <span class="required">*</span></div>
+                                <input type="text" required="" placeholder="Description of financial position" value="{{ old('finance') }}" name="finance_en">
                             </div>
 
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                 <div class="field-label">হাসপাতালের নামঃ <span class="required">*</span></div>
-                                <input type="text" required="" placeholder="হাসপাতালের নাম"
-                                    value="{{ old('hospital') }}" name="hospital">
+                                <input type="text" required="" placeholder="হাসপাতালের নাম" value="{{ old('hospital') }}" name="hospital">
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                <div class="field-label">Hospital Name: <span class="required">*</span></div>
+                                <input type="text" required="" placeholder="Hospital Name:" value="{{ old('hospital_en') }}" name="hospital_en">
                             </div>
 
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                 <div class="field-label">ডাক্তারের নামঃ <span class="required">*</span></div>
-                                <input type="text" required="" placeholder="ডাক্তারের নাম"
-                                    value="{{ old('doctor') }}" name="doctor">
+                                <input type="text" required="" placeholder="ডাক্তারের নাম" value="{{ old('doctor') }}" name="doctor">
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                <div class="field-label">Doctor's Name: <span class="required">*</span></div>
+                                <input type="text" required="" placeholder="Doctor's Name" value="{{ old('doctor_en') }}" name="doctor_en">
+                            </div>
+                            
+                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                                <div class="field-label">পরিবারের সর্বমোট মাসিক আয়ঃ <span class="required">*</span></div>
+                                <input type="number" required="" placeholder="পরিবারের সর্বমোট মাসিক আয়"
+                                    value="{{ old('total_income') }}" name="total_income">
                             </div>
                         </div>
-
+                        <hr>
                         <div class="row mx-auto">
                             <div class="col-md-12">
                                 <table class="table table-bordered">
@@ -140,7 +184,7 @@
                                         <tr>
                                             <th>ওষুধের নাম <span class="t_r">*</span></th>
                                             <th>মূল্য <span class="t_r">*</span></th>
-                                            <th style="width: 20px;text-align:center;font-size:25px">
+                                            <th style="width: 20px;text-align:center;font-size:18px">
                                                 <a href="javascript:;">
                                                     <i class="fas fa-mouse"></i>
                                                 </a>
@@ -148,11 +192,14 @@
                                         </tr>
                                     </thead>
                                     <tr>
-                                        <td><input type="text" id="medicine" data-type="product"
-                                                class="form-control" style="" placeholder="Medicine name" /></td>
-                                        <td><input type="text" id="price" data-type="price" class="form-control"
-                                                style="" placeholder="Price" /></td>
-                                        <td><button class="btn btn-success btn-sm add_btn" type="button">Add</button>
+                                        <td>
+                                            <input type="text" id="medicine" data-type="product" class="form-control" style="" placeholder="Medicine name" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="price" data-type="price" class="form-control" style="" placeholder="Price" />
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-success btn-sm add_btn" type="button">Add</button>
                                         </td>
                                     </tr>
                                 </table>
@@ -165,8 +212,7 @@
                                             <th width="10px">SN</th>
                                             <th>ঔষধের নাম:</th>
                                             <th>মূল্য:</th>
-                                            <th width="30px"><a href="#"><i class="fa-solid fa-eraser"></i></a>
-                                            </th>
+                                            <th width="30px"><a href="#"><i class="fa-solid fa-eraser"></i></a></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -241,13 +287,7 @@
                                 <div class="field-label">ঔষধের মূল্য ৮ঃ <span class="required">*</span></div>
                                 <input type="text" required="" placeholder="ঔষধের  মূল্য ৮" value="{{ old('name') }}"
                                     name="member">
-                            </div> --}}
-
-                            <div class="form-group col-lg-6 col-md-6 col-xs-12">
-                                <div class="field-label">পরিবারের সর্বমোট মাসিক আয়ঃ <span class="required">*</span></div>
-                                <input type="number" required="" placeholder="পরিবারের সর্বমোট মাসিক আয়"
-                                    value="{{ old('total_income') }}" name="total_income">
-                            </div>
+                            </div> --}}                            
 
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
                                 <div class="field-label">রোগীর ছবিঃ <span class="required">*</span></div>

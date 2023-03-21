@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{ asset('front_end') }}/css/style.css?{{ time() }}">
     <!-- responsive stylesheet -->
     <link rel="stylesheet" href="{{ asset('front_end') }}/css/responsive.css">
+    <link rel="stylesheet" href="{{ asset('front_end') }}/css/custom.css">
     <style>
         .header {
             padding: 0px;

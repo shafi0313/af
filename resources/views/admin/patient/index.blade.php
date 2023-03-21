@@ -36,7 +36,7 @@
                                     <th>Mother Name</th>
                                     <th>Village</th>
                                     <th>Status</th>
-                                    {{-- <th>Updated At</th> --}}
+                                    <th>Created At</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -86,6 +86,10 @@
                     {
                         data: 'status',
                         name: 'status'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
                     },
                     {
                         data: 'action',

@@ -25,8 +25,8 @@ class ApplicantController extends Controller
             return DataTables::of($applicants)
                 ->addIndexColumn()
                 ->addColumn('created_at', function ($row) {
-                    // return $row->created_at->diffForHumans();
-                    return $row->created_at;
+                    return $row->created_at->diffForHumans();
+                    // return $row->created_at;
                 })           
                 ->addColumn('status', function ($row) {
                     if ($row->status == 0) {

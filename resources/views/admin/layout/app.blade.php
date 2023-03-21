@@ -81,24 +81,6 @@
 
     <script src="{{ asset('custom/script.js') }}"></script>
     <script src="{{ asset('backend/js/plugins-init.js') }}"></script>
-    {{-- <script src="{{ asset('backend/js/jquery.magnific-popup.min.js') }}"></script> --}}
-
-    <script>
-        // $(document).ready(function() {
-        //     $('.image-link').magnificPopup({
-        //         type: 'image'
-        //     });
-        // });
-
-        // $('.test-popup-link').magnificPopup({
-        //   type: 'image'
-        //   // other options
-        // });
-        
-        // $('body').on('click', function() {
-        //     $('button').attr('disabled', 'false');
-        // })
-    </script>
 </body>
 
 </html>
