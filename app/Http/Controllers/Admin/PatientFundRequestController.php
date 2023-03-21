@@ -68,9 +68,11 @@ class PatientFundRequestController extends Controller
                 $html .= "<tr>
                         <input type='hidden'name='medicine_id[]' value='{$medicine->id }'>
                         <td>{$medicine->medicine }</td>
-                        <td>{$medicine->price}</td>
                         <td>
-                            <input type='text' class='form-control' name='requested_amt[]' value='0'>                            
+                            <input type='text' class='form-control medicine_price' value='{$medicine->price}' readonly>                            
+                         </td>
+                        <td>
+                            <input type='text' class='form-control requested_amt' name='requested_amt[]' value='0'>                            
                         </td>
                     </tr>";
             }

@@ -105,6 +105,11 @@
                                         </tr>
                                     </thead>
                                     <tbody id="medicine_tbody"></tbody>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td id="application_amt_total"></td>
+                                        <td id="recom_amt_total"></td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>
@@ -119,7 +124,7 @@
         </div>
     </div>
 
-    <script>        
+    <script>
         $(function() {
             $('#data_table').DataTable({
                 processing: true,
@@ -193,6 +198,26 @@
                     });
                 }
             });
+            $('#application_amt_total').text('');
+            $("#recom_amt_total").text('');
+
+            $('body').on('click', function(e) {
+                let medicine_price = $('.medicine_price').val()
+                let application_amt_total = 0;
+                if (medicine_price) {
+                    $(".medicine_price").each(function() {
+                        application_amt_total += +$(this).val();
+                    });
+                    $('#application_amt_total').text(parseFloat(application_amt_total).toFixed(2));
+                }
+                $(".requested_amt").keyup(function() {
+                    var sum = 0;
+                    $(".requested_amt").each(function() {
+                        sum += +$(this).val();
+                    });
+                    $("#recom_amt_total").text(parseFloat(sum).toFixed(2));
+                });
+            })
         })
 
         $("form").on('submit', function(e) {
