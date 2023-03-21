@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\PatientStoreRequest;
+use App\Http\Requests\PatientUpdateRequest;
 use App\Http\Requests\ApplicantUpdateRequest;
 
 class PatientController extends Controller
@@ -86,7 +87,7 @@ class PatientController extends Controller
         return abort(500);
     }
 
-    public function update(PatientStoreRequest $request, Patient $patient)
+    public function update(PatientUpdateRequest $request, Patient $patient)
     {
         $data = $request->validated();
         if ($request->hasFile('patient_img')) {
