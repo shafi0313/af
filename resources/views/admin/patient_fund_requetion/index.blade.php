@@ -16,7 +16,8 @@
             <div class="page-header row no-gutters py-4">
                 <div class="col-12 mb-0 d-flex justify-content-between">
                     <h3 class="page-title">Approved Fund Installment Requetion > Patient</h3>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">Request</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#createModal">Request</button>
                 </div>
             </div>
             <div class="row">
@@ -50,54 +51,56 @@
         </div>
     </main>
 
-  <!-- Modal -->
-  <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-title "  role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createModalLabel">Approved Fund Installment Requetion</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <!-- Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-title " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel">Approved Fund Installment Requetion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form onsubmit="ajaxStore(event, this, 'createModal')"
+                    action="{{ route('admin.patient-fund-requetion.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <label for="patient_id">Patient</label>
+                                <select name="patient_id" id="patient_id" class="form-control" required>
+                                    <option value="">Select</option>
+                                    @foreach ($patients as $patient)
+                                        <option value="{{ $patient->id }}">{{ $patient->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group col-12">
+                                <label for="amount">Amount</label>
+                                <input type="text" name="amount" class="form-control" required>
+                            </div>
+
+                            <div class="form-group col-12">
+                                <label for="comment">Comment</label>
+                                <textarea name="comment" id="" cols="30" rows="10" class="form-control" required></textarea>
+                            </div>
+
+                            <div class="form-group col-12">
+                                <label for="comment">Image</label>
+                                <input type="file" name="image" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <form onsubmit="ajaxStore(event, this, 'createModal')" action="{{ route('admin.patient-fund-requetion.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <div class="modal-body">
-                <div class="row">
-                    <div class="form-group col-12">
-                        <label for="patient_id">Patient</label>
-                        <select name="patient_id" id="patient_id" class="form-control" required>
-                            <option value="">Select</option>
-                            @foreach ($patients as $patient)
-                            <option value="{{ $patient->id }}">{{ $patient->name }}</option> 
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group col-12">
-                        <label for="amount">Amount</label>
-                        <input type="text" name="amount" class="form-control" required>
-                    </div>
-
-                    <div class="form-group col-12">
-                        <label for="comment">Comment</label>
-                        <textarea name="comment" id="" cols="30" rows="10" class="form-control" required></textarea>
-                    </div>
-
-                    <div class="form-group col-12">
-                        <label for="comment">Image</label>
-                        <input type="file" name="image" class="form-control" required>
-                    </div>
-                </div>            
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
-      </div>
     </div>
-  </div>
 
     <script>
         $(function() {
@@ -154,6 +157,15 @@
                     loadingIndicator: true
                 }
             });
+        });
+
+        $("form").on('submit', function(e) {
+            $(this).find('button[type="submit"]').attr('disabled', true);
+            $(this).find('input[type="submit"]').attr('disabled', true);
+        });
+        $("button[type='button']").on('click', function(e) {
+            $('button[type="submit"]').attr('disabled', false);
+            $('input[type="submit"]').attr('disabled', false);
         });
     </script>
 

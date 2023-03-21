@@ -143,6 +143,15 @@
             }
         })
     }
+
+    $("form").on('submit', function(e) {
+            $(this).find('button[type="submit"]').attr('disabled', true);
+            $(this).find('input[type="submit"]').attr('disabled', true);
+        });
+        $("button[type='button']").on('click', function(e) {
+            $('button[type="submit"]').attr('disabled', false);
+            $('input[type="submit"]').attr('disabled', false);
+        });
     </script>
 
 @endsection
