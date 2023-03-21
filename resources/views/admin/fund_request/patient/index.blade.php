@@ -66,7 +66,7 @@
         <div class="modal-dialog modal-lg modal-title " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Yearly Fund Request</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -100,8 +100,8 @@
                                     <thead>
                                         <tr>
                                             <th>Medicine Name</th>
-                                            <th>Application Amount</th>
-                                            <th>Recommendation Amount</th>
+                                            <th>Application Amount(Yearly)</th>
+                                            <th>Recommendation Amount(Yearly)</th>
                                         </tr>
                                     </thead>
                                     <tbody id="medicine_tbody"></tbody>
@@ -182,6 +182,7 @@
                 },
                 success: res => {
                     var tbody = $("#medicine_tbody");
+                    tbody.empty();
                     tbody.append(res.html);
                 },
                 error: err => {

@@ -183,7 +183,7 @@
                                     <thead>
                                         <tr>
                                             <th>ওষুধের নাম <span class="t_r">*</span></th>
-                                            <th>মূল্য <span class="t_r">*</span></th>
+                                            <th>মূল্য (প্রতি মাসে) <span class="t_r">*</span></th>
                                             <th style="width: 20px;text-align:center;font-size:18px">
                                                 <a href="javascript:;">
                                                     <i class="fas fa-mouse"></i>
@@ -376,6 +376,8 @@
                         return false;
                     }
 
+                    price = price*12;
+
                     var html = '<tr>';
                     html += '<tr class="trData"><td class="serial text-center"></td><td>' + medicine +
                         '</td><td>' + price + '</td><td align="center">';
@@ -407,7 +409,7 @@
                     var subtotal = 0;
                     $('.serial').each(function(key, element) {
                         $(element).html(i);
-                        var total = $(element).parents('tr').find('input[name="amt[]"]').val();
+                        var total = $(element).parents('tr').find('input[name="price[]"]').val();
                         subtotal += +parseFloat(total);
                         i++;
                     });

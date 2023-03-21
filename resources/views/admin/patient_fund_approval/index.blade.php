@@ -32,8 +32,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Patient Name</th>
-                                        <th>Requested Amount</th>
-                                        <th>Approved Amount</th>
+                                        <th>Requested Amount(Yearly)</th>
+                                        <th>Approved Amount(Yearly)</th>
                                         <th>Year</th>
                                         <th>Status</th>
                                         <th>Created at</th>
