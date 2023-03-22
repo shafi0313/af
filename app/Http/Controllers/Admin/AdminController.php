@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
@@ -206,6 +207,12 @@ class AdminController extends Controller
 
     public function approve_amnt_req(Request $request)
     {
+        $duplicateCheck = DB::table('order')->whereStudent_id($request->student_id)->where('year', $request->year)->get();
+        if ($duplicateCheck->count() > 0) {
+            Session::flash('msg', 'Already Requested');
+            Session::flash('class', 'alert-danger');
+            return redirect('admin/agent-wallet-withdraw');
+        }
         DB::table('order')->insert([
             'student_id' => $request->student_id,
             'req_amnt' => $request->grand_total,
@@ -230,7 +237,7 @@ class AdminController extends Controller
                 ]);
             }
         }
-        Session::flash('msg', 'Successfully requested');
+        Session::flash('msg', 'Register Success');
         Session::flash('class', 'alert-success');
         return redirect('admin/agent-wallet-withdraw');
     }

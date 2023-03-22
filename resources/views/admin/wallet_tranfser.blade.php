@@ -1,5 +1,4 @@
 @extends('admin.layout.app')
-
 @section('content')
 
 @include('admin.inc.sidebar')
@@ -55,7 +54,7 @@
 
 <div class="modal fade abc" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     style="padding-right: 17px; display: none;">
-    <div class="modal-dialog modal-dialog-centered "" role=" document">
+    <div class="modal-dialog modal-dialog-centered" role=" document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"> Yearly Fund Request </h5>
@@ -69,7 +68,7 @@
                 $users = DB::table('users')->orderby('id','desc')->get();
                 @endphp
                 <form method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" id="loadingId"
-                    action="{{  url('admin/approve_amnt_req')  }}" />
+                    action="{{  url('admin/approve_amnt_req')  }}" >
                 @csrf
                 <div style="padding:10px;">
                     <div class="row">

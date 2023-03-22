@@ -86,6 +86,11 @@ class PatientFundRequestController extends Controller
     {
         try {
             DB::beginTransaction();
+            $duplicateCheck = PatientFundRequest::where('patient_id', $request->patient_id)->where('year', $request->year)->get();
+            if(count($duplicateCheck) > 0){
+                Alert::error('Error', 'Patient Fund Request Already Created');
+                return back();
+            }
             $patient_fund_request = PatientFundRequest::create([
                 'patient_id' => $request->patient_id,
                 'year'       => $request->year,
@@ -105,9 +110,8 @@ class PatientFundRequestController extends Controller
             return back();
         } catch (\Exception $e) {
             DB::rollback();
-            return $e->getMessage();
-            // return response()->json(['message' => __('app.oops')], 500);
-            // return response()->json(['message'=>$e->getMessage()], 500);
+            Alert::success('Error', 'Patient Fund Request Created Failed');
+            return back();
         }
     }
 }

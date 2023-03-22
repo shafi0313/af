@@ -188,7 +188,7 @@
                             </div>
 
                             <div class="form-group col-lg-6 col-md-6 col-xs-12">
-                                <div class="field-label">ইমেইলঃ <span class="required">*</span></div>
+                                <div class="field-label">ইমেইলঃ </div>
                                 <input type="text" placeholder="Email" value="{{ old('email') }}" name="email">
                                 @if ($errors->has('email'))
                                     <div class="alert alert-danger">{{ $errors->first('email') }}</div>

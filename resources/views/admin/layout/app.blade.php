@@ -81,6 +81,7 @@
 
     <script src="{{ asset('custom/script.js') }}"></script>
     <script src="{{ asset('backend/js/plugins-init.js') }}"></script>
+    @include('sweetalert::alert')
 </body>
 
 </html>
