@@ -927,31 +927,50 @@ class AdminController extends Controller
 
     public function menu_manage_view()
     {
-        $item = DB::table('menu_manages')->leftjoin('users', 'users.id', '=', 'menu_manages.type')->orderby('menu_manages.id', 'desc')->get();
+        $item = DB::table('menu_manages')->select(['users.*','menu_manages.type','menu_manages.id as menu_manages_id','menu_manages.image','menu_manages.long_details','menu_manages.title','menu_manages.short_details'])->leftjoin('users', 'users.id', '=', 'menu_manages.type')->orderby('menu_manages.id', 'desc')->get();
         return DataTables::of($item)->addColumn('action', function ($item) {
             return '<div class="d-table mx-auto storage/product/btn-group-sm btn-group">            
             <button type="button" class="btn btn-white edit" id="' . $item->id . '"><i class="material-icons"></i></button><button type="button" id="' . $item->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
             ';
-        })->addColumn('image', function ($item) {
-            return '<img src="images/' . $item->image . '" class="img-thumbnail" width="30px">';
-        })
+            })->addColumn('image', function ($item) {
+                return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
+            })
             ->addColumn('status', function ($item) {
                 if ($item->short_details == 0) {
-                    return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">
-                         Pending
-                          </div>';
+                    return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block">Pending</div>';
                 } elseif ($item->short_details == 1) {
-                    return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">
-             Aprroved </div>';
+                    return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Approved</div>';
                 } elseif ($item->short_details == 2) {
-                    return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">
-             Canceled </div>';
+                    return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block">Canceled</div>';
                 }
             })
-            ->rawColumns(['image', 'status'])
+            ->addColumn('action', function ($item) {
+                $route = route('admin.menu_manage_view_delete', $item->menu_manages_id);
+                return '<a href="'.$route.'" class="btn btn-danger">
+                            <i class="material-icons"></i>
+                        </a>';
+            })
+            ->rawColumns(['image', 'status', 'action'])
             ->addIndexColumn()
             ->make(true);
     }
+    public function menu_manage_view_delete($id)
+    {
+        $data = DB::table('menu_manages')->where('id', $id)->first();
+        $path = public_path('images/' . $data->image);
+        if (file_exists($path)) {
+            unlink($path);
+        }
+        try {
+            DB::table('menu_manages')->where('id', $id)->delete();
+            Alert::success('Deleted Successfully');
+            return back();
+        } catch (\Exception $e) {
+            Alert::error('Error', 'Something went wrong');
+            return back();
+        }
+    }
+    
 
 
     public function menu_manage_view2()
@@ -962,7 +981,7 @@ class AdminController extends Controller
             <a type="button" class="btn btn-check edit" href="payment-approve-monhtly/' . $item->id . '" id="' . $item->id . '"><i class="material-icons">done</i></a><button type="button" id="' . $item->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
             ';
         })->addColumn('image', function ($item) {
-            return '<a href="images/' . $item->image . '"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
+            return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
         })
             ->addColumn('status', function ($item) {
                 if ($item->short_details == 0) {
