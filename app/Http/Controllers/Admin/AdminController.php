@@ -267,7 +267,7 @@ class AdminController extends Controller
     {
         $user_id  = Auth::user()->id;
 
-        $unit     =  DB::table('income_transaction_records')->where('user_id', $user_id)->where('purpose', 'agent_withdraw')->get();
+        $unit =  DB::table('income_transaction_records')->where('user_id', $user_id)->where('purpose', 'agent_withdraw')->get();
         return DataTables::of($unit)
             ->addIndexColumn()
             ->make(true);
@@ -993,7 +993,7 @@ class AdminController extends Controller
 
         if ($request->hasFile('ProductPic')) {
             $validator = Validator::make($request->all(), [
-                'ProductPic' => 'max:100000',
+                'ProductPic' => 'max:512',
             ]);
 
             if ($validator->fails()) {
