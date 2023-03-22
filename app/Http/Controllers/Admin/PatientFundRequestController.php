@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\PatientFundRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\ApprovedMedicineAmount;
 use App\Models\RequestedMedicine;
-use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
