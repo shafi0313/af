@@ -60,7 +60,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <!-- jQuery Modal -->
     {{-- <script src="{{ asset('vendor/modal/popModal.js') }}"></script> --}}
 
