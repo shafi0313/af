@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\admin\AdminController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
-use App\Http\Controllers\Admin\ApplicantController;
 
 /*|--------------------------------------------------------------------------
 | Web Routes
@@ -92,7 +90,7 @@ Route::get('/menu-manage-edit', 'Admin\AdminController@menu_manage_edit');
 Route::get('/menu-manage-delete', 'Admin\AdminController@menu_manage_delete');
 Route::get('/payment-approve-monhtly/{id}', 'Admin\AdminController@payment_approve_monthly');
 
-Route::get('menu_manage_view_delete/{id}',[AdminController::class,'menu_manage_view_delete'])->name('admin.menu_manage_view_delete');
+Route::get('menu_manage_view_delete/{id}','Admin\AdminController@menu_manage_view_delete')->name('admin.menu_manage_view_delete');
 
 //*************website dyanamic mamanage end ****************//
 Route::get('/admin/profile', 'Admin\AdminController@profile');
