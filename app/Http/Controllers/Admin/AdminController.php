@@ -946,9 +946,12 @@ class AdminController extends Controller
             })
             ->addColumn('action', function ($item) {
                 $route = route('admin.menu_manage_view_delete', $item->menu_manages_id);
-                return '<a href="'.$route.'" class="btn btn-danger">
-                            <i class="material-icons"></i>
-                        </a>';
+                if($item->short_details == 0){
+                    return '<a href="'.$route.'" class="btn btn-danger">
+                        <i class="material-icons"></i>
+                    </a>';
+                }
+                
             })
             ->rawColumns(['image', 'status', 'action'])
             ->addIndexColumn()
@@ -958,7 +961,7 @@ class AdminController extends Controller
     {
         $data = DB::table('menu_manages')->where('id', $id)->first();
         $path = public_path('images/' . $data->image);
-        if (file_exists($path)) {
+        if(@GetImageSize($path)){
             unlink($path);
         }
         try {
