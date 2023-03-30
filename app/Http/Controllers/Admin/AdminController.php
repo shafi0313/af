@@ -946,10 +946,15 @@ class AdminController extends Controller
             })
             ->addColumn('action', function ($item) {
                 $route = route('admin.menu_manage_view_delete', $item->menu_manages_id);
+                $routeEdit = route('admin.student-fund-requetion.edit', $item->menu_manages_id);
                 if($item->short_details == 0){
-                    return '<a href="'.$route.'" class="btn btn-danger">
-                        <i class="material-icons"></i>
-                    </a>';
+                    return '<a href="'.$routeEdit.'" class="btn btn-warning">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                                <a href="'.$route.'" class="btn btn-danger">
+                                <i class="material-icons"></i>
+                            </a>
+                            ';
                 }
                 
             })

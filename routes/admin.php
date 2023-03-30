@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ApplicantController;
 use App\Http\Controllers\Admin\FundRequetionController;
 use App\Http\Controllers\Admin\PatientFundRequestController;
 use App\Http\Controllers\Admin\PatientFundApprovalController;
+use App\Http\Controllers\Admin\StudentFundRequetionController;
 use App\Http\Controllers\Admin\PatientPaymentApprovalController;
 
 Route::resource('applicant', ApplicantController::class);
@@ -27,5 +28,6 @@ Route::get('/getMedicines', [PatientFundRequestController::class, 'getMedicines'
 Route::resource('patient-fund-approval', PatientFundApprovalController::class, ['parameters' => ['patient-fund-approval' => 'patient_fund_approval']]);
 
 Route::resource('/patient-fund-requetion', FundRequetionController::class, ['parameters' => ['patient-fund-requetion' => 'patient_fund_requetion']]);
+Route::resource('/student-fund-requetion', StudentFundRequetionController::class, ['parameters' => ['student-fund-requetion' => 'student_fund_requetion']]);
 Route::resource('/patient-payment-approval', PatientPaymentApprovalController::class, ['parameters' => ['patient-payment-approval' => 'patient_payment_approval']]);
 Route::post('/patient-payment-approval/accept', [PatientPaymentApprovalController::class, 'accept'])->name('patient_payment_approval.accept');
