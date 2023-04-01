@@ -290,9 +290,9 @@ class AdminController extends Controller
 
     public function payment_approve_monthly($id)
     {
-        DB::table('menu_manages')->where('type', $id)->update(['short_details' => 1]);
-        $payment = DB::table('menu_manages')->where('type', $id)->first();
+        DB::table('menu_manages')->where('id', $id)->update(['short_details' => 1]);
 
+        $payment = DB::table('menu_manages')->where('id', $id)->first();
         $student = DB::table('order')->where('student_id', $payment->type)->first();
 
         $amount  = $student->accmulative_amnt + $payment->title;
@@ -983,10 +983,10 @@ class AdminController extends Controller
 
     public function menu_manage_view2()
     {
-        $item = DB::table('menu_manages')->leftjoin('users', 'users.id', '=', 'menu_manages.type')->orderby('menu_manages.id', 'desc')->get();
+        $item = DB::table('menu_manages')->leftjoin('users', 'users.id', '=', 'menu_manages.type')->select('users.*','menu_manages.id as menu_id','menu_manages.title','menu_manages.long_details','menu_manages.image','menu_manages.type','menu_manages.short_details')->orderby('menu_manages.id', 'desc')->get();
         return DataTables::of($item)->addColumn('action', function ($item) {
             return '<div class="d-table mx-auto storage/product/btn-group-sm btn-group">            
-            <a type="button" class="btn btn-check edit" href="payment-approve-monhtly/' . $item->id . '" id="' . $item->id . '"><i class="material-icons">done</i></a><button type="button" id="' . $item->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
+            <a type="button" class="btn btn-check edit" href="payment-approve-monhtly/' . $item->menu_id . '" id="' . $item->menu_id . '"><i class="material-icons">done</i></a><button type="button" id="' . $item->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
             ';
         })->addColumn('image', function ($item) {
             return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
