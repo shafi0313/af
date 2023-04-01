@@ -83,6 +83,18 @@
                     </div>
                 </li>
 
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="true">
+                        <i class="material-icons"></i>
+                        <span>Add/Edit Expense Class </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
+                        <a class="dropdown-item " href="{{ route('admin.applicant.index') }}">Students</a>
+                        <a class="dropdown-item " href="{{ route('admin.patient.index') }}">Patients</a>
+                    </div>
+                </li>
+
                 {{-- <li class="nav-item {{ Request::is('admin/payment-approve') ? 'active' : '' }}">
                     <a class="nav-link {{ Request::is('admin/payment-approve') ? 'active' : '' }} "
                         href="{{ url('admin/payment-approve') }}">
@@ -121,6 +133,19 @@
                         <a class="dropdown-item " href="{{ route('admin.menu-manage2') }}">Students</a>
                         <a class="dropdown-item " href="{{ route('admin.patient-payment-approval.index') }}">Patients</a>
                     </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.logout') }}">
+                        <i class="material-icons">repeat</i>
+                        <span>Prepare Accounts</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.logout') }}">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Accounts Report</span>
+                    </a>
                 </li>
 
                 <li class="nav-item">
@@ -179,7 +204,7 @@
                         <a class="dropdown-item " href="{{ route('admin.patient-fund-requetion.index') }}">Patients</a>
                     </div>
                 </li>
-
+                
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.logout') }}">
