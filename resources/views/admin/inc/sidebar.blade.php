@@ -148,6 +148,17 @@
                     </a>
                 </li>
 
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="true">
+                        <i class="material-icons"></i>
+                        <span>Accounts</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
+                        <a class="dropdown-item " href="{{ route('admin.patient-fund-requetion.index') }}">Report</a>
+                    </div>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('menu-manage') ? 'active' : '' }}"
                         href="{{ route('admin.logout') }}">
@@ -205,6 +216,17 @@
                     </div>
                 </li>
                 
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="true">
+                        <i class="material-icons"></i>
+                        <span>Accounts</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
+                        <a class="dropdown-item " href="{{ route('admin.cash_book.entry') }}">Entry</a>
+                        <a class="dropdown-item " href="{{ route('admin.patient-fund-requetion.index') }}">Report</a>
+                    </div>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.logout') }}">
