@@ -15,15 +15,13 @@ class CreateCashBooksTable extends Migration
     {
         Schema::create('cash_books', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('period_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('profession_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('cash_office_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->comment('student|patient')->index();
+            $table->foreignId('cash_book_office_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('tran_id', 64)->index();
             $table->date('tran_date');
             $table->string('source');
-            $table->string('chart_id');
-            $table->string('gst_code');
+            // $table->string('chart_id');
+            // $table->string('gst_code');
             $table->tinyInteger('ac_type')->comment('1=Debit,2=Credit');
             $table->tinyInteger('amt_type')->comment('1=Debit,2=Credit');
             $table->double('amount_debit', 8, 2)->nullable();

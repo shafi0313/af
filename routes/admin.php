@@ -35,6 +35,7 @@ Route::post('/patient-payment-approval/accept', [PatientPaymentApprovalControlle
 
 Route::controller(CashBookController::class)->prefix('cash-book')->name('cash_book.')->group(function(){
     Route::get('/office', 'office')->name('office');
-    Route::get('/entry', 'entry')->name('entry');
+    Route::post('/office/store', 'officeStore')->name('officeStore');
+    Route::get('/entry/{office}', 'entry')->name('entry');
     Route::post('/entry', 'entry')->name('store');
 });
