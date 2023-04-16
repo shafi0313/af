@@ -37,5 +37,5 @@ Route::controller(CashBookController::class)->prefix('cash-book')->name('cash_bo
     Route::get('/office', 'office')->name('office');
     Route::post('/office/store', 'officeStore')->name('officeStore');
     Route::get('/entry/{office}', 'entry')->name('entry');
-    Route::post('/entry', 'entry')->name('store');
+    Route::post('/entry', 'store')->name('store');
 });
