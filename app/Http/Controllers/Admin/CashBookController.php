@@ -37,12 +37,10 @@ class CashBookController extends Controller
         try {
             CashBookOffice::create($data);
             Alert::success('Success', 'Office created successfully.');
-            return back();
         } catch (\Exception $e) {
-            // return $e->getMessage();
-            Alert::error('Error', 'Something went wrong. Please try again later.');
-            return back();
+            Alert::error('Error', 'Something went wrong. Please try again later.');            
         }
+        return back();
     }
 
     public function entry($office)
@@ -69,28 +67,24 @@ class CashBookController extends Controller
             'payment_by'          => 'required|string|max:255',
         ]);
 
-        $user_id = preg_replace('/[^0-9]/', '', $request->user);
-        $user_identify = preg_replace('/[^a-z A-Z]/', '', $request->user);
-        // return$request->user;
-        if ($user_identify == 's') {
+        $user_id = preg_replace('/[^0-9]/', '', $request->user); // Take user id
+        $user_identify = preg_replace('/[^a-z A-Z]/', '', $request->user); // Take user identify
+        if ($user_identify == 's') { // s = student
             $data['user_type'] = 1;
-        } else if ($user_identify == 'p') {
+        } else if ($user_identify == 'p') { // p = patient
             $data['user_type'] = 2;
         } else {
             $data['user_type'] = 3;
         }
         $data['user_id'] = $user_id;
-
-        // return $data;
         try {
             CashBook::create($data);
             toast('Cash book entry created successfully.', 'success');
-            return back();
         } catch (\Exception $e) {
             return $e->getMessage();
-            Alert::error('Error', 'Something went wrong. Please try again later.');
-            return back();
+            Alert::error('Error', 'Something went wrong. Please try again later.');            
         }
+        return back();
     }
 
     public function post(Request $request)
@@ -98,7 +92,6 @@ class CashBookController extends Controller
         DB::beginTransaction();
         $tran_id = transaction_id('CBO');
         $cashBooks = CashBook::whereIs_post(0)->get();
-        // return$cashBooks->first()->date;
         foreach ($cashBooks->groupBy(['user_id', 'user_type']) as $cashBookGroup) {
             foreach ($cashBookGroup as $cashBook) {
                 $ledger['user_id']   = $cashBook->first()->user_id;
@@ -113,7 +106,7 @@ class CashBookController extends Controller
             }
         }
         CashBook::whereIs_post(0)->update(['is_post' => 1, 'tran_id' => $tran_id]);
-
+        // For balance 
         $ledger['user_id']   = 0;
         $ledger['user_type'] = 0;
         $ledger['date']      = $cashBooks->first()->date;
@@ -131,12 +124,11 @@ class CashBookController extends Controller
         try{
             DB::commit();
             Alert::success('Success', 'Cash book entry posted successfully.');
-            return back();
         }catch(\Exception $e){
             DB::rollback();
-            Alert::error('Error', 'Something went wrong. Please try again later.');
-            return back();
+            Alert::error('Error', 'Something went wrong. Please try again later.');            
         }
+        return back();
     }
 
     public function destroy($id)
@@ -144,10 +136,9 @@ class CashBookController extends Controller
         try {
             CashBook::find($id)->delete();
             toast('Cash book entry deleted successfully.', 'success');
-            return back();
         } catch (\Exception $e) {
-            toast('Cash book entry delete failed.', 'error');
-            return back();
+            toast('Cash book entry delete failed.', 'error');            
         }
+        return back();
     }
 }
