@@ -38,4 +38,6 @@ Route::controller(CashBookController::class)->prefix('cash-book')->name('cash_bo
     Route::post('/office/store', 'officeStore')->name('officeStore');
     Route::get('/entry/{office}', 'entry')->name('entry');
     Route::post('/entry', 'store')->name('store');
+    Route::post('/post', 'post')->name('post');
+    Route::get('/destroy/{id}', 'destroy')->name('destroy');
 });

@@ -77,12 +77,13 @@
                                                             onkeydown="return (event.keyCode!=13);" class="form-control">
                                                     </td>
                                                     <td>
-                                                        <input type="date" name="date" class="form-control"
+                                                        <input type="date" name="date" class="form-control" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
                                                             onkeydown="return (event.keyCode!=13);">
                                                     </td>
                                                     <td>
                                                         <input type="number" class="form-control" id="payment"
-                                                            onkeydown="return (event.keyCode!=13);" name="debit" min="0" step="any">
+                                                            onkeydown="return (event.keyCode!=13);" name="debit"
+                                                            min="0" step="any">
                                                     </td>
                                                     <td>
                                                         <input type="number" class="form-control" id="received"
@@ -106,17 +107,24 @@
                                                         <td>{{ $cashBook->debit }}</td>
                                                         <td>{{ $cashBook->credit }}</td>
                                                         <td>{{ $cashBook->payment_by }}</td>
-                                                        <td></td>
+                                                        <td class="text-center">
+                                                            <a href="{{ route('admin.cash_book.destroy', $cashBook->id) }}"
+                                                                class="text-danger">
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </form>
                                     </table>
                                 </div>
+                                
                                 <div align="right" style="padding-top:20px;">
                                     <span>
                                         <button type="button" class="btn btn-primary btn-sm" data-backdrop="static"
-                                            data-keyboard="false" data-toggle="modal" data-target="#myModal">NOTE of Cash Details.
+                                            data-keyboard="false" data-toggle="modal" data-target="#myModal">NOTE of Cash
+                                            Details.
                                         </button>
                                     </span>
 
@@ -124,9 +132,21 @@
                                         click save </span>
                                     <span style="color:green; font-size:18px; padding-right:100px;">
                                         Closing Balance: $
-                                        {{ number_format($closingBl + $cashBooks->sum('debit') - $cashBooks->sum('credit'), 2) }} </span>
+                                        {{ number_format($closingBl + $cashBooks->sum('debit') - $cashBooks->sum('credit'), 2) }}
+                                    </span>
+                                    <form action="{{ route('admin.cash_book.post') }}" method="post">
+                                        @csrf
+                                        @foreach ($cashBooks as $cashBook)
+                                            {{-- <input type="hidden" name="user_id[]" value="{{ $cashBook->user_id }}">
+                                            <input type="hidden" name="user_type[]" value="{{ $cashBook->user_type }}">
+                                            <input type="hidden" name="debit[]" value="{{ $cashBook->debit }}">
+                                            <input type="hidden" name="credit[]" value="{{ $cashBook->credit }}"> --}}
+                                            
+                                        @endforeach
+                                        <input type="submit" value="Post" name="post" class="btn btn-primary">
+                                    </form>
                                     {{-- <input type="submit" value="Save" name="save" class="btn btn-primary"> --}}
-                                    <input type="submit" value="Post" name="post" class="btn btn-primary">
+                                    
                                 </div>
                                 {{-- <div class="col-md-12">
                                     <table class="table">
