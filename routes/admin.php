@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PatientController;
-use App\Http\Controllers\Admin\ApplicantController;
 use App\Http\Controllers\Admin\CashBookController;
+use App\Http\Controllers\Admin\ApplicantController;
 use App\Http\Controllers\Admin\FundRequetionController;
+use App\Http\Controllers\Admin\CashBookReportController;
 use App\Http\Controllers\Admin\PatientFundRequestController;
 use App\Http\Controllers\Admin\PatientFundApprovalController;
 use App\Http\Controllers\Admin\StudentFundRequetionController;
@@ -40,4 +41,8 @@ Route::controller(CashBookController::class)->prefix('cash-book')->name('cash_bo
     Route::post('/entry', 'store')->name('store');
     Route::post('/post', 'post')->name('post');
     Route::get('/destroy/{id}', 'destroy')->name('destroy');
+});
+Route::controller(CashBookReportController::class)->prefix('cash-book-report')->name('cash_book_report.')->group(function(){
+    Route::get('/select', 'select')->name('select');
+    Route::get('/report', 'report')->name('report');
 });

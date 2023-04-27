@@ -16,22 +16,24 @@
             <div class="page-header row no-gutters py-4">
                 <div class="col-md-12 d-flex justify-content-between">
                     <h3 class="page-title">Accounts > Entry</h3>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Centre/office</button>
+                    {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Centre/office</button> --}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row justify-content-center">
+                            <div class="row ">
                                 <div class="col-lg-12 text-center">
                                     <div style="font-size:22px; color:#ff5733;">
                                         <u>Cash Book: <span style="color:green;">{{ $office->name }}</span></u>
                                     </div>
                                 </div>
                                 <br>
-                                <div class="col-md-4" align="left">
-                                    <strong style="font-size:16px; color:red;">Date: {{ now()->format('d/m/Y') }}</strong>
+                                <div class="col-md-12" style="display:flex; justify-content: space-between;">
+                                    <div style="font-size:15px; color:red;">Date: {{ now()->format('d/m/Y') }}</div>
+                                    <div style="font-size:18px; color:red;">Opening Balance: $ {{ $openingBl }}</div>
+                                    <div style="visibility:hidden">Opening Balance: $ </div>
                                 </div>
                                 <div class="col-md-12">
                                     @if ($errors->any())
@@ -120,48 +122,30 @@
                                     </table>
                                 </div>
                                 
-                                <div align="right" style="padding-top:20px;">
-                                    <span>
+                                <div class="col-md-12 text-center" style="padding-top:20px;">
+                                    {{-- <span>
                                         <button type="button" class="btn btn-primary btn-sm" data-backdrop="static"
                                             data-keyboard="false" data-toggle="modal" data-target="#myModal">NOTE of Cash
                                             Details.
                                         </button>
-                                    </span>
+                                    </span> --}}
 
-                                    <span style="color:red;">&nbsp;&nbsp;Find your current closing balance please
-                                        click save </span>
+                                    {{-- <span style="color:red;">&nbsp;&nbsp;Find your current closing balance please
+                                        click save </span> --}}
                                     <span style="color:green; font-size:18px; padding-right:100px;">
                                         Closing Balance: $
-                                        {{ number_format($closingBl + $cashBooks->sum('debit') - $cashBooks->sum('credit'), 2) }}
+                                        {{ number_format($openingBl + $cashBooks->sum('credit') - $cashBooks->sum('debit'), 2) }}
                                     </span>
+                                                                      
+                                </div>
+                                <div class="col-md-12 text-right">
                                     <form action="{{ route('admin.cash_book.post') }}" method="post">
                                         @csrf
-                                        @foreach ($cashBooks as $cashBook)
-                                            {{-- <input type="hidden" name="user_id[]" value="{{ $cashBook->user_id }}">
-                                            <input type="hidden" name="user_type[]" value="{{ $cashBook->user_type }}">
-                                            <input type="hidden" name="debit[]" value="{{ $cashBook->debit }}">
-                                            <input type="hidden" name="credit[]" value="{{ $cashBook->credit }}"> --}}
-                                            
+                                        @foreach ($cashBooks as $cashBook)                                            
                                         @endforeach
-                                        <input type="submit" value="Post" name="post" class="btn btn-primary">
-                                    </form>
-                                    {{-- <input type="submit" value="Save" name="save" class="btn btn-primary"> --}}
-                                    
+                                        <input type="submit" value="Post" name="post" class="btn btn-warning" style="width:150px">
+                                    </form>  
                                 </div>
-                                {{-- <div class="col-md-12">
-                                    <table class="table">
-                                        <tr>
-                                            <th>Student & Patient</th>
-                                            <th>Narration and Note</th>
-                                            <th>P/R Date</th>
-                                            <th>Payment</th>
-                                            <th>Received</th>
-                                            <th>Payment by</th>
-                                            <th>Action</th>
-                                        </tr>
-
-                                    </table>
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -184,7 +168,4 @@
             }
         });
     </script>
-    {{-- @push('script') --}}
-
-    {{-- @endpush --}}
 @endsection

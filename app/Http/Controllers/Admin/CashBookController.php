@@ -50,8 +50,9 @@ class CashBookController extends Controller
         $data['patients']   = Patient::query()->pluck('name', 'id')->toArray();
         $data['office']     = CashBookOffice::find($office);
         $data['cashBooks']  = CashBook::with(['student', 'patient'])->whereIs_post(0)->get();
-        $cashBook           = GeneralLedger::whereSource('CBO')->select('debit', 'credit')->get();
-        $data['closingBl']  = $cashBook->sum('debit') - $cashBook->sum('credit');
+        // $cashBook           = GeneralLedger::whereSource('CBO')->select('debit', 'credit')->get();
+        $cashBook           = CashBook::select('debit', 'credit')->whereIs_post(1)->get();
+        $data['openingBl']  = $cashBook->sum('credit') - $cashBook->sum('debit'); //received - payment
         return view('admin.cash_book.entry', $data);
     }
 
