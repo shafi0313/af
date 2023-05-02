@@ -135,19 +135,6 @@
                     </div>
                 </li>
 
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.logout') }}">
-                        <i class="material-icons">repeat</i>
-                        <span>Prepare Accounts</span>
-                    </a>
-                </li> --}}
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.logout') }}">
-                        <i class="fa-solid fa-book-open"></i>
-                        <span>Accounts Report</span>
-                    </a>
-                </li> --}}
-
                 <li class="nav-item dropdown ">
                     <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="true">
