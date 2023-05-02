@@ -141,12 +141,12 @@
                         <span>Prepare Accounts</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.logout') }}">
                         <i class="fa-solid fa-book-open"></i>
                         <span>Accounts Report</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item dropdown ">
                     <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button"
@@ -155,6 +155,7 @@
                         <span>Accounts</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
+                        <a class="dropdown-item " href="{{ route('admin.cash_book.office') }}">Entry</a>
                         <a class="dropdown-item " href="{{ route('admin.patient-fund-requetion.index') }}">Report</a>
                     </div>
                 </li>
