@@ -135,12 +135,12 @@
                     </div>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.logout') }}">
                         <i class="material-icons">repeat</i>
                         <span>Prepare Accounts</span>
                     </a>
-                </li>
+                </li> --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.logout') }}">
                         <i class="fa-solid fa-book-open"></i>
