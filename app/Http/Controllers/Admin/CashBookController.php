@@ -105,12 +105,11 @@ class CashBookController extends Controller
 
                 GeneralLedger::create($ledger);
             }
-        }
-        CashBook::whereIs_post(0)->update(['is_post' => 1, 'tran_id' => $tran_id]);
+        }        
         // For balance 
         $ledger['user_id']   = 0;
         $ledger['user_type'] = 0;
-        $ledger['date']      = $cashBooks->first()->date;
+        $ledger['date']      = CashBook::whereIs_post(0)->orderBy('date','desc')->first()->date;
         $ledger['source']    = 'CBO';
         $ledger['tran_id']   = $tran_id;
         $ledger['narration'] = 'Balance';
@@ -121,8 +120,10 @@ class CashBookController extends Controller
             $ledger['debit']  = $cashBooks->sum('credit') - $cashBooks->sum('debit');
             $ledger['credit'] = 0;
         }
-        GeneralLedger::create($ledger);
+        
         try{
+            GeneralLedger::create($ledger);
+            CashBook::whereIs_post(0)->update(['is_post' => 1, 'tran_id' => $tran_id]);
             DB::commit();
             Alert::success('Success', 'Cash book entry posted successfully.');
         }catch(\Exception $e){
