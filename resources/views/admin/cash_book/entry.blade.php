@@ -94,7 +94,7 @@
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control"
-                                                            onkeydown="return (event.keyCode!=13);" name="payment_by">
+                                                            onkeydown="return (event.keyCode!=13);" name="payment_by" id="payment_by">
                                                     </td>
                                                     <td>
                                                         <button type="submit" class="btn btn-primary">Add</button>
@@ -162,7 +162,9 @@
             if (user == 0) {
                 $('#payment').attr('disabled', 'disabled');
                 $('#received').removeAttr('disabled');
+                $('#payment_by').removeAttr('required');
             } else {
+                $('#payment_by').attr('required', 'required');
                 $('#received').attr('disabled', 'disabled');
                 $('#payment').removeAttr('disabled');
             }

@@ -65,7 +65,7 @@ class CashBookController extends Controller
             'narration'           => 'required|string|max:255',
             'debit'               => 'nullable|numeric',
             'credit'              => 'nullable|numeric',
-            'payment_by'          => 'required|string|max:255',
+            'payment_by'          => 'nullable|string|max:255',
         ]);
 
         $user_id = preg_replace('/[^0-9]/', '', $request->user); // Take user id

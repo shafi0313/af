@@ -15,19 +15,18 @@
             <!-- Page Header -->
             <div class="page-header row no-gutters py-4">
                 <div class="col-md-12 d-flex justify-content-between">
-                    <h3 class="page-title">Accounts > Entry</h3>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Centre/office</button>
+                    <h3 class="page-title">Accounts > Cash Book Report</h3>
+                    {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Centre/office</button> --}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-heading">
-                            <h3>Cash Book Report</h3>
-                        </div>
+                        {{-- <div class="card-heading">
+                            <h3></h3>
+                        </div> --}}
                         <div class="card-body">
-                            <form action="{{ route('cashbook.report', [$client->id, $profession->id]) }}" method="get"
-                                autocomplete="off">
+                            <form action="" method="get" autocomplete="off">
                                 <div class="row justify-content-center pt-3">
                                     <div class="col form-group">
                                         <select class="form-control" name='office_id'>
@@ -63,36 +62,6 @@
         </div>
     </main>
 
-    {{-- Add New Office Modal --}}
-    <div class="modal fade add_new_office_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form method="post" action="{{ route('admin.cash_book.officeStore') }}" autocomplete="off">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Add New Cash Centre/office</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="name">Office Name:* </label>
-                            <input type="text" class="form-control" name="name" required placeholder="Office Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Office Address:*</label>
-                            <textarea class="form-control" rows="4" name="address" required></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     {{-- @push('script') --}}
     
     {{-- @endpush --}}
