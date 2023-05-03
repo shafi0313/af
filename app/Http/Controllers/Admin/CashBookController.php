@@ -72,7 +72,7 @@ class CashBookController extends Controller
         $user_identify = preg_replace('/[^a-z A-Z]/', '', $request->user); // Take user identify
         if ($user_identify == 's') { // s = student
             $data['user_type'] = 1;
-        } else if ($user_identify == 'p') { // p = patient
+        } else if ($user_identify == 'p') {// p = patient
             $data['user_type'] = 2;
         } else {
             $data['user_type'] = 3;
