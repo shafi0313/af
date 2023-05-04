@@ -26,9 +26,10 @@
                             <h3></h3>
                         </div> --}}
                         <div class="card-body">
-                            <form action="" method="get" autocomplete="off">
+                            <form action="{{ route('admin.cash_book_report.report') }}" method="get" autocomplete="off">
                                 <div class="row justify-content-center pt-3">
-                                    <div class="col form-group">
+                                    <div class="col-md-4 form-group">
+                                        <label for="">Select Office</label>
                                         <select class="form-control" name='office_id'>
                                             <option disabled selected value>Select Cash Centre/Office</option>
                                             @foreach ($offices as $office)
@@ -36,15 +37,13 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control datepicker" data-date-format="dd/mm/yyyy"
-                                            id="start_date" name="start_date" placeholder="Form date" required="">
-
+                                    <div class="col-md-4">
+                                        <label for="">Start Date</label>
+                                        <input type="date" class="form-control" name="start_date" required>
                                     </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control datepicker" data-date-format="dd/mm/yyyy"
-                                            id="end_date" name="end_date" placeholder="To date" required="">
-
+                                    <div class="col-md-4">
+                                        <label for="">End Date</label>
+                                        <input type="date" class="form-control" name="end_date" required>
                                     </div>
                                     <div class="col-md-12 text-center">
                                         <button type="submit" class="btn btn-primary"
