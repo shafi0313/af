@@ -60,13 +60,13 @@
                                             </tr>
                                         </thead>
                                     </table>
-                                    <table width="100%" border="1" cellspacing="5" cellpadding="5">
+                                    <table id="data_table" width="100%" border="1" cellspacing="5" cellpadding="5">
                                         <thead>
                                             <tr>
                                                 <th style="text-align:center;" width="10%">Date</th>
                                                 <th style="text-align:center;" width="20%">Student/Patient</th>
-                                                <th style="text-align:center;" width="20%">Narration</th>
-                                                <th style="text-align:center;" width="20%">Payment By</th>
+                                                <th style="text-align:center;" width="25%">Narration</th>
+                                                <th style="text-align:center;" width="15%">Payment By</th>
                                                 <th style="text-align:center;" width="11%">Payment</th>
                                                 <th style="text-align:center;" width="11%">Received</th>
                                             </tr>
@@ -91,7 +91,6 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
                                             <tr>
                                                 <td colspan="4" align="right" style="color:green; font-size:16px;">Total</td>
                                                 <td align="center" style="color:green; font-size:16px;">
@@ -101,7 +100,6 @@
                                                     {{ number_format($datum->sum('credit'), 2) }}
                                                 </td>
                                             </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -111,8 +109,12 @@
             </div>
         </div>
     </main>
-
-    {{-- @push('script') --}}
-    
-    {{-- @endpush --}}
+    <script>
+        $(function() {
+            $('#data_table').DataTable({
+                ordering: true,
+                "lengthMenu": [[100, -1], [100, "All"]],
+            });
+        });
+    </script>
 @endsection

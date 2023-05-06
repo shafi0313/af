@@ -31,6 +31,7 @@ class CashBookReportController extends Controller
         $data['datum']      = CashBook::whereCash_book_office_id($request->office_id)
                                     ->whereIs_post(1)
                                     ->whereBetween('date',[$request->start_date, $request->end_date])
+                                    ->orderBy('date')
                                     ->get();
         $data['openingBl'] = CashBook::whereCash_book_office_id($request->office_id)
                                     ->whereIs_post(1)
