@@ -66,6 +66,7 @@
                                                 <th style="text-align:center;" width="10%">Date</th>
                                                 <th style="text-align:center;" width="20%">Student/Patient</th>
                                                 <th style="text-align:center;" width="20%">Narration</th>
+                                                <th style="text-align:center;" width="20%">Payment By</th>
                                                 <th style="text-align:center;" width="11%">Payment</th>
                                                 <th style="text-align:center;" width="11%">Received</th>
                                             </tr>
@@ -74,8 +75,17 @@
                                             @foreach ($datum as $data)
                                                 <tr>
                                                     <td align="center">{{ bdDate($data->date) }}</td>
-                                                    <td align="center">{{ $data->user_type == 1 ? $data->student->student_name : $data->patient->name ?? 'Received from bank' }}</td>
+                                                    <td align="center">
+                                                        @if ($data->user_type == 1)
+                                                            {{ $data->student->student_name }}
+                                                        @elseif($data->user_type == 2)
+                                                            {{ $data->patient->name }}
+                                                        @else
+                                                             Received from bank
+                                                        @endif
+                                                    </td>
                                                     <td align="center">{{ $data->narration }}</td>
+                                                    <td align="center">{{ $data->payment_by }}</td>
                                                     <td align="center">{{ number_format($data->debit, 2) }}</td>
                                                     <td align="center">{{ number_format($data->credit, 2) }}</td>
                                                 </tr>
@@ -83,7 +93,7 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colspan="3" align="right" style="color:green; font-size:16px;">Total</td>
+                                                <td colspan="4" align="right" style="color:green; font-size:16px;">Total</td>
                                                 <td align="center" style="color:green; font-size:16px;">
                                                     {{ number_format($datum->sum('debit'), 2) }}
                                                 </td>
