@@ -143,7 +143,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
                         <a class="dropdown-item " href="{{ route('admin.cash_book.office') }}">Entry</a>
-                        <a class="dropdown-item " href="{{ route('admin.patient-fund-requetion.index') }}">Report</a>
+                        <a class="dropdown-item " href="{{ route('admin.cash_book_report.select') }}">Report</a>
                     </div>
                 </li>
 
