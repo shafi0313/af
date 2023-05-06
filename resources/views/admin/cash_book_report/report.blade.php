@@ -43,11 +43,6 @@
                                             <tr>
                                                 <th style="color:green; text-align:center; ">Opening Balance </th>
                                                 <th style="color:green; text-align:center;">
-                                                    {{-- @if ($office->id == $first_office->id)
-                                                        $ {{ number_format($open_balance, 2) }}
-                                                    @else
-                                                        $ {{ number_format($open_balance = $openbl->credit - $openbl->debit, 2) }}
-                                                    @endif --}}
                                                     $ {{ number_format($open_balance = $openingBl->sum('credit') - $openingBl->sum('debit'), 2) }}
                                                 </th>
                                                 <th style="color:#ff5733; text-align:center; ">Total Received</th>
@@ -79,7 +74,6 @@
                                             @foreach ($datum as $data)
                                                 <tr>
                                                     <td align="center">{{ bdDate($data->date) }}</td>
-                                                    {{-- <td align="center">{{ $data->where('code', $data->chart_id)->first()->name }}</td> --}}
                                                     <td align="center">{{ $data->user_type == 1 ? $data->student->student_name : $data->patient->name ?? 'Received from bank' }}</td>
                                                     <td align="center">{{ $data->narration }}</td>
                                                     <td align="center">{{ number_format($data->debit, 2) }}</td>
