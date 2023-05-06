@@ -60,7 +60,7 @@
                                             </tr>
                                         </thead>
                                     </table>
-                                    <table id="data_table" width="100%" border="1" cellspacing="5" cellpadding="5">
+                                    <table id="data_table" class="table" width="100%" border="1" cellspacing="5" cellpadding="5">
                                         <thead>
                                             <tr>
                                                 <th style="text-align:center;" width="10%">Date</th>
