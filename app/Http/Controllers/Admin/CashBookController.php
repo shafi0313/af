@@ -74,6 +74,8 @@ class CashBookController extends Controller
             $data['user_type'] = 1;
         } else if ($user_identify == 'p') {// p = patient
             $data['user_type'] = 2;
+        } else if($user_identify == 'e'){ // e = employee
+            $data['user_type'] = 4;
         } else {
             $data['user_type'] = 3;
         }

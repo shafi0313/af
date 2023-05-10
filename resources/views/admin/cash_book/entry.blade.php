@@ -71,6 +71,7 @@
                                                                 <option value="{{ $id }}p">{{ $name }}
                                                                 </option>
                                                             @endforeach
+                                                            <option value="0e">Office Expense</option>
                                                             <option value="0">Received From Bank</option>
                                                         </select>
                                                     </td>
