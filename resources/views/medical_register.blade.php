@@ -375,9 +375,6 @@
                         $('#price').focus();
                         return false;
                     }
-
-                    price = price*12;
-
                     var html = '<tr>';
                     html += '<tr class="trData"><td class="serial text-center"></td><td>' + medicine +
                         '</td><td>' + price + '</td><td align="center">';
