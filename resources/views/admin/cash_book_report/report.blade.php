@@ -27,7 +27,7 @@
                         </div> --}}
                         <div class="card-body">
                             <div class="row justify-content-center">
-                                <div class="col-lg-12 thumbnail" align="center">
+                                <div class="col-md-12 text-center">
                                     <div style="font-size:20px; color:#ff5733;">Cash Book: <span
                                             style="color:green;">{{ $office->name }}</span>
                                         <p style="font-size:16px; color:black; margin:0"><u>{{ $office->address }}</u>
@@ -69,9 +69,13 @@
                                                 <th style="text-align:center;" width="15%">Payment By</th>
                                                 <th style="text-align:center;" width="11%">Payment</th>
                                                 <th style="text-align:center;" width="11%">Received</th>
+                                                <th style="text-align:center;" width="11%">Balance</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $balance = 0;
+                                            @endphp
                                             @foreach ($datum as $data)
                                                 <tr>
                                                     <td align="center">{{ bdDate($data->date) }}</td>
@@ -86,18 +90,25 @@
                                                     </td>
                                                     <td align="center">{{ $data->narration }}</td>
                                                     <td align="center">{{ $data->payment_by }}</td>
-                                                    <td align="center">{{ number_format($data->debit, 2) }}</td>
-                                                    <td align="center">{{ number_format($data->credit, 2) }}</td>
+                                                    <td class="text-right">{{ number_format($data->debit, 2) }}</td>
+                                                    <td class="text-right">{{ number_format($data->credit, 2) }}</td>
+                                                    @php
+                                                        $sub = $data->credit - $data->debit;
+                                                    @endphp
+                                                    <td class="text-right">{{ number_format($balance += $sub,2) }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                             <tr>
-                                                <td colspan="4" align="right" style="color:green; font-size:16px;">Total</td>
-                                                <td align="center" style="color:green; font-size:16px;">
+                                                <td colspan="4" class="text-right" style="color:green; font-size:16px;">Total</td>
+                                                <td class="text-right" style="color:green; font-size:16px;">
                                                     {{ number_format($datum->sum('debit'), 2) }}
                                                 </td>
-                                                <td align="center" style="color:green; font-size:16px;">
+                                                <td class="text-right" style="color:green; font-size:16px;">
                                                     {{ number_format($datum->sum('credit'), 2) }}
+                                                </td>
+                                                <td class="text-right" style="color:green; font-size:16px;">
+                                                    {{ number_format($datum->sum('credit') - $datum->sum('debit'), 2) }}
                                                 </td>
                                             </tr>
                                     </table>
