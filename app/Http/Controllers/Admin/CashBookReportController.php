@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\CashBookOffice;
-use Illuminate\Http\Request;
-use App\Basic_info_manage;
 use App\Models\CashBook;
+use App\Basic_info_manage;
+use Illuminate\Http\Request;
+use App\Models\CashBookOffice;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class CashBookReportController extends Controller
 {
@@ -28,10 +29,10 @@ class CashBookReportController extends Controller
         $data['end_date']   = $request->end_date;
         $data['basic_info'] = Basic_info_manage::where('id', 1)->first();
         $data['office']     = CashBookOffice::find($request->office_id);
-        $data['datum']      = CashBook::whereCash_book_office_id($request->office_id)
+        $data['cashBooks']  = CashBook::whereCash_book_office_id($request->office_id)
                                     ->whereIs_post(1)
                                     ->whereBetween('date',[$request->start_date, $request->end_date])
-                                    ->orderBy('date')
+                                    ->orderBy('date','ASC')
                                     ->get();
         $data['openingBl'] = CashBook::whereCash_book_office_id($request->office_id)
                                     ->whereIs_post(1)

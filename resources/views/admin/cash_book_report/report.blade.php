@@ -47,20 +47,20 @@
                                                 </th>
                                                 <th style="color:#ff5733; text-align:center; ">Total Received</th>
                                                 <th style="color:#ff5733; text-align:center; ">
-                                                    {{ number_format($datum->sum('credit'), 2) }}
+                                                    {{ number_format($cashBooks->sum('credit'), 2) }}
                                                 </th>
                                                 <th style="color:green; text-align:center; ">Total Payment</th>
                                                 <th style="color:green; text-align:center; ">
-                                                    {{ number_format($datum->sum('debit'), 2) }}
+                                                    {{ number_format($cashBooks->sum('debit'), 2) }}
                                                 </th>
                                                 <th style="color:#ff5733; text-align:center; ">Closing Balance</th>
                                                 <th style="color:#ff5733; text-align:center;">
-                                                    {{ number_format($open_balance + abs($datum->sum('credit')) - abs($datum->sum('debit')), 2) }}
+                                                    {{ number_format($open_balance + abs($cashBooks->sum('credit')) - abs($cashBooks->sum('debit')), 2) }}
                                                 </th>
                                             </tr>
                                         </thead>
                                     </table>
-                                    <table id="data_table" class="table" width="100%" border="1" cellspacing="5" cellpadding="5">
+                                    <table id="" class="table" width="100%" border="1" cellspacing="5" cellpadding="5">
                                         <thead>
                                             <tr>
                                                 <th style="text-align:center;" width="10%">Date</th>
@@ -73,42 +73,44 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                                $balance = 0;
-                                            @endphp
-                                            @foreach ($datum as $data)
+                                            @php $balance = 0; @endphp
+                                            @foreach ($cashBooks as $cashBook)
                                                 <tr>
-                                                    <td align="center">{{ bdDate($data->date) }}</td>
+                                                    <td align="center">{{ bdDate($cashBook->date) }}</td>
                                                     <td align="center">
-                                                        @if ($data->user_type == 1)
-                                                            {{ $data->student->student_name }}
-                                                        @elseif($data->user_type == 2)
-                                                            {{ $data->patient->name }}
+                                                        @if ($cashBook->user_type == 1)
+                                                            {{ $cashBook->student->student_name }}
+                                                        @elseif($cashBook->user_type == 2)
+                                                            {{ $cashBook->patient->name }}
                                                         @else
                                                              Received from bank
                                                         @endif
                                                     </td>
-                                                    <td align="center">{{ $data->narration }}</td>
-                                                    <td align="center">{{ $data->payment_by }}</td>
-                                                    <td class="text-right">{{ number_format($data->debit, 2) }}</td>
-                                                    <td class="text-right">{{ number_format($data->credit, 2) }}</td>
+                                                    <td align="center">{{ $cashBook->narration }}</td>
+                                                    <td align="center">{{ $cashBook->payment_by }}</td>
+                                                    <td class="text-right">{{ number_format($cashBook->debit, 2) }}</td>
+                                                    <td class="text-right">{{ number_format($cashBook->credit, 2) }}</td>
+                                                    {{-- {{ $cashBook->credit }}<br>
+                                                    {{ $cashBook->debit }}<br> --}}
                                                     @php
-                                                        $sub = $data->credit - $data->debit;
+                                                        $sub = $cashBook->credit - $cashBook->debit;
                                                     @endphp
+                                                    
                                                     <td class="text-right">{{ number_format($balance += $sub,2) }}</td>
+                                                    {{-- <td class="text-right">{{ number_format($cashBook->credit - $cashBook->debit,2) }}</td> --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                             <tr>
                                                 <td colspan="4" class="text-right" style="color:green; font-size:16px;">Total</td>
                                                 <td class="text-right" style="color:green; font-size:16px;">
-                                                    {{ number_format($datum->sum('debit'), 2) }}
+                                                    {{ number_format($cashBooks->sum('debit'), 2) }}
                                                 </td>
                                                 <td class="text-right" style="color:green; font-size:16px;">
-                                                    {{ number_format($datum->sum('credit'), 2) }}
+                                                    {{ number_format($cashBooks->sum('credit'), 2) }}
                                                 </td>
                                                 <td class="text-right" style="color:green; font-size:16px;">
-                                                    {{ number_format($datum->sum('credit') - $datum->sum('debit'), 2) }}
+                                                    {{ number_format($cashBooks->sum('credit') - $cashBooks->sum('debit'), 2) }}
                                                 </td>
                                             </tr>
                                     </table>
