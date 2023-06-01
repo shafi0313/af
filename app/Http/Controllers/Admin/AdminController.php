@@ -927,7 +927,7 @@ class AdminController extends Controller
 
     public function menu_manage_view()
     {
-        $item = DB::table('menu_manages')->select(['users.*','menu_manages.type','menu_manages.id as menu_manages_id','menu_manages.image','menu_manages.long_details','menu_manages.title','menu_manages.short_details'])->leftjoin('users', 'users.id', '=', 'menu_manages.type')->orderby('menu_manages.id', 'desc')->get();
+        $item = DB::table('menu_manages')->select(['users.*','menu_manages.type','menu_manages.id as menu_manages_id','menu_manages.image','menu_manages.long_details','menu_manages.title','menu_manages.short_details','menu_manages.completed'])->leftjoin('users', 'users.id', '=', 'menu_manages.type')->orderby('menu_manages.id', 'desc')->get();
         return DataTables::of($item)->addColumn('action', function ($item) {
             return '<div class="d-table mx-auto storage/product/btn-group-sm btn-group">            
             <button type="button" class="btn btn-white edit" id="' . $item->id . '"><i class="material-icons"></i></button><button type="button" id="' . $item->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
@@ -947,14 +947,13 @@ class AdminController extends Controller
             ->addColumn('action', function ($item) {
                 $route = route('admin.menu_manage_view_delete', $item->menu_manages_id);
                 $routeEdit = route('admin.student-fund-requetion.edit', $item->menu_manages_id);
-                if($item->short_details == 0){
+                if($item->completed == 0){
                     return '<a href="'.$routeEdit.'" class="btn btn-warning">
                                 <i class="fa fa-edit"></i>
                             </a>
                             <a href="'.$route.'" class="btn btn-danger">
                                 <i class="material-icons"></i>
-                            </a>
-                            ';
+                            </a>';
                 }
                 
             })
@@ -979,22 +978,12 @@ class AdminController extends Controller
         }
     }
     
-
-
+    // Requested Payment Approval
     public function menu_manage_view2()
     {
-        $item = DB::table('menu_manages')->leftjoin('users', 'users.id', '=', 'menu_manages.type')->select('users.*','menu_manages.id as menu_id','menu_manages.title','menu_manages.long_details','menu_manages.image','menu_manages.type','menu_manages.short_details')->orderby('menu_manages.id', 'desc')->get();
+        $item = DB::table('menu_manages')->leftjoin('users', 'users.id', '=', 'menu_manages.type')->select('users.*','menu_manages.id as menu_id','menu_manages.title','menu_manages.long_details','menu_manages.image','menu_manages.type','menu_manages.short_details','menu_manages.completed')->orderby('menu_manages.id', 'desc')->get();
         return DataTables::of($item)
-        ->addColumn('action', function ($item) {
-            return '<div class="d-table mx-auto storage/product/btn-group-sm btn-group">            
-                <a type="button" class="btn btn-check edit " title="Approved" href="payment-approve-monhtly/' . $item->menu_id . '" id="' . $item->menu_id . '" >
-                    <i class="material-icons">done</i>
-                </a>
-                <a type="button" class="btn" href="payment-approve-monhtly/' . $item->menu_id . '" id="' . $item->menu_id . '">
-                    <i class="fa-regular fa-circle-check"></i>
-                </a>
-                <button type="button" title="Delete" id="' . $item->id . '" class="btn btn-white delete" ><i class="material-icons"></i></button>';
-        })->addColumn('image', function ($item) {
+        ->addColumn('image', function ($item) {
             return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
         })
         ->addColumn('status', function ($item) {
@@ -1006,18 +995,43 @@ class AdminController extends Controller
                 return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block">Canceled</div>';
             }
         })
+        ->addColumn('action', function ($item) {
+            $completed  = $item->completed == 1 ? 'disabled' : '';
+            $completedA = $item->completed == 1 ? 'disabled' : '';
+            return '<div class="d-table mx-auto btn-group-sm btn-group">            
+                        <a type="button" class="btn btn-primary btn-check edit '.$completedA.'" title="Approved" href="payment-approve-monhtly/'.$item->menu_id .'" id="'.$item->menu_id.'" onclick="return confirm('."'Do you want to accept this request?'".')">
+                            <i class="material-icons">done</i>
+                        </a>
+                        <a type="button" class="btn btn-warning" href="'.route('admin.menu_manage_view2.completed',$item->menu_id).'" onclick="return confirm('."'Do you want to disable this request?'".')">
+                            <i class="fa-regular fa-circle-check"></i>
+                        </a>
+                        <button type="button" title="Delete" id="'.$item->menu_id.'" class="btn btn-danger delete" '.$completed.'><i class="material-icons"></i></button>
+                    </div>';
+        })
         ->rawColumns(['image', 'status', 'action'])
         ->addIndexColumn()
         ->make(true);
     }
 
+    public function menu_manage_view2completed($id)
+    {        
+        try {
+            DB::table('menu_manages')->where('id', $id)->update(['completed' => 1]);
+            Alert::success('Success');
+            return back();
+        } catch (\Exception $e) {
+            Alert::error('Error', 'Something went wrong');
+            return back();
+        }
+    }
+    // Requested Payment Approval
 
     public function menu_insert(Request $request)
     {
         if (!empty($request->id)) {
-            $Slide_manage     = Menu_manage::find($request->id);
+            $Slide_manage = Menu_manage::find($request->id);
         } else {
-            $Slide_manage     = new Menu_manage();
+            $Slide_manage = new Menu_manage();
         }
 
         if ($request->hasFile('ProductPic')) {

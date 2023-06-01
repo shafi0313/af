@@ -80,10 +80,11 @@ Route::post('/news-manage-insert', 'Admin\AdminController@news_insert');
 Route::get('/news-manage-edit', 'Admin\AdminController@news_manage_edit');
 Route::get('/news-manage-delete', 'Admin\AdminController@news_manage_delete');
 
-// Menu Management
+// Requested Payment Approval Menu Management
 Route::get('/all-manage', 'Admin\AdminController@menu_manage')->name('admin.menu-manage');
 Route::get('/all-manage2', 'Admin\AdminController@menu_manage2')->name('admin.menu-manage2');
 Route::get('/menu-manage-view2', 'Admin\AdminController@menu_manage_view2');
+Route::get('/menu-manage-view2/completed/{id}', 'Admin\AdminController@menu_manage_view2completed')->name('admin.menu_manage_view2.completed');
 Route::get('/menu-manage-view', 'Admin\AdminController@menu_manage_view');
 Route::post('/menu-manage-insert', 'Admin\AdminController@menu_insert');
 Route::get('/menu-manage-edit', 'Admin\AdminController@menu_manage_edit');

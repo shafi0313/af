@@ -24,3 +24,8 @@ table tr td, table tr th{
 .table th, .table td {
     padding: 2px !important;
 }
+
+a.disabled_ {
+    pointer-events: none;
+    cursor: not-allowed;
+  }

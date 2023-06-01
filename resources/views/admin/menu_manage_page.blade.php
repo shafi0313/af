@@ -284,8 +284,6 @@
                 })
             });
 
-
-
             $(document).on('click', '.delete', function() {
                 let id = $(this).attr('id');
                 Swal.fire({
