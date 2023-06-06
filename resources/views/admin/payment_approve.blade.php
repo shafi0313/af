@@ -40,11 +40,8 @@
         </div>
     </main>
 
-
-
-
     <div class="modal fade abc" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="padding-right: 17px; display: none;">
-        <div class="modal-dialog modal-dialog-centered "" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">               
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Stipend fund Request </h5>
@@ -221,6 +218,10 @@
             let table = $('.table').DataTable({
                 processing: true,
                 serverSide: true,
+                aLengthMenu: [
+                    [50, 100, 200, -1],
+                    [50, 100, 200, "All"]
+                ],
                 ajax: "{{ url('admin/agent_with_report2') }}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},

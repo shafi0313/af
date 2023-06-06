@@ -168,6 +168,10 @@
             let table = $('.table').DataTable({
                 processing: true,
                 serverSide: true,
+                aLengthMenu: [
+                    [50, 100, 200, -1],
+                    [50, 100, 200, "All"]
+                ],
                 ajax: "{{ url('menu-manage-view2') }}",
                 columns: [{
                         data: 'DT_RowIndex',

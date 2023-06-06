@@ -996,16 +996,15 @@ class AdminController extends Controller
             }
         })
         ->addColumn('action', function ($item) {
-            $completed  = $item->completed == 1 ? 'disabled' : '';
-            $completedA = $item->completed == 1 ? 'disabled' : '';
+            $completedA = $item->completed == 1 ? 'disabled_' : '';
             return '<div class="d-table mx-auto btn-group-sm btn-group">            
-                        <a type="button" class="btn btn-primary btn-check edit '.$completedA.'" title="Approved" href="payment-approve-monhtly/'.$item->menu_id .'" id="'.$item->menu_id.'" onclick="return confirm('."'Do you want to accept this request?'".')">
+                        <a type="button" class="btn btn-primary btn-check edit" title="Approved" href="payment-approve-monhtly/'.$item->menu_id .'" id="'.$item->menu_id.'" onclick="return confirm('."'Do you want to accept this request?'".')">
                             <i class="material-icons">done</i>
+                        </a>                        
+                        <a class="btn btn-warning '.$completedA.'" href="'.route('admin.menu_manage_view2.completed',$item->menu_id).'" onclick="return confirm('."'Do you want to disable this request?'".')">
+                            <i class="fa-solid fa-book-open text-white"></i>
                         </a>
-                        <a type="button" class="btn btn-warning" href="'.route('admin.menu_manage_view2.completed',$item->menu_id).'" onclick="return confirm('."'Do you want to disable this request?'".')">
-                            <i class="fa-regular fa-circle-check"></i>
-                        </a>
-                        <button type="button" title="Delete" id="'.$item->menu_id.'" class="btn btn-danger delete" '.$completed.'><i class="material-icons"></i></button>
+                        <button type="button" title="Delete" id="'.$item->menu_id.'" class="btn btn-danger delete"><i class="material-icons"></i></button>
                     </div>';
         })
         ->rawColumns(['image', 'status', 'action'])
@@ -1014,7 +1013,12 @@ class AdminController extends Controller
     }
 
     public function menu_manage_view2completed($id)
-    {        
+    {   
+        $check = DB::table('menu_manages')->where('id', $id)->first();
+        if($check->short_details == 0){
+            Alert::info('Info', 'At first accept this request');
+            return back();
+        }
         try {
             DB::table('menu_manages')->where('id', $id)->update(['completed' => 1]);
             Alert::success('Success');
