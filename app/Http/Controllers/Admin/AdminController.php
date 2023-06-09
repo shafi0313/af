@@ -996,15 +996,16 @@ class AdminController extends Controller
             }
         })
         ->addColumn('action', function ($item) {
+            $completed = $item->completed == 1 ? 'disabled' : '';
             $completedA = $item->completed == 1 ? 'disabled_' : '';
             return '<div class="d-table mx-auto btn-group-sm btn-group">            
-                        <a type="button" class="btn btn-primary btn-check edit" title="Approved" href="payment-approve-monhtly/'.$item->menu_id .'" id="'.$item->menu_id.'" onclick="return confirm('."'Do you want to accept this request?'".')">
+                        <a type="button" class="btn btn-primary btn-check edit '.$completed.'" title="Approved" href="payment-approve-monhtly/'.$item->menu_id .'" id="'.$item->menu_id.'" onclick="return confirm('."'Do you want to accept this request?'".')">
                             <i class="material-icons">done</i>
                         </a>                        
                         <a class="btn btn-warning '.$completedA.'" href="'.route('admin.menu_manage_view2.completed',$item->menu_id).'" onclick="return confirm('."'Do you want to disable this request?'".')">
                             <i class="fa-solid fa-book-open text-white"></i>
                         </a>
-                        <button type="button" title="Delete" id="'.$item->menu_id.'" class="btn btn-danger delete"><i class="material-icons"></i></button>
+                        <button type="button" title="Delete" id="'.$item->menu_id.'" class="btn btn-danger delete" '.$completed.'><i class="material-icons"></i></button>
                     </div>';
         })
         ->rawColumns(['image', 'status', 'action'])
