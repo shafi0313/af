@@ -244,6 +244,7 @@ class AdminController extends Controller
 
     public function approve_amnt_req2(Request $request)
     {
+        // return $request->all();
         DB::table('order')->where('id', $request->id)->update([
             'aprv_amnt' => $request->grand_total,
             'status' => 1,
@@ -253,7 +254,8 @@ class AdminController extends Controller
         foreach ($request->expense as $key => $value) {
             if (!empty($request->quantity[$key])) {
                 DB::table('order_details')->where('id', $request->expense[$key])->update([
-                    'aprv_amnt' => $request->approve[$key],
+                    'req_amnt'   => $request->quantity[$key],
+                    'aprv_amnt'  => $request->approve[$key],
                     'updated_at' => now(),
                 ]);
             }
