@@ -21,7 +21,7 @@ class ApplicantController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $applicants = User::query();
+            $applicants = User::orderBy('status', 'asc');
             return DataTables::of($applicants)
                 ->addIndexColumn()
                 ->addColumn('created_at', function ($row) {

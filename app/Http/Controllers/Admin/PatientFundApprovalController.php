@@ -20,7 +20,7 @@ class PatientFundApprovalController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $patients = PatientFundRequest::with(['patient','ApprovedMedicines'])->orderBy('created_at', 'desc');
+            $patients = PatientFundRequest::with(['patient','ApprovedMedicines'])->orderBy('status', 'asc');
 
             return DataTables::eloquent($patients)
             ->addColumn('requested_amt', function ($row) {

@@ -176,9 +176,8 @@ class AdminController extends Controller
 
     public function view_applicants()
     {
-        $sell_list =  DB::table('users')
+        $sell_list =  DB::table('users')->get();
 
-            ->get();
         return DataTables::of($sell_list)
             ->addColumn('action', function ($sell_list) {
                 return '<div class="d-table mx-auto row btn-group-sm btn-group">         
@@ -307,7 +306,7 @@ class AdminController extends Controller
         $item = DB::table('order')
             ->select('*', 'users.id as c_id', 'order.id as p_id', 'order.status as o_status')
             ->join('users', 'users.id', '=', 'order.student_id')
-            ->orderBy('p_id', 'desc')
+            ->orderBy('o_status', 'ASC')
             ->get();
 
         return DataTables::of($item)->addColumn('status', function ($item) {
@@ -332,25 +331,29 @@ class AdminController extends Controller
         $item = DB::table('order')
             ->select('*', 'users.id as c_id', 'order.id as p_id', 'order.status as o_status')
             ->join('users', 'users.id', '=', 'order.student_id')
-            ->orderBy('p_id', 'desc')
+            ->orderBy('o_status', 'asc')
             ->get();
 
-        return DataTables::of($item)->addColumn('status', function ($item) {
-            if ($item->o_status == 0) {
-                return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">Pending</div>';
-            } elseif ($item->o_status == 1) {
-                return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Aprroved </div>';
-            } elseif ($item->o_status == 2) {
-                return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">Canceled </div>';
-            }
-        })
+        return DataTables::of($item)
+            ->addColumn('status', function ($item) {
+                if ($item->o_status == 0) {
+                    return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block" style="">Pending</div>';
+                } elseif ($item->o_status == 1) {
+                    return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Aprroved </div>';
+                } elseif ($item->o_status == 2) {
+                    return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">Canceled </div>';
+                }
+            })
+            ->addColumn('created_at', function ($item) {
+                return bdDate($item->created_at);
+            })
             ->addColumn('action', function ($item) {
                 return '<div class="d-table mx-auto storage/product/btn-group-sm btn-group">            
-            <a type="button" target="_blank" class="btn btn-white edit" href="approve/' . $item->p_id . '"><i class="material-icons"></i></a></a></div>
-            ';
+                    <a type="button" target="_blank" class="btn btn-white edit" href="approve/' . $item->p_id . '"><i class="material-icons"></i></a>
+                </div>';
             })
 
-            ->rawColumns(['action', 'status'])
+            ->rawColumns(['created_at', 'action', 'status'])
             ->addIndexColumn()
             ->make(true);
     }
@@ -929,14 +932,18 @@ class AdminController extends Controller
 
     public function menu_manage_view()
     {
-        $item = DB::table('menu_manages')->select(['users.*','menu_manages.type','menu_manages.id as menu_manages_id','menu_manages.image','menu_manages.long_details','menu_manages.title','menu_manages.short_details','menu_manages.completed'])->leftjoin('users', 'users.id', '=', 'menu_manages.type')->orderby('menu_manages.id', 'desc')->get();
+        $item = DB::table('menu_manages')
+            ->select(['users.*', 'menu_manages.type', 'menu_manages.id as menu_manages_id', 'menu_manages.image', 'menu_manages.long_details', 'menu_manages.title', 'menu_manages.short_details', 'menu_manages.completed'])
+            ->leftjoin('users', 'users.id', '=', 'menu_manages.type')
+            ->orderby('menu_manages.short_details', 'asc')
+            ->get();
         return DataTables::of($item)->addColumn('action', function ($item) {
             return '<div class="d-table mx-auto storage/product/btn-group-sm btn-group">            
             <button type="button" class="btn btn-white edit" id="' . $item->id . '"><i class="material-icons"></i></button><button type="button" id="' . $item->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
             ';
-            })->addColumn('image', function ($item) {
-                return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
-            })
+        })->addColumn('image', function ($item) {
+            return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
+        })
             ->addColumn('status', function ($item) {
                 if ($item->short_details == 0) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block">Pending</div>';
@@ -949,17 +956,16 @@ class AdminController extends Controller
             ->addColumn('action', function ($item) {
                 $route = route('admin.menu_manage_view_delete', $item->menu_manages_id);
                 $routeEdit = route('admin.student-fund-requetion.edit', $item->menu_manages_id);
-                if($item->completed == 0){
-                    return '<a href="'.$routeEdit.'" class="btn btn-warning">
+                if ($item->completed == 0) {
+                    return '<a href="' . $routeEdit . '" class="btn btn-warning">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            <a href="'.$route.'" class="btn btn-danger">
+                            <a href="' . $route . '" class="btn btn-danger">
                                 <i class="material-icons"></i>
                             </a>';
                 }
-                
             })
-            ->rawColumns(['image', 'status', 'action'])
+            ->rawColumns(['long_details', 'image', 'status', 'action'])
             ->addIndexColumn()
             ->make(true);
     }
@@ -967,7 +973,7 @@ class AdminController extends Controller
     {
         $data = DB::table('menu_manages')->where('id', $id)->first();
         $path = public_path('images/' . $data->image);
-        if(@GetImageSize($path)){
+        if (@GetImageSize($path)) {
             unlink($path);
         }
         try {
@@ -979,46 +985,53 @@ class AdminController extends Controller
             return back();
         }
     }
-    
+
     // Requested Payment Approval
     public function menu_manage_view2()
     {
-        $item = DB::table('menu_manages')->leftjoin('users', 'users.id', '=', 'menu_manages.type')->select('users.*','menu_manages.id as menu_id','menu_manages.title','menu_manages.long_details','menu_manages.image','menu_manages.type','menu_manages.short_details','menu_manages.completed')->orderby('menu_manages.id', 'desc')->get();
+        $item = DB::table('menu_manages')
+            ->leftjoin('users', 'users.id', '=', 'menu_manages.type')
+            ->select('users.*', 'menu_manages.id as menu_id', 'menu_manages.title', 'menu_manages.long_details', 'menu_manages.image', 'menu_manages.type', 'menu_manages.short_details', 'menu_manages.completed')
+            ->orderby('menu_manages.short_details', 'asc')
+            ->get();
         return DataTables::of($item)
-        ->addColumn('image', function ($item) {
-            return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
-        })
-        ->addColumn('status', function ($item) {
-            if ($item->short_details == 0) {
-                return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block">Pending</div>';
-            } elseif ($item->short_details == 1) {
-                return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Approved</div>';
-            } elseif ($item->short_details == 2) {
-                return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block">Canceled</div>';
-            }
-        })
-        ->addColumn('action', function ($item) {
-            $completed = $item->completed == 1 ? 'disabled' : '';
-            $completedA = $item->completed == 1 ? 'disabled_' : '';
-            return '<div class="d-table mx-auto btn-group-sm btn-group">            
-                        <a type="button" class="btn btn-primary btn-check edit '.$completed.'" title="Approved" href="payment-approve-monhtly/'.$item->menu_id .'" id="'.$item->menu_id.'" onclick="return confirm('."'Do you want to accept this request?'".')">
+            ->addColumn('created_at', function ($item) {
+                return bdDate($item->created_at);
+            })
+            ->addColumn('image', function ($item) {
+                return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
+            })
+            ->addColumn('status', function ($item) {
+                if ($item->short_details == 0) {
+                    return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block">Pending</div>';
+                } elseif ($item->short_details == 1) {
+                    return '<div class="d-table mx-auto btn-group-sm btn-group btn-success btn-block">Approved</div>';
+                } elseif ($item->short_details == 2) {
+                    return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block">Canceled</div>';
+                }
+            })
+            ->addColumn('action', function ($item) {
+                $completed = $item->completed == 1 ? 'disabled' : '';
+                $completedA = $item->completed == 1 ? 'disabled_' : '';
+                return '<div class="d-table mx-auto btn-group-sm btn-group">            
+                        <a type="button" class="btn btn-primary btn-check edit ' . $completed . '" title="Approved" href="payment-approve-monhtly/' . $item->menu_id . '" id="' . $item->menu_id . '" onclick="return confirm(' . "'Do you want to accept this request?'" . ')">
                             <i class="material-icons">done</i>
                         </a>                        
-                        <a class="btn btn-warning '.$completedA.'" href="'.route('admin.menu_manage_view2.completed',$item->menu_id).'" onclick="return confirm('."'Do you want to disable this request?'".')">
+                        <a class="btn btn-warning ' . $completedA . '" href="' . route('admin.menu_manage_view2.completed', $item->menu_id) . '" onclick="return confirm(' . "'Do you want to disable this request?'" . ')">
                             <i class="fa-solid fa-book-open text-white"></i>
                         </a>
-                        <button type="button" title="Delete" id="'.$item->menu_id.'" class="btn btn-danger delete" '.$completed.'><i class="material-icons"></i></button>
+                        <button type="button" title="Delete" id="' . $item->menu_id . '" class="btn btn-danger delete" ' . $completed . '><i class="material-icons"></i></button>
                     </div>';
-        })
-        ->rawColumns(['image', 'status', 'action'])
-        ->addIndexColumn()
-        ->make(true);
+            })
+            ->rawColumns(['created_at', 'image', 'status', 'action'])
+            ->addIndexColumn()
+            ->make(true);
     }
 
     public function menu_manage_view2completed($id)
-    {   
+    {
         $check = DB::table('menu_manages')->where('id', $id)->first();
-        if($check->short_details == 0){
+        if ($check->short_details == 0) {
             Alert::info('Info', 'At first accept this request');
             return back();
         }

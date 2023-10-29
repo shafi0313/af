@@ -1,32 +1,45 @@
 .main-sidebar .dropdown-menu .dropdown-item {
-    padding: 5px 5px 6px 54px;
-    border-bottom: 1px solid #f0f2f5;
-    color: #3D5170;
-    font-size: 14px;
-    font-weight: 500;
+  padding: 5px 5px 6px 54px;
+  border-bottom: 1px solid #f0f2f5;
+  color: #3d5170;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .main-sidebar .nav .nav-item .nav-link {
-    border-bottom: 1px solid #e1e5eb;
-    font-weight: 600;
-    color: #3D5170;
-    padding: 15px 8px;
-    font-size: 15px;
+  border-bottom: 1px solid #e1e5eb;
+  font-weight: 600;
+  color: #3d5170;
+  padding: 15px 8px;
+  font-size: 15px;
 }
 
 .modal-body {
-    padding: 7px 2.1875rem;
+  padding: 7px 2.1875rem;
 }
-table tr td, table tr th{
-    vertical-align: middle !important;
+table tr td,
+table tr th {
+  vertical-align: middle !important;
 }
 
-.table th, .table td {
-    padding: 2px !important;
+.table th,
+.table td {
+  padding: 2px !important;
 }
 
 .disabled_ {
-    display: none !important;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
+  display: none !important;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.select2-container {
+  display: block !important;
+}
+
+.select2-close-mask{
+    z-index: 2099;
+}
+.select2-dropdown{
+    z-index: 3051;
+}

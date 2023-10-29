@@ -61,7 +61,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-title " role="document">
             <div class="modal-content">
@@ -77,7 +77,7 @@
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="patient_id">Patient</label>
-                                <select name="patient_id" id="patient_id" class="form-control" required>
+                                <select name="patient_id" id="patient_id" class="form-control select2single" required>
                                     <option value="">Select</option>
                                     @foreach ($patients as $patient)
                                         <option value="{{ $patient->id }}">{{ $patient->name }}</option>
@@ -87,7 +87,7 @@
 
                             <div class="form-group col-6">
                                 <label for="year">Year</label>
-                                <select name="year" class="form-control" required>
+                                <select name="year" class="form-control select2single" required>
                                     <option value="">Select</option>
                                     @for ($i = 2023; $i <= 2040; $i++)
                                         <option value="{{ $i }}">{{ $i }}</option>

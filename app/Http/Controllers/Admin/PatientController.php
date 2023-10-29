@@ -23,7 +23,7 @@ class PatientController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $patients = Patient::latest();
+            $patients = Patient::orderBy('status', 'asc');
             return DataTables::of($patients)
                 ->addIndexColumn()
                 ->addColumn('created_at', function ($row) {

@@ -52,9 +52,9 @@
 
 
 
-<div class="modal fade abc" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade abc" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel"
     style="padding-right: 17px; display: none;">
-    <div class="modal-dialog modal-dialog-centered" role=" document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role=" document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"> Yearly Fund Request </h5>
@@ -73,7 +73,7 @@
                 <div style="padding:10px;">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <select name="student_id" class="form-control border rounded float-right" required
+                            <select name="student_id" class="form-control border rounded float-right select2single" required
                                 id="CategoryId" data-live-search="true" autocomplete="off">
                                 <option value="">Select Student</option>
                                 @foreach($users as $v)
@@ -86,7 +86,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <select name="year" class="form-control border rounded float-right" required>
+                            <select name="year" class="form-control border rounded float-right select2single" required>
                                 <option value="">Select Year</option>
                                 @php
                                 $current_year = date('Y')-1;
@@ -96,7 +96,7 @@
                             </select>
                         </div>
 
-                        <table id="customers">
+                        <table id="customers" style="width: 100%">
                             <thead>
                                 <tr width="100%">
                                     <td width="80%" align="center">Expense Name</td>

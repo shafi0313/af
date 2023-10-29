@@ -24,12 +24,6 @@ class FundRequetionController extends Controller
             ->addColumn('image', function ($row) {
                 return '<img src="'.asset('documents/'.$row->image).'" alt="image" width="50" height="50">';
             })
-            ->addColumn('created_at', function ($row) {
-                return $row->created_at->diffForHumans();
-            })
-            // ->addColumn('updated_at', function ($row) {
-            //     return $row->updated_at ? $row->updated_at->diffForHumans() : 'Not Updated';
-            // })
             ->addColumn('status', function ($row) {
                 if ($row->status == 0) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block">Pending</div>';
@@ -44,7 +38,7 @@ class FundRequetionController extends Controller
                     $query->where('patient_id', $request->patient_id);
                 }
             })
-            ->rawColumns(['status', 'created_at','image'])
+            ->rawColumns(['comment','status', 'created_at','image'])
             ->make(true);
         }
         $data['basic_info'] = Basic_info_manage::where('id', 1)->first();

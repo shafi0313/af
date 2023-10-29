@@ -69,7 +69,7 @@
                         <div class="row">
                             <div class="form-group col-12">
                                 <label for="patient_id">Patient</label>
-                                <select name="patient_id" id="patient_id" class="form-control" required>
+                                <select name="patient_id" id="patient_id" class="form-control select2singleModel" required>
                                     <option value="">Select</option>
                                     @foreach ($patients as $patient)
                                         <option value="{{ $patient->id }}">{{ $patient->name }}</option>

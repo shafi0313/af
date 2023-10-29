@@ -17,18 +17,16 @@
         <form method="post" id="upload_form" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input type="hidden" name="id" id="id" value="">
-            <div class="p-3 h-100 overflow-auto">
-
+            <div class="p-3 h-100 overflow-auto side-bar">
                 @php
                     $students = DB::table('users')
                         ->orderby('id', 'desc')
                         ->get();
                 @endphp
-
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label for="inputCategory" class="sr-only"></label>
-                        <select name="type" id="type" class="form-control" required="required">
+                        <select name="type" id="type" class="form-control select2singleModel" required="required">
                             <option value="">Select Students</option>
                             @foreach ($students as $v)
                                 @php

@@ -22,7 +22,7 @@ class PatientFundRequestController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $patients = PatientFundRequest::with(['patient','ApprovedMedicines'])->latest();
+            $patients = PatientFundRequest::with(['patient','ApprovedMedicines'])->orderBy('status', 'asc');
 
             return DataTables::eloquent($patients)
             ->addColumn('requested_amt', function ($row) {

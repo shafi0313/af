@@ -29,6 +29,7 @@
                                         <th scope="col" class="border-0">Comment</th>
                                         <th scope="col" class="border-0">Amount</th>
                                         <th scope="col" class="border-0">Status</th>
+                                        <th scope="col" class="border-0">Created</th>
                                         <th scope="col" class="border-0">Image</th>
                                         <th scope="col" class="border-0">Action</th>
                                     </tr>
@@ -190,10 +191,14 @@
                         data: 'status'
                     },
                     {
+                        data: 'created_at'
+                    },
+                    {
                         data: 'image'
                     },
                     {
-                        data: 'action'
+                        data: 'action',
+                        width: '130px',
                     }
 
 
