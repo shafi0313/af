@@ -63,6 +63,7 @@
                         <span>Newsletter</span>
                     </a>
                 </li>
+                
                 {{-- <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin.registration') ? 'active' : '' }}"
                         href="{{ route('admin.registration') }}">
@@ -142,6 +143,7 @@
                         <span>Accounts</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
+                        <a class="dropdown-item " href="{{ route('admin.period_lock.index') }}">Period Lock</a>
                         <a class="dropdown-item " href="{{ route('admin.cash_book.office') }}">Entry</a>
                         <a class="dropdown-item " href="{{ route('admin.cash_book_report.select') }}">Report</a>
                     </div>

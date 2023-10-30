@@ -10,6 +10,10 @@ use App\Http\Controllers\Admin\PatientFundRequestController;
 use App\Http\Controllers\Admin\PatientFundApprovalController;
 use App\Http\Controllers\Admin\StudentFundRequetionController;
 use App\Http\Controllers\Admin\PatientPaymentApprovalController;
+use App\Http\Controllers\Admin\PeriodLockController;
+
+Route::get('/period-lock', [PeriodLockController::class, 'index'])->name('period_lock.index');
+Route::post('/period-lock', [PeriodLockController::class, 'update'])->name('period_lock.update');
 
 Route::resource('applicant', ApplicantController::class);
 Route::post('applicant/accept', [ApplicantController::class, 'accept'])->name('applicant.accept');
