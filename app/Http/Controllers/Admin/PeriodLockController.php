@@ -28,7 +28,7 @@ class PeriodLockController extends Controller
             'date' => 'required|date',
         ]);
 
-        PeriodLock::firstOrCreate([
+        PeriodLock::updateOrCreate(['id' => PeriodLock::first()->id],[
             'date' => $request->date,
         ]);
 

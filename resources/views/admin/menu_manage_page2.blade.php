@@ -27,6 +27,7 @@
                                         <th scope="col" class="border-0">No</th>
                                         <th scope="col" class="border-0">Student Name</th>
                                         <th scope="col" class="border-0">Comment</th>
+                                        <th scope="col" class="border-0">Recept Date</th>
                                         <th scope="col" class="border-0">Amount</th>
                                         <th scope="col" class="border-0">Status</th>
                                         <th scope="col" class="border-0">Created</th>
@@ -185,13 +186,13 @@
                         data: 'long_details'
                     },
                     {
+                        data: 'created_at'
+                    },
+                    {
                         data: 'title'
                     },
                     {
                         data: 'status'
-                    },
-                    {
-                        data: 'created_at'
                     },
                     {
                         data: 'image'

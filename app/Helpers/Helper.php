@@ -9,7 +9,7 @@ use App\Http\Controllers\Authorization\AuthorizationChecker;
 if (!function_exists('bdDate')) {
     function bdDate($date)
     {
-        return Carbon::parse($date)->format('d/m/Y');
+        return Carbon::parse($date)->format('d/m/Y') ?? null;
     }
 }
 

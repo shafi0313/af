@@ -7,13 +7,10 @@ use Mail;
 use Session;
 use App\User;
 use Validator;
-use Carbon\Carbon;
 use App\News_manage;
-use App\Slide_manage;
 use App\Models\Division;
 use App\Basic_info_manage;
 use Illuminate\Http\Request;
-use App\Registration_reocord;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -41,6 +38,11 @@ class homeController extends Controller
         $data['gallery']   = DB::table('menu_manages')->where('type', 5)->orderby('id', 'desc')->get();
 
         return view('index', $data);
+    }
+
+    public function mission($id)
+    {
+
     }
 
     public function category(request $Request, $slug)

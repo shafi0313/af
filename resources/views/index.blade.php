@@ -240,7 +240,7 @@ p>
 						<div class="content">
 							<h3><i class="flaticon-gesture-1"></i> Education</h3>
 							<p>There are many variations of lorem passagei of Lorem Ipsum available but the majority have </p>
-							<a class="btn-details" href="service-details.html">Read More</a>
+							
 						</div>
 					</div>
 				</div>
@@ -249,7 +249,7 @@ p>
 						<div class="content">
 							<h3><i class="flaticon-people-1"></i> Orphans</h3>
 							<p>There are many variations of lorem passagei of Lorem Ipsum available but the majority have </p>
-							<a class="btn-details" href="service-details.html">Read More</a>
+							
 						</div>
 					</div>
 				</div>
@@ -258,7 +258,7 @@ p>
 						<div class="content">
 							<h3><i class="flaticon-hand"></i> Water</h3>
 							<p>There are many variations of lorem passagei of Lorem Ipsum available but the majority have </p>
-							<a class="btn-details" href="service-details.html">Read More</a>
+							
 						</div>
 					</div>
 				</div>
@@ -267,7 +267,7 @@ p>
 						<div class="content">
 							<h3><i class="flaticon-people-1"></i> Health</h3>
 							<p>There are many variations of lorem passagei of Lorem Ipsum available but the majority have </p>
-							<a class="btn-details" href="service-details.html">Read More</a>
+							
 						</div>
 					</div>
 				</div>
@@ -276,7 +276,7 @@ p>
 						<div class="content">
 							<h3><i class="flaticon-hand"></i> Hunger</h3>
 							<p>There are many variations of lorem passagei of Lorem Ipsum available but the majority have </p>
-							<a class="btn-details" href="service-details.html">Read More</a>
+							
 						</div>
 					</div>
 				</div>
@@ -285,7 +285,7 @@ p>
 						<div class="content">
 							<h3><i class="flaticon-gesture-1"></i> Emergencies</h3>
 							<p>There are many variations of lorem passagei of Lorem Ipsum available but the majority have </p>
-							<a class="btn-details" href="service-details.html">Read More</a>
+							
 						</div>
 					</div>
 				</div>
@@ -294,7 +294,7 @@ p>
 						<div class="content">
 							<h3><i class="flaticon-hand"></i> Humanity</h3>
 							<p>There are many variations of lorem passagei of Lorem Ipsum available but the majority have </p>
-							<a class="btn-details" href="service-details.html">Read More</a>
+							
 						</div>
 					</div>
 				</div>
@@ -303,7 +303,7 @@ p>
 						<div class="content">
 							<h3><i class="flaticon-gesture-1"></i> Clothes</h3>
 							<p>There are many variations of lorem passagei of Lorem Ipsum available but the majority have </p>
-							<a class="btn-details" href="service-details.html">Read More</a>
+							
 						</div>
 					</div>
 				</div>

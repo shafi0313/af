@@ -10,7 +10,7 @@
             <i class="fas fa-arrow-right"></i>
         </div>
         <div class="sidebar-header p-1 px-2">
-            <h3 id="InputHeader">Requesting Approved Fund Requisition</h3>
+            <h5 id="InputHeader">Requesting Approved Fund Requisition</h5>
         </div>
         <hr class="my-0">
 
@@ -52,16 +52,22 @@
 
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
-                        <label for="inputCategory" class="sr-only">Aprroved Amount</label>
+                        <label for="" class="sr-only">Approved Amount</label>
                         <input type="text" class="form-control w-100" id="aproved" disabled>
                     </div>
                 </div>
 
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
-                        <label for="inputCategory" class="sr-only"></label>
+                        <label for="">Amount</label>
                         <input type="text" class="form-control w-100" name="title" id="title"
                             placeholder="Enter Amount">
+                    </div>
+                </div>
+                <div class="row px-0 mx-0 my-2">
+                    <div class="form-group col-12 px-0 mb-2">
+                        <label for="" class="">Recept Date</label>
+                        <input type="date" class="form-control w-100" name="recept_date" id="recept_date">
                     </div>
                 </div>
 
@@ -111,6 +117,7 @@
                                         <th scope="col" class="border-0">Student Name</th>
                                         <th scope="col" class="border-0">Comment</th>
                                         <th scope="col" class="border-0">Amount</th>
+                                        <th scope="col" class="border-0">Recept Date</th>
                                         <th scope="col" class="border-0">Status</th>
                                         <th scope="col" class="border-0">Receipt View</th>
                                         <td scope="col" class="border-0">Action</td>
@@ -165,6 +172,9 @@
                         data: 'title'
                     },
                     {
+                        data: 'recept_date'
+                    },
+                    {
                         data: 'status'
                     },
                     {
@@ -197,6 +207,7 @@
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
                 $('#id').val('');
                 $('#title').val('');
+                $('#recept_date').val('');
                 $('#short_details').val('');
                 $('.emptydetails').val('');
                 $("#id").val(' ');
@@ -271,6 +282,7 @@
                         $("#itemId").val('');
                         $("#type").val('');
                         $("#title").val('');
+                        $("#recept_date").val('');
                         $("#short_details").val('');
                         $('#previewImage').html(' ');
                         $('#summernote').summernote('code', ' ');
@@ -342,6 +354,7 @@
                         console.log(data);
                         $('#id').val(data.id);
                         $('#title').val(data.title);
+                        $('#recept_date').val(data.recept_date);
                         $('#type').val(data.type);
                         $('#short_details').val(data.short_details);
 

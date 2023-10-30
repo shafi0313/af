@@ -219,8 +219,8 @@
                 processing: true,
                 serverSide: true,
                 aLengthMenu: [
-                    [50, 100, 200, -1],
-                    [50, 100, 200, "All"]
+                    [25, 50, 100, 200, -1],
+                    [25, 50, 100, 200, "All"]
                 ],
                 ajax: "{{ url('admin/agent_with_report2') }}",
                 columns: [

@@ -53,7 +53,11 @@
             deferRender: true,
             ordering: true,
             responsive: true,
-            scrollY: 400,
+            // scrollY: 400,
+            aLengthMenu: [
+                    [25, 50, 100, 200, -1],
+                    [25, 50, 100, 200, "All"]
+                ],
             ajax: "{{ route('admin.applicant.index') }}",
             columns: [{
                     data: 'DT_RowIndex',

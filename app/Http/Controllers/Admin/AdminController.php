@@ -933,7 +933,17 @@ class AdminController extends Controller
     public function menu_manage_view()
     {
         $item = DB::table('menu_manages')
-            ->select(['users.*', 'menu_manages.type', 'menu_manages.id as menu_manages_id', 'menu_manages.image', 'menu_manages.long_details', 'menu_manages.title', 'menu_manages.short_details', 'menu_manages.completed'])
+            ->select([
+                'users.*', 
+                'menu_manages.type', 
+                'menu_manages.id as menu_manages_id', 
+                'menu_manages.image', 
+                'menu_manages.long_details', 
+                'menu_manages.title', 
+                'menu_manages.short_details', 
+                'menu_manages.completed', 
+                'menu_manages.recept_date as recept_date',
+                ])
             ->leftjoin('users', 'users.id', '=', 'menu_manages.type')
             ->orderby('menu_manages.short_details', 'asc')
             ->get();
@@ -941,9 +951,13 @@ class AdminController extends Controller
             return '<div class="d-table mx-auto storage/product/btn-group-sm btn-group">            
             <button type="button" class="btn btn-white edit" id="' . $item->id . '"><i class="material-icons"></i></button><button type="button" id="' . $item->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
             ';
-        })->addColumn('image', function ($item) {
-            return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
         })
+            ->addColumn('recept_date', function ($item) {
+                return $item->recept_date? bdDate($item->recept_date) : '';
+            })
+            ->addColumn('image', function ($item) {
+                return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
+            })
             ->addColumn('status', function ($item) {
                 if ($item->short_details == 0) {
                     return '<div class="d-table mx-auto btn-group-sm btn-group btn-info btn-block">Pending</div>';
@@ -965,7 +979,7 @@ class AdminController extends Controller
                             </a>';
                 }
             })
-            ->rawColumns(['long_details', 'image', 'status', 'action'])
+            ->rawColumns(['recept_date','long_details', 'image', 'status', 'action'])
             ->addIndexColumn()
             ->make(true);
     }
@@ -1072,10 +1086,11 @@ class AdminController extends Controller
             $Slide_manage->image = $fileStore2;
         }
 
-        $Slide_manage->title           = $request->title;
-        $Slide_manage->type           = $request->type;
-        $Slide_manage->short_details   = 0;
-        $Slide_manage->long_details    = $request->long_details;
+        $Slide_manage->title         = $request->title;
+        $Slide_manage->type          = $request->type;
+        $Slide_manage->recept_date   = $request->recept_date;
+        $Slide_manage->short_details = 0;
+        $Slide_manage->long_details  = $request->long_details;
         $Slide_manage->save();
         if (!empty($request->id)) {
             echo 1;

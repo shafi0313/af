@@ -11,6 +11,7 @@ use App\Models\GeneralLedger;
 use App\Models\CashBookOffice;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\PeriodLock;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CashBookController extends Controller
@@ -22,6 +23,11 @@ class CashBookController extends Controller
 
     public function office()
     {
+        $periodLock = PeriodLock::first()->date;
+        if($periodLock >= date('Y-m-d')){
+            Alert::info('Info', 'Period is locked.');
+            return back();            
+        }
         $data['basic_info'] = Basic_info_manage::where('id', 1)->first();
         $data['offices'] = CashBookOffice::all();
         return view('admin.cash_book.office', $data);
@@ -58,6 +64,12 @@ class CashBookController extends Controller
 
     public function store(Request $request)
     {
+        $periodLock = PeriodLock::first()->date;
+        if($periodLock >= $request->date){
+            Alert::info('Info', 'Period is locked.');
+            return back();            
+        }
+
         $data = $request->validate([
             'user'                => 'required',
             'cash_book_office_id' => 'required|numeric',
