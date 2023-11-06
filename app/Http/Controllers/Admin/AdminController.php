@@ -1106,13 +1106,14 @@ class AdminController extends Controller
             $Slide_manage->image = $fileStore2;
         }
 
-        $Slide_manage->title         = $request->title;
-        $Slide_manage->type          = $request->type;
-        $Slide_manage->recept_date   = $request->recept_date;
-        $Slide_manage->short_details = 0;
-        $Slide_manage->long_details  = $request->long_details;
-        $Slide_manage->month         = $request->month;
-        $Slide_manage->year          = $request->year;
+        $Slide_manage->title              = $request->title;
+        $Slide_manage->type               = $request->type;
+        $Slide_manage->recept_date        = $request->recept_date;
+        $Slide_manage->short_details      = 0;
+        $Slide_manage->long_details       = $request->long_details;
+        $Slide_manage->month              = $request->month;
+        $Slide_manage->monthly_fee_amount = $request->monthly_fee_amount;
+        $Slide_manage->year               = $request->year;
         $Slide_manage->save();
         if (!empty($request->id)) {
             echo 1;

@@ -59,26 +59,32 @@
 
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
-                        <label for="">Amount</label>
+                        <label>Amount</label>
                         <input type="text" class="form-control w-100" name="title" id="title"
                             placeholder="Enter Amount" required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
-                        <label for="" class="">Recept Date</label>
+                        <label>Recept Date</label>
                         <input type="date" class="form-control w-100" name="recept_date" id="recept_date" required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
-                        <label for="" class="">Month</label>
+                        <label>Month</label>
                         <input type="text" class="form-control w-100" name="month" id="month" required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
-                        <label for="" class="">Year</label>
+                        <label>Monthly Fee Amount</label>
+                        <input type="text" class="form-control w-100" name="monthly_fee_amount" id="monthly_fee_amount" required>
+                    </div>
+                </div>
+                <div class="row px-0 mx-0 my-2">
+                    <div class="form-group col-12 px-0 mb-2">
+                        <label>Year</label>
                         <input type="text" class="form-control w-100" name="year" id="year" required>
                     </div>
                 </div>
