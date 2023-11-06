@@ -55,6 +55,9 @@
     cursor: pointer;
 }
 
+.select2-container {
+    display: block !important;
+}
 
 
 

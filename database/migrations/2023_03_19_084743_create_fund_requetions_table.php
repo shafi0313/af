@@ -20,6 +20,7 @@ class CreateFundRequetionsTable extends Migration
             $table->mediumText('comment');
             $table->decimal('amount',8,2)->default(0);
             $table->string('image',80);
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }

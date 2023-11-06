@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::table('menu_manages', function (Blueprint $table) {
             $table->date('recept_date')->nullable()->after('id');
         });
+        Schema::table('fund_requetions', function (Blueprint $table) {
+            $table->date('date')->nullable()->after('id');
+        });
     }
 
     /**
@@ -23,6 +26,9 @@ return new class extends Migration
     {
         Schema::table('menu_manages', function (Blueprint $table) {
             $table->dropColumn('recept_date');
+        });
+        Schema::table('fund_requetions', function (Blueprint $table) {
+            $table->dropColumn('date');
         });
     }
 };

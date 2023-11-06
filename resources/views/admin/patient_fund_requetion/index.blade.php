@@ -81,6 +81,10 @@
                                 <label for="amount">Amount</label>
                                 <input type="text" name="amount" class="form-control" required>
                             </div>
+                            <div class="form-group col-12">
+                                <label for="amount">Date</label>
+                                <input type="date" name="date" class="form-control" required>
+                            </div>
 
                             <div class="form-group col-12">
                                 <label for="comment">Comment</label>
