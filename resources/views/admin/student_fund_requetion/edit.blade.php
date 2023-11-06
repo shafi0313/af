@@ -39,17 +39,29 @@
                                         <input type="text" name="title" class="form-control" value="{{ $student->title }}" required>
                                     </div>
                                     <div class="form-group col-md-6">
+                                        <label for="title">Receipt Date</label>
+                                        <input type="date" name="recept_date" class="form-control" value="{{ $student->recept_date }}" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Month</label>
+                                        <input type="text" name="month" class="form-control" value="{{ $student->month }}" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Year</label>
+                                        <input type="text" name="year" class="form-control" value="{{ $student->year }}" required>
+                                    </div>
+                                    <div class="form-group col-md-3">
                                         <label for="long_details">Receipt View</label>
                                         <img src="{{ asset('images/'.$student->image) }}" alt="" height="80px">
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-3">
                                         <label for="image">Receipt</label>
                                         <input type="file" name="image" class="form-control">
                                     </div>
                                 </div>                                
                             </div>
                             <div class="card-footer text-center">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </form>                        
                     </div>

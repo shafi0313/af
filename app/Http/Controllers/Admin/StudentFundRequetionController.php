@@ -28,6 +28,9 @@ class StudentFundRequetionController extends Controller
         $data = $request->validate([
             'long_details' => 'required|string',
             'title'        => 'required|numeric',
+            'recept_date'  => 'required|date',
+            'month'        => 'required|string',
+            'year'         => 'required|string',
             'image'        => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
         ]);
         
