@@ -220,6 +220,7 @@ Route::post('/admin/approve_amnt_req', 'Admin\AdminController@approve_amnt_req')
 Route::post('/admin/approve_amnt_req2', 'Admin\AdminController@approve_amnt_req2');
 
 Route::get('/admin/agent_with_report', 'Admin\AdminController@agent_with_report');
+Route::get('/admin/agent_with_report/show', 'Admin\AdminController@agent_with_report_show')->name('admin.agent_with_report.show');
 Route::get('/admin/agent_with_report2', 'Admin\AdminController@agent_with_report2');
 Route::get('/admin/approve/{id}', 'Admin\AdminController@approve_amnt');
 

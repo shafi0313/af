@@ -43,3 +43,42 @@ table tr th {
 .select2-dropdown{
     z-index: 3051;
 }
+
+/* Apply styles to all tables */
+.table2 {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+/* Style table headers */
+.table2 th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Style alternate table rows with different background color */
+.table2 tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Add hover effect to table rows */
+tr:hover {
+  background-color: #e0e0e0;
+}
+
+/* Style the first column (optional) */
+td:first-child,
+th:first-child {
+  /* Add specific styles for the first column if needed */
+}
+
+/* Optional: Style specific columns */
+/* td:nth-child(2),
+th:nth-child(2) {
+  Add styles for the second column
+}
+*/

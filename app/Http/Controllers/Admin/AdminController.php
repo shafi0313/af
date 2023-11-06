@@ -318,11 +318,25 @@ class AdminController extends Controller
                 return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">Canceled </div>';
             }
         })
-
-
-            ->rawColumns(['image', 'status'])
+            ->addColumn('created_at', function ($item) {
+                return bdDate($item->created_at);
+            })
+            ->addColumn('action', function ($item) {
+                return '<a type="button" class="btn btn-white yearlyFundRequest" data-id="'.$item->id.'">Show</a>';
+            })
+            ->rawColumns(['action','created_at','image', 'status'])
             ->addIndexColumn()
             ->make(true);
+    }
+
+    public function agent_with_report_show(Request $request)
+    {
+        if($request->ajax()){
+            $orderDetails = DB::table('order_details')
+                ->where('order_id', $request->id)
+                ->get();
+            return response()->json($orderDetails);
+        }
     }
 
 
@@ -934,16 +948,16 @@ class AdminController extends Controller
     {
         $item = DB::table('menu_manages')
             ->select([
-                'users.*', 
-                'menu_manages.type', 
-                'menu_manages.id as menu_manages_id', 
-                'menu_manages.image', 
-                'menu_manages.long_details', 
-                'menu_manages.title', 
-                'menu_manages.short_details', 
-                'menu_manages.completed', 
+                'users.*',
+                'menu_manages.type',
+                'menu_manages.id as menu_manages_id',
+                'menu_manages.image',
+                'menu_manages.long_details',
+                'menu_manages.title',
+                'menu_manages.short_details',
+                'menu_manages.completed',
                 'menu_manages.recept_date as recept_date',
-                ])
+            ])
             ->leftjoin('users', 'users.id', '=', 'menu_manages.type')
             ->orderby('menu_manages.short_details', 'asc')
             ->get();
@@ -953,7 +967,7 @@ class AdminController extends Controller
             ';
         })
             ->addColumn('recept_date', function ($item) {
-                return $item->recept_date? bdDate($item->recept_date) : '';
+                return $item->recept_date ? bdDate($item->recept_date) : '';
             })
             ->addColumn('image', function ($item) {
                 return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
@@ -979,7 +993,7 @@ class AdminController extends Controller
                             </a>';
                 }
             })
-            ->rawColumns(['recept_date','long_details', 'image', 'status', 'action'])
+            ->rawColumns(['recept_date', 'long_details', 'image', 'status', 'action'])
             ->addIndexColumn()
             ->make(true);
     }

@@ -70,13 +70,25 @@
                         <input type="date" class="form-control w-100" name="recept_date" id="recept_date">
                     </div>
                 </div>
+                <div class="row px-0 mx-0 my-2">
+                    <div class="form-group col-12 px-0 mb-2">
+                        <label for="" class="">Month</label>
+                        <input type="text" class="form-control w-100" name="recept_date" id="recept_date">
+                    </div>
+                </div>
+                <div class="row px-0 mx-0 my-2">
+                    <div class="form-group col-12 px-0 mb-2">
+                        <label for="" class="">Year</label>
+                        <input type="text" class="form-control w-100" name="recept_date" id="recept_date">
+                    </div>
+                </div>
 
                 <!-- <div class="row px-0 mx-0 my-2">
-                        <div class="form-group col-12 px-0 mb-2">
-                            <label for="inputCategory" class="sr-only"></label>
-                            <textarea class="form-control" name="short_details" id="short_details" placeholder="Short Description"></textarea>
-                        </div>
-                    </div> -->
+                            <div class="form-group col-12 px-0 mb-2">
+                                <label for="inputCategory" class="sr-only"></label>
+                                <textarea class="form-control" name="short_details" id="short_details" placeholder="Short Description"></textarea>
+                            </div>
+                        </div> -->
 
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
@@ -146,6 +158,8 @@
             </div>
         </div>
     </div>
+
+    
 
 
     <script>
@@ -361,7 +375,7 @@
                         $('#summernote').summernote('code', data.long_details);
                         $('#InputButton').html(
                             '<button type="submit" class="btn btn-primary w-75 mx-auto mt-4 UpdateProduct">Update</button>'
-                            );
+                        );
                     }
                 });
             });
