@@ -26,12 +26,13 @@ class StudentFundRequetionController extends Controller
     public function update(Request $request, MenuManage $student_fund_requetion)
     {
         $data = $request->validate([
-            'long_details' => 'required|string',
-            'title'        => 'required|numeric',
-            'recept_date'  => 'required|date',
-            'month'        => 'required|string',
-            'year'         => 'required|string',
-            'image'        => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
+            'long_details'       => 'required|string',
+            'title'              => 'required|numeric',
+            'recept_date'        => 'required|date',
+            'month'              => 'required|string',
+            'year'               => 'required|string',
+            'monthly_fee_amount' => 'required|numeric',
+            'image'              => 'nullable|image|mimes:png,jpeg,jpg,JPG,PNG,JPEG|max:512',
         ]);
         
         if($request->hasFile('image')){

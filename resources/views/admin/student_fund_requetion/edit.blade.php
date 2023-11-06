@@ -32,7 +32,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="long_details">Comment</label>
-                                        <input type="text" name="long_details" class="form-control" value="{{ $student->long_details }}" required>
+                                        <input type="text" name="long_details" class="form-control" value="{!! $student->long_details !!}" required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="title">Amount</label>
@@ -43,8 +43,12 @@
                                         <input type="date" name="recept_date" class="form-control" value="{{ $student->recept_date }}" required>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="title">Month</label>
+                                        <label for="title">Month Name</label>
                                         <input type="text" name="month" class="form-control" value="{{ $student->month }}" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Monthly Fee Amount</label>
+                                        <input type="text" name="monthly_fee_amount" class="form-control" value="{{ $student->monthly_fee_amount }}" required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="title">Year</label>

@@ -960,6 +960,9 @@ class AdminController extends Controller
                 'menu_manages.short_details',
                 'menu_manages.completed',
                 'menu_manages.recept_date as recept_date',
+                'menu_manages.month',
+                'menu_manages.monthly_fee_amount',
+                'menu_manages.year',
             ])
             ->leftjoin('users', 'users.id', '=', 'menu_manages.type')
             ->orderby('menu_manages.short_details', 'asc')

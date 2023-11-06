@@ -123,7 +123,8 @@
                                         <th scope="col" class="border-0">Comment</th>
                                         <th scope="col" class="border-0">Amount</th>
                                         <th scope="col" class="border-0">Recept Date</th>
-                                        <th scope="col" class="border-0">Month</th>
+                                        <th scope="col" class="border-0">Month Name</th>
+                                        <th scope="col" class="border-0">Monthly Fee Amt</th>
                                         <th scope="col" class="border-0">Year</th>
                                         <th scope="col" class="border-0">Status</th>
                                         <th scope="col" class="border-0">Receipt View</th>
@@ -182,6 +183,9 @@
                     },
                     {
                         data: 'recept_date'
+                    },
+                    {
+                        data: 'monthly_fee_amount'
                     },
                     {
                         data: 'month'
