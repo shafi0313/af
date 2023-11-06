@@ -318,22 +318,25 @@ class AdminController extends Controller
                 return '<div class="d-table mx-auto btn-group-sm btn-group  btn-danger btn-block" style="">Canceled </div>';
             }
         })
+            ->addColumn('action', function ($item) {
+                return '<a type="button" class="btn btn-white yearlyFundRequest" data-id="' . $item->id . '"><i class="fa-solid fa-eye"></i></a>';
+            })
             ->addColumn('created_at', function ($item) {
                 return bdDate($item->created_at);
             })
-            ->addColumn('action', function ($item) {
-                return '<a type="button" class="btn btn-white yearlyFundRequest" data-id="'.$item->id.'">Show</a>';
-            })
-            ->rawColumns(['action','created_at','image', 'status'])
+            ->rawColumns(['action', 'created_at', 'image', 'status'])
             ->addIndexColumn()
             ->make(true);
     }
 
     public function agent_with_report_show(Request $request)
     {
-        if($request->ajax()){
-            $orderDetails = DB::table('order_details')
-                ->where('order_id', $request->id)
+        if ($request->ajax()) {
+            return$orderDetails = DB::table('order_details')
+                ->select('expenses.id as exp_id','expenses.name','order_details.order_id','order_details.req_amnt','order_details.aprv_amnt','users.student_name')
+                ->join('expenses', 'expenses.id', '=', 'order_details.ex_id')
+                ->join('users', 'users.id', '=', 'order_details.student_id')
+                ->where('order_details.order_id', $request->id)
                 ->get();
             return response()->json($orderDetails);
         }

@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="row">                
+            <div class="row">
                 <div class="col">
                     <div class="card card-small mb-4">
                         @if (Session::has('msg'))
@@ -35,8 +35,8 @@
                                         <th scope="col" class="border-0">Total Paid</th>
                                         <th scope="col" class="border-0">Year</th>
                                         <th scope="col" class="border-0">Status</th>
-                                        <th scope="col" class="border-0">Created</th>
                                         <th scope="col" class="border-0">Action</th>
+                                        <th scope="col" class="border-0">Created</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -47,7 +47,7 @@
         </div>
     </main>
 
-    
+
 
 
     <div class="modal fade abc" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel"
@@ -147,34 +147,36 @@
             </div>
         </div>
     </div>
-    
+
     {{-- Yearly fund request modal --}}
-    <div class="modal fade" id="yearlyFundRequestModal" tabindex="-1" role="dialog" aria-labelledby="yearlyFundRequestModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="yearlyFundRequestModalLabel"></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+    <div class="modal fade" id="yearlyFundRequestModal" tabindex="-1" role="dialog"
+        aria-labelledby="yearlyFundRequestModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="yearlyFundRequestModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table2">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Request Amount</th>
+                                <th>Approved Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <table class="table2">
-                <thead>
-                    <tr>
-                        <th>Request Amount</th>
-                        <th>Approved Amount</th>
-                    </tr>
-                </thead>              
-                <tbody></tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
     {{-- Yearly fund request modal --}}
     <script>
         $("#CategoryId").on('change', function() {
@@ -354,10 +356,10 @@
                         data: 'status'
                     },
                     {
-                        data: 'created_at'
+                        data: 'action'
                     },
                     {
-                        data: 'action'
+                        data: 'created_at'
                     },
                 ]
             });
@@ -365,11 +367,9 @@
         });
 
         $(document).ready(function() {
-            // Attach click event handler to elements with class 'yearlyFundRequest'
             $(document).on('click', '.yearlyFundRequest', function() {
                 $('#yearlyFundRequestModal').modal('show');
-                // Get the record's ID via attribute
-                var id = $(this).attr('data-id');                
+                var id = $(this).attr('data-id');
                 $.ajax({
                     url: "{{ route('admin.agent_with_report.show') }}",
                     type: 'get',
@@ -382,21 +382,25 @@
                         let html = '';
                         let reqAmnt = 0;
                         let aprvAmnt = 0;
-                         
+                        $('#yearlyFundRequestModalLabel').text(res[0].student_name)
                         $.each(res, function(key, value) {
-                            reqAmnt += value.req_amnt
-                            aprvAmnt += value.aprv_amnt
-                            html += '<tr">';
-                            html += '<td>' + value.req_amnt + '</td>';                            
-                            html += '<td>' + value.aprv_amnt + '</td>'; 
-                            html += '</tr>';                                                      
+                            reqAmnt += value.req_amnt;
+                            aprvAmnt += value.aprv_amnt;
+                            html += '<tr>'; // Corrected opening <tr> tag
+                            html += '<td>' + value.name + '</td>';
+                            html += '<td>' + value.req_amnt + '</td>';
+                            html += '<td>' + value.aprv_amnt + '</td>';
+                            html += '</tr>';
                         });
+
                         html += '<tr>';
-                            html += '<td>'  + reqAmnt +'</td>';                          
-                            html += '<td>'  + aprvAmnt +'</td>';                          
-                        html += '</tr>';                         
+                        html += '<td class="bg-primary text-white">Total</td>';
+                        html += '<td class="bg-primary text-white">' + reqAmnt + '</td>';
+                        html += '<td class="bg-primary text-white">' + aprvAmnt + '</td>';
+                        html += '</tr>';
                         $('#yearlyFundRequestModal table tbody').html(html);
                     }
+
                 });
             });
         });
