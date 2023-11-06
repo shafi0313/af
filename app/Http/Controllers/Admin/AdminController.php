@@ -332,8 +332,8 @@ class AdminController extends Controller
     public function agent_with_report_show(Request $request)
     {
         if ($request->ajax()) {
-            return$orderDetails = DB::table('order_details')
-                ->select('expenses.id as exp_id','expenses.name','order_details.order_id','order_details.req_amnt','order_details.aprv_amnt','users.student_name')
+            return $orderDetails = DB::table('order_details')
+                ->select('expenses.id as exp_id', 'expenses.name', 'order_details.order_id', 'order_details.req_amnt', 'order_details.aprv_amnt', 'users.student_name')
                 ->join('expenses', 'expenses.id', '=', 'order_details.ex_id')
                 ->join('users', 'users.id', '=', 'order_details.student_id')
                 ->where('order_details.order_id', $request->id)
@@ -1108,6 +1108,8 @@ class AdminController extends Controller
         $Slide_manage->recept_date   = $request->recept_date;
         $Slide_manage->short_details = 0;
         $Slide_manage->long_details  = $request->long_details;
+        $Slide_manage->month         = $request->month;
+        $Slide_manage->year          = $request->year;
         $Slide_manage->save();
         if (!empty($request->id)) {
             echo 1;
@@ -1717,7 +1719,6 @@ class AdminController extends Controller
     public function amount_distribution()
     {
         $data['basic_info'] = Basic_info_manage::where('id', 1)->first();
-
         $data['spon_count'] = Crone_record::where('id', 1)->first();
         $data['ref_dist']   = Crone_record::where('id', 2)->first();
         $data['rank_distr'] = Crone_record::where('id', 3)->first();

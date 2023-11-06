@@ -50,45 +50,38 @@
                 <input type="file" name="ProductPic" class="ImageUpload d-none">
                 <input type="text" id="itemId" name="itemId" class="d-none">
 
-                <div class="row px-0 mx-0 my-2">
+                {{-- <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label for="" class="sr-only">Approved Amount</label>
                         <input type="text" class="form-control w-100" id="aproved" disabled>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label for="">Amount</label>
                         <input type="text" class="form-control w-100" name="title" id="title"
-                            placeholder="Enter Amount">
+                            placeholder="Enter Amount" required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label for="" class="">Recept Date</label>
-                        <input type="date" class="form-control w-100" name="recept_date" id="recept_date">
+                        <input type="date" class="form-control w-100" name="recept_date" id="recept_date" required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label for="" class="">Month</label>
-                        <input type="text" class="form-control w-100" name="recept_date" id="recept_date">
+                        <input type="text" class="form-control w-100" name="month" id="month" required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label for="" class="">Year</label>
-                        <input type="text" class="form-control w-100" name="recept_date" id="recept_date">
+                        <input type="text" class="form-control w-100" name="year" id="year" required>
                     </div>
                 </div>
-
-                <!-- <div class="row px-0 mx-0 my-2">
-                            <div class="form-group col-12 px-0 mb-2">
-                                <label for="inputCategory" class="sr-only"></label>
-                                <textarea class="form-control" name="short_details" id="short_details" placeholder="Short Description"></textarea>
-                            </div>
-                        </div> -->
 
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
@@ -130,6 +123,8 @@
                                         <th scope="col" class="border-0">Comment</th>
                                         <th scope="col" class="border-0">Amount</th>
                                         <th scope="col" class="border-0">Recept Date</th>
+                                        <th scope="col" class="border-0">Month</th>
+                                        <th scope="col" class="border-0">Year</th>
                                         <th scope="col" class="border-0">Status</th>
                                         <th scope="col" class="border-0">Receipt View</th>
                                         <td scope="col" class="border-0">Action</td>
@@ -187,6 +182,12 @@
                     },
                     {
                         data: 'recept_date'
+                    },
+                    {
+                        data: 'month'
+                    },
+                    {
+                        data: 'year'
                     },
                     {
                         data: 'status'
