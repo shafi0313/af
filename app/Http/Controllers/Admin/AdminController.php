@@ -1088,6 +1088,20 @@ class AdminController extends Controller
             $Slide_manage = new Menu_manage();
         }
 
+        // $requisitionAmt = Menu_manage::where('year', $request->year)->where('type', $request->type)->sum('title');
+
+        $aprv_amnt = DB::table('order')->where('year', $request->year)->where('student_id', $request->type)->sum('aprv_amnt');
+        $payment = DB::table('order')->where('year', $request->year)->where('student_id', $request->type)->sum('accmulative_amnt');
+
+        if($payment + $request->title > $aprv_amnt){
+            return back()->with('error', 'You can not request more than approved amount');
+            echo 3;
+
+            // Alert::info('Info', 'You can not request more than approved amount');
+            // return back();
+        }
+        exit();
+
         if ($request->hasFile('ProductPic')) {
             $validator = Validator::make($request->all(), [
                 'ProductPic' => 'max:512',

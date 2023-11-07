@@ -79,7 +79,8 @@
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label>Monthly Fee Amount</label>
-                        <input type="text" class="form-control w-100" name="monthly_fee_amount" id="monthly_fee_amount" required>
+                        <input type="text" class="form-control w-100" name="monthly_fee_amount" id="monthly_fee_amount"
+                            required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
@@ -161,7 +162,7 @@
         </div>
     </div>
 
-    
+
 
 
     <script>
@@ -277,6 +278,9 @@
             $('#upload_form').on('submit', function() {
                 event.preventDefault();
                 $('.addProduct').attr('disabled', 'true');
+                setTimeout(function() {
+                    $('.addProduct').removeAttr('disabled');
+                }, 3000); // 30 seconds in milliseconds
                 $.ajax({
                     url: "{{ url('menu-manage-insert') }}",
                     method: "POST",
@@ -296,6 +300,12 @@
                                 'Update!',
                                 'Menu Updated',
                                 'success'
+                            )
+                        } else if (data = 3) {
+                            Swal.fire(
+                                'Info!',
+                                'You can not request more than approved amount',
+                                'info'
                             )
                         } else {
                             Swal.fire({
