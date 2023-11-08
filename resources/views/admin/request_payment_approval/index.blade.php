@@ -174,7 +174,7 @@
                     [50, 100, 200, -1],
                     [50, 100, 200, "All"]
                 ],
-                ajax: "{{ url('menu-manage-view2') }}",
+                ajax: "{{ route('admin.request-payment-approval.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'

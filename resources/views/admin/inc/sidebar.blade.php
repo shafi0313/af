@@ -131,7 +131,7 @@
                         <span>Requested Payment Approval</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
-                        <a class="dropdown-item " href="{{ route('admin.menu-manage2') }}">Students</a>
+                        <a class="dropdown-item " href="{{ route('admin.request-payment-approval.index') }}">Students</a>
                         <a class="dropdown-item " href="{{ route('admin.patient-payment-approval.index') }}">Patients</a>
                     </div>
                 </li>
