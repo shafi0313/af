@@ -21,7 +21,9 @@ class RequestPaymentApprovalController extends Controller
         if (request()->ajax()) {
             $item = DB::table('menu_manages')
                 ->leftjoin('users', 'users.id', '=', 'menu_manages.type')
-                ->select('users.*', 'menu_manages.id as menu_id', 'menu_manages.title', 'menu_manages.long_details', 'menu_manages.image', 'menu_manages.type', 'menu_manages.short_details', 'menu_manages.completed')
+                ->select('users.*', 'menu_manages.id as menu_id', 'menu_manages.title', 'menu_manages.long_details', 'menu_manages.image', 
+                'menu_manages.type', 'menu_manages.short_details', 
+                'menu_manages.completed', 'menu_manages.recept_date', 'menu_manages.month', 'menu_manages.year', 'menu_manages.monthly_fee_amount')
                 ->orderby('menu_manages.short_details', 'asc')
                 ->get();
             return DataTables::of($item)
@@ -53,7 +55,7 @@ class RequestPaymentApprovalController extends Controller
                         <button type="button" title="Delete" id="' . $item->menu_id . '" class="btn btn-danger delete" ' . $completed . '><i class="material-icons"></i></button>
                     </div>';
                 })
-                ->rawColumns(['created_at', 'image', 'status', 'action'])
+                ->rawColumns(['long_details','created_at', 'image', 'status', 'action'])
                 ->addIndexColumn()
                 ->make(true);
         }

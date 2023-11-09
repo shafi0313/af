@@ -58,8 +58,10 @@
                                         <input type="text" class="form-control" name="year" id="year"
                                             value="{{ $RPApproval->year }}" required>
                                     </div>
-                                    <div class="col-md-6">
-                                        <img src="{{ asset('images/' . $RPApproval->image) }}" alt="Image" width="100px">
+                                    <div class="col-md-6 my-3">
+                                        <a href="{{ asset('images/' . $RPApproval->image) }}" target="_blank">
+                                            <img src="{{ asset('images/' . $RPApproval->image) }}" alt="Image" width="100px">
+                                        </a>                                        
                                     </div>
                                     <div class="col-md-6">
                                         <label>Image</label>

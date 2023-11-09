@@ -28,6 +28,9 @@
                                         <th scope="col" class="border-0">Student Name</th>
                                         <th scope="col" class="border-0">Comment</th>
                                         <th scope="col" class="border-0">Recept Date</th>
+                                        <th scope="col" class="border-0">Month</th>
+                                        <th scope="col" class="border-0">Year</th>
+                                        <th scope="col" class="border-0">Monthly Fee Amount</th>
                                         <th scope="col" class="border-0">Amount</th>
                                         <th scope="col" class="border-0">Status</th>
                                         <th scope="col" class="border-0">Created</th>
@@ -186,7 +189,16 @@
                         data: 'long_details'
                     },
                     {
-                        data: 'created_at'
+                        data: 'recept_date'
+                    },
+                    {
+                        data: 'month'
+                    },
+                    {
+                        data: 'year'
+                    },
+                    {
+                        data: 'monthly_fee_amount'
                     },
                     {
                         data: 'title'
