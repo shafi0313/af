@@ -55,8 +55,10 @@
                                         <input type="text" name="year" class="form-control" value="{{ $student->year }}" required>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="long_details">Receipt View</label>
-                                        <img src="{{ asset('images/'.$student->image) }}" alt="" height="80px">
+                                        <label for="long_details">Receipt View</label>                                        
+                                        <a href="{{ asset('images/'.$student->image) }}" target="_blank">
+                                            <img src="{{ asset('images/'.$student->image) }}" alt="Receipt View" height="80px">
+                                        </a>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="image">Receipt</label>
