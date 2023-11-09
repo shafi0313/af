@@ -96,10 +96,9 @@ class RequestPaymentApprovalController extends Controller
             'long_details'       => $request->long_details,
         ];
         if($request->hasFile('image')){
-            $data['image'] = imageUpdate($request, 'image', 'menu_', 'images/', $RPApproval->image);
-        
+            $data['image'] = imageUpdate($request, 'image', 'menu_', 'images/', $RPApproval->image);        
         }
         $RPApproval->update($data);
-        return back()->with('success', 'Request Payment Approval Updated Successfully');
+        return redirect()->route('admin.request-payment-approval.index')->with('success', 'Request Payment Approval Updated Successfully');
     }
 }
