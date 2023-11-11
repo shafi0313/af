@@ -25,6 +25,7 @@ class RequestPaymentApprovalController extends Controller
                 'menu_manages.type', 'menu_manages.short_details', 
                 'menu_manages.completed', 'menu_manages.recept_date', 'menu_manages.month', 'menu_manages.year', 'menu_manages.monthly_fee_amount')
                 ->orderby('menu_manages.short_details', 'asc')
+                ->orderby('menu_manages.recept_date', 'DESC')
                 ->get();
             return DataTables::of($item)
                 ->addColumn('created_at', function ($item) {

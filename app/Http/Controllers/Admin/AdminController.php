@@ -966,6 +966,7 @@ class AdminController extends Controller
             ])
             ->leftjoin('users', 'users.id', '=', 'menu_manages.type')
             ->orderby('menu_manages.short_details', 'asc')
+            ->orderby('menu_manages.recept_date', 'DESC')
             ->get();
         return DataTables::of($item)->addColumn('action', function ($item) {
             return '<div class="d-table mx-auto storage/product/btn-group-sm btn-group">            
