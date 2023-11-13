@@ -28,6 +28,9 @@ class RequestPaymentApprovalController extends Controller
                 ->orderby('menu_manages.recept_date', 'DESC')
                 ->get();
             return DataTables::of($item)
+                ->addColumn('recept_date', function ($item) {
+                    return bdDate($item->recept_date);
+                })
                 ->addColumn('created_at', function ($item) {
                     return bdDate($item->created_at);
                 })
@@ -56,7 +59,7 @@ class RequestPaymentApprovalController extends Controller
                         <button type="button" title="Delete" id="' . $item->menu_id . '" class="btn btn-danger delete" ' . $completed . '><i class="material-icons"></i></button>
                     </div>';
                 })
-                ->rawColumns(['long_details','created_at', 'image', 'status', 'action'])
+                ->rawColumns(['recept_date','long_details','created_at', 'image', 'status', 'action'])
                 ->addIndexColumn()
                 ->make(true);
         }
