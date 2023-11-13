@@ -9,4 +9,7 @@ class MenuManage extends Model
 {
     use HasFactory;
     protected $guarded = ["id"];
+    protected $table = "menu_manages";
+
+    protected $dates = ['recept_date'];
 }

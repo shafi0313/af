@@ -28,12 +28,12 @@ class RequestPaymentApprovalController extends Controller
                 ->orderby('menu_manages.recept_date', 'DESC')
                 ->get();
             return DataTables::of($item)
-                ->addColumn('recept_date', function ($item) {
-                    return $item->recept_date? bdDate($item->recept_date) : '';
-                })
-                ->addColumn('created_at', function ($item) {
-                    return bdDate($item->created_at);
-                })
+                // ->addColumn('recept_date', function ($item) {
+                //     return $item->recept_date? bdDate($item->recept_date) : '';
+                // })
+                // ->addColumn('recept_date', function ($item) {
+                //     return $item->recept_date->format('Y-m-d');
+                // })
                 ->addColumn('image', function ($item) {
                     return '<a href="images/' . $item->image . '" target="_blank"><img src="images/' . $item->image . '" class="img-thumbnail" width="30px"></a>';
                 })
@@ -59,7 +59,7 @@ class RequestPaymentApprovalController extends Controller
                         <button type="button" title="Delete" id="' . $item->menu_id . '" class="btn btn-danger delete" ' . $completed . '><i class="material-icons"></i></button>
                     </div>';
                 })
-                ->rawColumns(['recept_date','long_details','created_at', 'image', 'status', 'action'])
+                ->rawColumns(['long_details','created_at', 'image', 'status', 'action'])
                 ->addIndexColumn()
                 ->make(true);
         }
