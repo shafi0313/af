@@ -29,7 +29,7 @@ class RequestPaymentApprovalController extends Controller
                 ->get();
             return DataTables::of($item)
                 ->addColumn('recept_date', function ($item) {
-                    return bdDate($item->recept_date);
+                    return $item->recept_date? bdDate($item->recept_date) : '';
                 })
                 ->addColumn('created_at', function ($item) {
                     return bdDate($item->created_at);

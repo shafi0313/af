@@ -189,7 +189,7 @@
                         data: 'long_details'
                     },
                     {
-                        data: 'recept_date'
+                        data: 'recept_date',
                     },
                     {
                         data: 'month'
@@ -284,7 +284,7 @@
                         $('#summernote').summernote('code', data.long_details);
                         $('#InputButton').html(
                             '<button type="submit" class="btn btn-primary w-75 mx-auto mt-4 UpdateProduct">Update</button>'
-                            );
+                        );
                     }
                 });
             });
