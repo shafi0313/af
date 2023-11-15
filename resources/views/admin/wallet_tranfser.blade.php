@@ -384,9 +384,9 @@
                         let aprvAmnt = 0;
                         $('#yearlyFundRequestModalLabel').text(res[0].student_name)
                         $.each(res, function(key, value) {
-                            reqAmnt += value.req_amnt;
-                            aprvAmnt += value.aprv_amnt;
-                            html += '<tr>'; // Corrected opening <tr> tag
+                            reqAmnt += parseFloat(value.req_amnt);
+                            aprvAmnt += parseFloat(value.aprv_amnt);
+                            html += '<tr>';
                             html += '<td>' + value.name + '</td>';
                             html += '<td>' + value.req_amnt + '</td>';
                             html += '<td>' + value.aprv_amnt + '</td>';
