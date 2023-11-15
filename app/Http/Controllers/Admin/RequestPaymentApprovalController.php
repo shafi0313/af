@@ -7,6 +7,7 @@ use App\Models\MenuManage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
 class RequestPaymentApprovalController extends Controller
@@ -21,9 +22,20 @@ class RequestPaymentApprovalController extends Controller
         if (request()->ajax()) {
             $item = DB::table('menu_manages')
                 ->leftjoin('users', 'users.id', '=', 'menu_manages.type')
-                ->select('users.*', 'menu_manages.id as menu_id', 'menu_manages.title', 'menu_manages.long_details', 'menu_manages.image', 
-                'menu_manages.type', 'menu_manages.short_details', 
-                'menu_manages.completed', 'menu_manages.recept_date', 'menu_manages.month', 'menu_manages.year', 'menu_manages.monthly_fee_amount')
+                ->select(
+                    'users.*',
+                    'menu_manages.id as menu_id',
+                    'menu_manages.title',
+                    'menu_manages.long_details',
+                    'menu_manages.image',
+                    'menu_manages.type',
+                    'menu_manages.short_details',
+                    'menu_manages.completed',
+                    'menu_manages.recept_date',
+                    'menu_manages.month',
+                    'menu_manages.year',
+                    'menu_manages.monthly_fee_amount'
+                )
                 ->orderby('menu_manages.short_details', 'asc')
                 ->orderby('menu_manages.recept_date', 'DESC')
                 ->get();
@@ -50,7 +62,7 @@ class RequestPaymentApprovalController extends Controller
                     $completed = $item->completed == 1 ? 'disabled' : '';
                     $completedA = $item->completed == 1 ? 'disabled_' : '';
                     return '<div class="d-table mx-auto btn-group-sm btn-group">            
-                        <a class="btn btn-primary btn-check edit ' . $completed . '" title="Approved" href="payment-approve-monhtly/' . $item->menu_id . '" id="' . $item->menu_id . '" onclick="return confirm(' . "'Do you want to accept this request?'" . ')">
+                        <a class="btn btn-primary btn-check edit ' . $completed . '" title="Approved" href="' . route('admin.r_p_a.student_approved', $item->menu_id) . '" id="' . $item->menu_id . '" onclick="return confirm(' . "'Do you want to accept this request?'" . ')">
                             <i class="material-icons">done</i>
                         </a>
                         <a class="btn btn-warning" href="' . route('admin.request-payment-approval.edit', $item->menu_id) . '">
@@ -59,7 +71,7 @@ class RequestPaymentApprovalController extends Controller
                         <button type="button" title="Delete" id="' . $item->menu_id . '" class="btn btn-danger delete" ' . $completed . '><i class="material-icons"></i></button>
                     </div>';
                 })
-                ->rawColumns(['long_details','created_at', 'image', 'status', 'action'])
+                ->rawColumns(['long_details', 'created_at', 'image', 'status', 'action'])
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -79,7 +91,7 @@ class RequestPaymentApprovalController extends Controller
     }
 
     public function update(Request $request, $id)
-    {      
+    {
         // $request->validate([
         //     'type'               => 'required',
         //     'title'              => 'required',
@@ -99,10 +111,28 @@ class RequestPaymentApprovalController extends Controller
             'year'               => $request->year,
             'long_details'       => $request->long_details,
         ];
-        if($request->hasFile('image')){
-            $data['image'] = imageUpdate($request, 'image', 'menu_', 'images/', $RPApproval->image);        
+        if ($request->hasFile('image')) {
+            $data['image'] = imageUpdate($request, 'image', 'menu_', 'images/', $RPApproval->image);
         }
         $RPApproval->update($data);
         return redirect()->route('admin.request-payment-approval.index')->with('success', 'Request Payment Approval Updated Successfully');
+    }
+
+    public function studentApproved($id)
+    {
+        // try{
+            DB::table('menu_manages')->where('id', $id)->update(['short_details' => 1, 'completed' => 1]);
+
+            $payment = DB::table('menu_manages')->where('id', $id)->first();
+            $student = DB::table('order')->where('student_id', $payment->type)->first();
+    
+            $amount  = $student->accmulative_amnt + $payment->title;
+            $item = DB::table('order')->where('id', $student->id)->update(['accmulative_amnt' => $amount]);
+            Alert::success('Success', 'Payment Approved');
+            return redirect()->back();
+        // }catch(\Exception $e){
+        //     Alert::error('Error', 'Something went wrong');
+        //     return redirect()->back();
+        // }        
     }
 }

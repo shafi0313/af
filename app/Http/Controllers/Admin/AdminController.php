@@ -289,17 +289,7 @@ class AdminController extends Controller
         return view('admin.payment_approve', $data);
     }
 
-    public function payment_approve_monthly($id)
-    {
-        DB::table('menu_manages')->where('id', $id)->update(['short_details' => 1]);
-
-        $payment = DB::table('menu_manages')->where('id', $id)->first();
-        $student = DB::table('order')->where('student_id', $payment->type)->first();
-
-        $amount  = $student->accmulative_amnt + $payment->title;
-        $item = DB::table('order')->where('id', $student->id)->update(['accmulative_amnt' => $amount]);
-        return redirect()->back();
-    }
+   
 
     public function agent_with_report()
     {

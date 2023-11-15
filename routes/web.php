@@ -89,7 +89,7 @@ Route::get('/menu-manage-view', 'Admin\AdminController@menu_manage_view');
 Route::post('/menu-manage-insert', 'Admin\AdminController@menu_insert');
 Route::get('/menu-manage-edit', 'Admin\AdminController@menu_manage_edit');
 Route::get('/menu-manage-delete', 'Admin\AdminController@menu_manage_delete');
-Route::get('/payment-approve-monhtly/{id}', 'Admin\AdminController@payment_approve_monthly');
+
 
 Route::get('menu_manage_view_delete/{id}','Admin\AdminController@menu_manage_view_delete')->name('admin.menu_manage_view_delete');
 

@@ -39,7 +39,7 @@ Route::resource('/student-fund-requetion', StudentFundRequetionController::class
 Route::resource('/patient-payment-approval', PatientPaymentApprovalController::class, ['parameters' => ['patient-payment-approval' => 'patient_payment_approval']]);
 Route::post('/patient-payment-approval/accept', [PatientPaymentApprovalController::class, 'accept'])->name('patient_payment_approval.accept');
 
-Route::controller(CashBookController::class)->prefix('cash-book')->name('cash_book.')->group(function(){
+Route::controller(CashBookController::class)->prefix('cash-book')->name('cash_book.')->group(function () {
     Route::get('/office', 'office')->name('office');
     Route::post('/office/store', 'officeStore')->name('officeStore');
     Route::get('/entry/{office}', 'entry')->name('entry');
@@ -47,9 +47,10 @@ Route::controller(CashBookController::class)->prefix('cash-book')->name('cash_bo
     Route::post('/post', 'post')->name('post');
     Route::get('/destroy/{id}', 'destroy')->name('destroy');
 });
-Route::controller(CashBookReportController::class)->prefix('cash-book-report')->name('cash_book_report.')->group(function(){
+Route::controller(CashBookReportController::class)->prefix('cash-book-report')->name('cash_book_report.')->group(function () {
     Route::get('/select', 'select')->name('select');
     Route::get('/report', 'report')->name('report');
 });
 
 Route::resource('request-payment-approval', RequestPaymentApprovalController::class);
+Route::get('/request-payment-approval/student-approved/{id}', [RequestPaymentApprovalController::class, 'studentApproved'])->name('r_p_a.student_approved');
