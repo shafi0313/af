@@ -34,20 +34,30 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php $total = 0;  @endphp
+                                                @php $totalRequestAmount = $totalApprovedAmount = 0;  @endphp
                                                 @foreach ($order_d as $v)
                                                     @php
                                                         $product = DB::table('expenses')
                                                             ->where('id', $v->ex_id)
                                                             ->first();
-                                                        $monthlyFee = $order_d->where('ex_id', 4)->sum('req_amnt') * 12;
-                                                        $total = $order_d->where('ex_id', '!=', 4)->sum('req_amnt') + $monthlyFee;
+
+                                                        $totalRequestAmount += floatval($v->req_amnt);
+                                                        $totalApprovedAmount += floatval($v->aprv_amnt);
+                                                        // $monthlyFee = $order_d->where('ex_id', 4)->sum('req_amnt') * 12;
+                                                        // $total = $order_d->where('ex_id', '!=', 4)->sum('req_amnt') + $monthlyFee;
+                                                        // $aprv_amnt_total = $order_d->where('ex_id', '!=', 4)->sum('aprv_amnt') + $monthlyFee;
                                                     @endphp
-                                                    @if ($v->id != 32)
-                                                        @php   $total = $total + $v->req_amnt;  @endphp
+                                                    {{-- @if ($v->id != 32)
+                                                        @php   
+                                                        $total = $total + $v->req_amnt;  
+                                                        $aprv_amnt_total = $aprv_amnt_total + $v->aprv_amnt;  
+                                                        @endphp
                                                     @else
-                                                        @php   $total = $total + $v->req_amnt * 12;  @endphp
-                                                    @endif
+                                                        @php   
+                                                        $total = $total + $v->req_amnt * 12;  
+                                                        $aprv_amnt_total = $aprv_amnt_total + $v->aprv_amnt * 12;  
+                                                        @endphp
+                                                    @endif --}}
                                                     <input type="hidden" name="expense[]" value="{{ $v->id }}" />
                                                     <tr>
                                                         <td class="serial" style="color:#0909EC;">
@@ -60,7 +70,7 @@
                                                         <td>
                                                             <input type="number" required
                                                                 class="applynow input-sm applynow_{{ $v->id }}"
-                                                                data-id="{{ $v->ex_id }}" name="approve[]"
+                                                                data-id="{{ $v->ex_id }}" name="approve[]" value="{{ $v->aprv_amnt }}"
                                                                 id="approve" />
                                                         </td>
                                                     </tr>
@@ -69,8 +79,8 @@
                                             <tfoot>
                                                 <tr>
                                                     <td class="">Total </td>
-                                                    <td class="">{{ $total }} </td>
-                                                    <td class="" class="sub-total"></td>
+                                                    <td class="">{{ $totalRequestAmount }} </td>
+                                                    <td class="" class="sub-total">{{ $totalApprovedAmount }}</td>
                                                     <input type="hidden" name="grand_total" id="total_amount_pay_amount" />
                                                 </tr>
                                             </tfoot>

@@ -48,20 +48,13 @@
                     </div>
                 </div>
                 <input type="file" name="ProductPic" class="ImageUpload d-none">
-                <input type="text" id="itemId" name="itemId" class="d-none">
-
-                {{-- <div class="row px-0 mx-0 my-2">
-                    <div class="form-group col-12 px-0 mb-2">
-                        <label for="" class="sr-only">Approved Amount</label>
-                        <input type="text" class="form-control w-100" id="aproved" disabled>
-                    </div>
-                </div> --}}
+                <input type="text" id="itemId" name="itemId" class="d-none">           
 
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label>Total Approved Amount</label>
                         <input type="text" class="form-control w-100" name="title" id="title"
-                            placeholder="Enter Amount" required>
+                            placeholder="Enter Total Approved Amount" required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
@@ -72,28 +65,28 @@
                 </div>
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
-                        <label>Month</label>
-                        <input type="text" class="form-control w-100" name="month" id="month" required>
+                        <label>Month Name and Other Fee Name</label>
+                        <input type="text" class="form-control w-100" name="month" id="month" placeholder="Month Name and Other Fee Name" required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label>Monthly Fee Amount</label>
-                        <input type="text" class="form-control w-100" name="monthly_fee_amount" id="monthly_fee_amount"
+                        <input type="text" class="form-control w-100" name="monthly_fee_amount" placeholder="Monthly Fee Amount" id="monthly_fee_amount"
                             required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label>Year</label>
-                        <input type="text" class="form-control w-100" name="year" id="year" required>
+                        <input type="text" class="form-control w-100" name="year" placeholder="Year" id="year" required>
                     </div>
                 </div>
 
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
-                        <label for="inputCategory" class="sr-only"></label>
-                        <textarea class="emptydetails form-control" name="long_details" id="summernote" placeholder="Description"></textarea>
+                        <label for="inputCategory">Comment</label>
+                        <textarea class="emptydetails form-control" rows="5" name="long_details" id="" placeholder="Comment"></textarea>
                     </div>
                 </div>
 

@@ -31,7 +31,7 @@
                                         <th scope="col" class="border-0">Month</th>
                                         <th scope="col" class="border-0">Year</th>
                                         <th scope="col" class="border-0">Monthly Fee Amount</th>
-                                        <th scope="col" class="border-0">Amount</th>
+                                        <th scope="col" class="border-0">Ttl Approved Amount</th>
                                         <th scope="col" class="border-0">Status</th>
                                         <th scope="col" class="border-0">Created</th>
                                         <th scope="col" class="border-0">Image</th>
