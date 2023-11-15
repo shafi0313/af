@@ -32,10 +32,11 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="long_details">Comment</label>
-                                        <input type="text" name="long_details" class="form-control" value="{!! $student->long_details !!}" required>
+                                        <input type="text" name="long_details" class="form-control" id="long_details" value="{!! $student->long_details !!}" required>
+                                        {{-- <textarea name="" id="long_details" cols="30" rows="10"></textarea> --}}
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="title">Amount</label>
+                                        <label for="title">Total Approved Amount</label>
                                         <input type="text" name="title" class="form-control" value="{{ $student->title }}" required>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -55,7 +56,7 @@
                                         <input type="text" name="year" class="form-control" value="{{ $student->year }}" required>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="long_details">Receipt View</label>                                        
+                                        <label for="">Receipt View</label>                                        
                                         <a href="{{ asset('images/'.$student->image) }}" target="_blank">
                                             <img src="{{ asset('images/'.$student->image) }}" alt="Receipt View" height="80px">
                                         </a>
@@ -75,4 +76,11 @@
             </div>
         </div>
     </main>
+    <script>
+        $('#long_details').summernote({
+            placeholder: 'Enter your details',
+            tabsize: 3,
+            height: 200
+        });
+    </script>
 @endsection

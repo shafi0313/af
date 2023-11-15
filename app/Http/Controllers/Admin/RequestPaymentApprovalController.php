@@ -50,7 +50,7 @@ class RequestPaymentApprovalController extends Controller
                     $completed = $item->completed == 1 ? 'disabled' : '';
                     $completedA = $item->completed == 1 ? 'disabled_' : '';
                     return '<div class="d-table mx-auto btn-group-sm btn-group">            
-                        <a type="button" class="btn btn-primary btn-check edit ' . $completed . '" title="Approved" href="payment-approve-monhtly/' . $item->menu_id . '" id="' . $item->menu_id . '" onclick="return confirm(' . "'Do you want to accept this request?'" . ')">
+                        <a class="btn btn-primary btn-check edit ' . $completed . '" title="Approved" href="payment-approve-monhtly/' . $item->menu_id . '" id="' . $item->menu_id . '" onclick="return confirm(' . "'Do you want to accept this request?'" . ')">
                             <i class="material-icons">done</i>
                         </a>
                         <a class="btn btn-warning" href="' . route('admin.request-payment-approval.edit', $item->menu_id) . '">

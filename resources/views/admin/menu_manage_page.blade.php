@@ -59,7 +59,7 @@
 
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
-                        <label>Amount</label>
+                        <label>Total Approved Amount</label>
                         <input type="text" class="form-control w-100" name="title" id="title"
                             placeholder="Enter Amount" required>
                     </div>
@@ -128,10 +128,10 @@
                                         <th scope="col" class="border-0">No</th>
                                         <th scope="col" class="border-0">Student Name</th>
                                         <th scope="col" class="border-0">Comment</th>
-                                        <th scope="col" class="border-0">Amount</th>
+                                        <th scope="col" class="border-0">Ttl Approved Amount</th>
                                         <th scope="col" class="border-0">Recept Date</th>
-                                        <th scope="col" class="border-0">Month Name</th>
                                         <th scope="col" class="border-0">Monthly Fee Amt</th>
+                                        <th scope="col" class="border-0">Month Name</th>
                                         <th scope="col" class="border-0">Year</th>
                                         <th scope="col" class="border-0">Status</th>
                                         <th scope="col" class="border-0">Receipt View</th>

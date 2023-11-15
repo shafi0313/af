@@ -34,7 +34,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Amount</label>
+                                        <label>Total Approved Amount</label>
                                         <input type="text" class="form-control" name="title"
                                             value="{{ $RPApproval->title }}" placeholder="Enter Amount" required>
                                     </div>
