@@ -35,8 +35,7 @@
                                         <th scope="col" class="border-0">Total Paid</th>
                                         <th scope="col" class="border-0">Year</th>
                                         <th scope="col" class="border-0">Status</th>
-                                        <th scope="col" class="border-0">Action</th>
-                                        <th scope="col" class="border-0">Created</th>
+                                        <th scope="col" class="border-0">View</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -358,9 +357,9 @@
                     {
                         data: 'action'
                     },
-                    {
-                        data: 'created_at'
-                    },
+                    // {
+                    //     data: 'created_at'
+                    // },
                 ]
             });
             $('.selectpicker').selectpicker();

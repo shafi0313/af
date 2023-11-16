@@ -296,6 +296,7 @@ class AdminController extends Controller
         $item = DB::table('order')
             ->select('*', 'users.id as c_id', 'order.id as p_id', 'order.status as o_status')
             ->join('users', 'users.id', '=', 'order.student_id')
+            // ->join('menu_manages', 'menu_manages.type', '=', 'order.student_id')
             ->orderBy('o_status', 'ASC')
             ->get();
 
@@ -1047,11 +1048,9 @@ class AdminController extends Controller
         if($payment + $request->title > $aprv_amnt){
             return back()->with('error', 'You can not request more than approved amount');
             echo 3;
-
-            // Alert::info('Info', 'You can not request more than approved amount');
-            // return back();
+            exit();
         }
-        exit();
+        
 
         if ($request->hasFile('ProductPic')) {
             $validator = Validator::make($request->all(), [

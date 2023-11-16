@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Basic_info_manage;
 use App\Models\MenuManage;
 use Illuminate\Http\Request;
@@ -59,7 +60,7 @@ class RequestPaymentApprovalController extends Controller
                     }
                 })
                 ->addColumn('action', function ($item) {
-                    $completed = $item->completed == 1 ? 'disabled' : '';
+                    $completed = $item->completed == 1 ? 'disabledw' : '';
                     $completedA = $item->completed == 1 ? 'disabled_' : '';
                     return '<div class="d-table mx-auto btn-group-sm btn-group">            
                         <a class="btn btn-primary btn-check edit ' . $completed . '" title="Approved" href="' . route('admin.r_p_a.student_approved', $item->menu_id) . '" id="' . $item->menu_id . '" onclick="return confirm(' . "'Do you want to accept this request?'" . ')">
@@ -121,15 +122,25 @@ class RequestPaymentApprovalController extends Controller
     public function studentApproved($id)
     {
         // try{
-            DB::table('menu_manages')->where('id', $id)->update(['short_details' => 1, 'completed' => 1]);
+        DB::table('menu_manages')->where('id', $id)->update(['short_details' => 1, 'completed' => 1]);
+        $payment = DB::table('menu_manages')->where('id', $id)->first();
 
-            $payment = DB::table('menu_manages')->where('id', $id)->first();
-            $student = DB::table('order')->where('student_id', $payment->type)->first();
-    
-            $amount  = $student->accmulative_amnt + $payment->title;
-            $item = DB::table('order')->where('id', $student->id)->update(['accmulative_amnt' => $amount]);
-            Alert::success('Success', 'Payment Approved');
-            return redirect()->back();
+        $totalPayment = DB::table('menu_manages')
+            ->where('type', $payment->type)
+            ->where('short_details', 1)
+            ->where('completed', 1)
+            ->whereYear('recept_date', Carbon::parse($payment->recept_date)->format('Y'))
+            ->sum('title');
+        $student = DB::table('order')
+            ->where('student_id', $payment->type)
+            ->where('year', Carbon::parse($payment->recept_date)->format('Y'))
+            ->first();
+
+        // $amount  = $student->accmulative_amnt + $payment->title;
+        $amount  = $totalPayment;
+        $item = DB::table('order')->where('id', $student->id)->update(['accmulative_amnt' => $amount]);
+        Alert::success('Success', 'Payment Approved');
+        return redirect()->back();
         // }catch(\Exception $e){
         //     Alert::error('Error', 'Something went wrong');
         //     return redirect()->back();
