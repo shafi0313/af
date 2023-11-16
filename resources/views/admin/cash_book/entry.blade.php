@@ -80,7 +80,8 @@
                                                             onkeydown="return (event.keyCode!=13);" class="form-control">
                                                     </td>
                                                     <td>
-                                                        <input type="date" name="date" class="form-control" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
+                                                        <input type="date" name="date" class="form-control"
+                                                            value="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
                                                             onkeydown="return (event.keyCode!=13);">
                                                     </td>
                                                     <td>
@@ -95,7 +96,8 @@
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control"
-                                                            onkeydown="return (event.keyCode!=13);" name="payment_by" id="payment_by">
+                                                            onkeydown="return (event.keyCode!=13);" name="payment_by"
+                                                            id="payment_by">
                                                     </td>
                                                     <td>
                                                         <button type="submit" class="btn btn-primary">Add</button>
@@ -122,7 +124,7 @@
                                         </form>
                                     </table>
                                 </div>
-                                
+
                                 <div class="col-md-12 text-center" style="padding-top:20px;">
                                     {{-- <span>
                                         <button type="button" class="btn btn-primary btn-sm" data-backdrop="static"
@@ -137,15 +139,18 @@
                                         Closing Balance: $
                                         {{ number_format($openingBl + $cashBooks->sum('credit') - $cashBooks->sum('debit'), 2) }}
                                     </span>
-                                                                      
+
                                 </div>
-                                <div class="col-md-12 text-right">
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-info mr-3" data-toggle="modal"
+                                        data-target="#exampleModal">
+                                        Note
+                                    </button>
                                     <form action="{{ route('admin.cash_book.post') }}" method="post">
                                         @csrf
-                                        @foreach ($cashBooks as $cashBook)                                            
-                                        @endforeach
-                                        <input type="submit" value="Post" name="post" class="btn btn-warning" style="width:150px">
-                                    </form>  
+                                        <input type="submit" value="Post" name="post" class="btn btn-warning"
+                                            style="width:150px">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -154,6 +159,31 @@
             </div>
         </div>
     </main>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Note of cashbook details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('admin.cash_book.note_store') }}">
+                    <div class="modal-body">
+
+                        <textarea name="note" cols="30" rows="10" class="form-control" placeholder="Add your note">{{ $cashbookNote->note ?? '' }}</textarea>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script>
         $('#payment').attr('disabled', 'disabled');

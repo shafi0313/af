@@ -11,6 +11,7 @@ use App\Models\GeneralLedger;
 use App\Models\CashBookOffice;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\CashbookNote;
 use App\Models\PeriodLock;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -57,8 +58,9 @@ class CashBookController extends Controller
         $data['office']     = CashBookOffice::find($office);
         $data['cashBooks']  = CashBook::with(['student', 'patient'])->whereIs_post(0)->get();
         // $cashBook           = GeneralLedger::whereSource('CBO')->select('debit', 'credit')->get();
-        $cashBook           = CashBook::select('debit', 'credit')->whereIs_post(1)->get();
-        $data['openingBl']  = $cashBook->sum('credit') - $cashBook->sum('debit'); //received - payment
+        $cashBook             = CashBook::select('debit', 'credit')->whereIs_post(1)->get();
+        $data['openingBl']    = $cashBook->sum('credit') - $cashBook->sum('debit');           //received - payment
+        $data['cashbookNote'] = CashbookNote::first();
         return view('admin.cash_book.entry', $data);
     }
 
@@ -154,6 +156,22 @@ class CashBookController extends Controller
             toast('Cash book entry deleted successfully.', 'success');
         } catch (\Exception $e) {
             toast('Cash book entry delete failed.', 'error');            
+        }
+        return back();
+    }
+
+    public function noteStore(Request $request)
+    {
+        try {
+            if(CashbookNote::first()){
+                CashbookNote::first()->update(['note' => $request->note]);
+            }else{
+                CashbookNote::create(['note' => $request->note]);
+            }
+            toast('Note created successfully.', 'success');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+            toast('Note create failed.', 'error');            
         }
         return back();
     }
