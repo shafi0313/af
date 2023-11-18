@@ -6,13 +6,14 @@ use App\Models\User;
 use App\Models\Patient;
 use App\Models\CashBook;
 use App\Basic_info_manage;
+use App\Models\MenuManage;
+use App\Models\PeriodLock;
+use App\Models\CashbookNote;
 use Illuminate\Http\Request;
 use App\Models\GeneralLedger;
 use App\Models\CashBookOffice;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\CashbookNote;
-use App\Models\PeriodLock;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CashBookController extends Controller
@@ -64,6 +65,15 @@ class CashBookController extends Controller
         return view('admin.cash_book.entry', $data);
     }
 
+    public function getBalance(Request $request)
+    {
+        preg_match('/\d+/', $request->user_id, $matches);
+        $user_id = $matches[0];
+        $balance = MenuManage::where('type', $user_id)->whereDate('recept_date', $request->recept_date)->where('short_details', 1)->where('completed', 1)->sum('title');
+        
+        return response()->json($balance);
+    }
+
     public function store(Request $request)
     {
         $periodLock = PeriodLock::first()->date;
@@ -85,6 +95,11 @@ class CashBookController extends Controller
         $user_id = preg_replace('/[^0-9]/', '', $request->user); // Take user id
         $user_identify = preg_replace('/[^a-z A-Z]/', '', $request->user); // Take user identify
         if ($user_identify == 's') { // s = student
+            $cashCheck = CashBook::whereUser_id($user_id)->whereDate('date', $request->date)->count();
+            if ($cashCheck > 0) {
+                toast('Cash book entry already exists.', 'error');
+                return back();
+            }
             $data['user_type'] = 1;
         } else if ($user_identify == 'p') {// p = patient
             $data['user_type'] = 2;

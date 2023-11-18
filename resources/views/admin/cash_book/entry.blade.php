@@ -47,7 +47,8 @@
                                                 <th style="text-align:center;" width="20%">Student & Patient</th>
                                                 <th style="text-align:center;" width="20%">Narration and
                                                     Note</th>
-                                                <th style="text-align:center;" width="6%">P/R Date</th>
+                                                <th style="text-align:center;" width="6%">Payment Date</th>
+                                                <th style="text-align:center;" width="6%">Recept Date</th>
                                                 <th style="text-align:center;" width="11%">Payment</th>
                                                 <th style="text-align:center;" width="11%">Received</th>
                                                 <th style="text-align:center;" width="11%">Payment by</th>
@@ -82,7 +83,11 @@
                                                     <td>
                                                         <input type="date" name="date" class="form-control"
                                                             value="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
-                                                            onkeydown="return (event.keyCode!=13);">
+                                                            onkeydown="return (event.keyCode!=13);" id="date">
+                                                    </td>
+                                                    <td>
+                                                        <input type="date" name="date" class="form-control"
+                                                            onkeydown="return (event.keyCode!=13);" id="recept_date">
                                                     </td>
                                                     <td>
                                                         <input type="number" class="form-control" id="payment"
@@ -109,6 +114,7 @@
                                                         </td>
                                                         <td>{{ $cashBook->narration }}</td>
                                                         <td>{{ bdDate($cashBook->date) }}</td>
+                                                        <td></td>
                                                         <td>{{ $cashBook->debit }}</td>
                                                         <td>{{ $cashBook->credit }}</td>
                                                         <td>{{ $cashBook->payment_by }}</td>
@@ -200,5 +206,21 @@
                 $('#payment').removeAttr('disabled');
             }
         });
+        $('#recept_date').on('change', function() {
+            const user_id = $('#user').val();
+            const recept_date = $(this).val();
+            $.ajax({
+                url: "{{ route('admin.cash_book.get_balance') }}",
+                type: 'GET',
+                data: {
+                    user_id: user_id,
+                    recept_date: recept_date
+                },
+                success: function(data) {
+                    console.log(user_id);
+                    $('#payment').val(data);
+                }
+            })
+        })
     </script>
 @endsection

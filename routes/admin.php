@@ -47,6 +47,7 @@ Route::controller(CashBookController::class)->prefix('cash-book')->name('cash_bo
     Route::post('/post', 'post')->name('post');
     Route::get('/destroy/{id}', 'destroy')->name('destroy');
     Route::get('/note', 'noteStore')->name('note_store');
+    Route::get('/getBalance', 'getBalance')->name('get_balance');
 });
 Route::controller(CashBookReportController::class)->prefix('cash-book-report')->name('cash_book_report.')->group(function () {
     Route::get('/select', 'select')->name('select');
