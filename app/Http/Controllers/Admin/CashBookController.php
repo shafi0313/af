@@ -25,6 +25,27 @@ class CashBookController extends Controller
 
     public function office()
     {
+        $items = DB::table('menu_manages')
+                ->leftjoin('cash_books', 'cash_books.user_id', '=', 'menu_manages.type')
+                ->select(
+                    'cash_books.user_id as user_id',
+                    'cash_books.recept_date as c_recept_date',
+                    'menu_manages.title',
+                    'menu_manages.long_details',
+                    'menu_manages.type',
+                    'menu_manages.short_details',
+                    'menu_manages.completed',
+                    'menu_manages.recept_date',
+                )->where('short_details',1)
+                ->where('completed',1)
+                ->get();
+                foreach ($items as $item) {
+                    DB::table('cash_books')
+                        ->where('user_id', $item->type)
+                        ->update(['recept_date' => $item->recept_date]);
+                }
+
+
         $periodLock = PeriodLock::first()->date;
         if ($periodLock >= date('Y-m-d')) {
             Alert::info('Info', 'Period is locked.');
