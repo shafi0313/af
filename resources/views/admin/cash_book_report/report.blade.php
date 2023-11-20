@@ -67,6 +67,7 @@
                                                 <th style="text-align:center;" width="20%">Student/Patient</th>
                                                 <th style="text-align:center;" width="25%">Narration</th>
                                                 <th style="text-align:center;" width="15%">Payment By</th>
+                                                <th style="text-align:center;" width="11%">Receipt Date</th>
                                                 <th style="text-align:center;" width="11%">Payment</th>
                                                 <th style="text-align:center;" width="11%">Received</th>
                                                 <th style="text-align:center;" width="11%">Balance</th>
@@ -88,6 +89,7 @@
                                                     </td>
                                                     <td align="center">{{ $cashBook->narration }}</td>
                                                     <td align="center">{{ $cashBook->payment_by }}</td>
+                                                    <td align="center">{{ $cashBook->recept_date?bdDate($cashBook->recept_date):'' }}</td>
                                                     <td class="text-right">{{ number_format($cashBook->debit, 2) }}</td>
                                                     <td class="text-right">{{ number_format($cashBook->credit, 2) }}</td>
                                                     {{-- {{ $cashBook->credit }}<br>

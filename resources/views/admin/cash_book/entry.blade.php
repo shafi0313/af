@@ -44,16 +44,15 @@
                                     <table width="100%" border="1" cellspacing="5" cellpadding="5">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:center;" width="20%">Student & Patient</th>
-                                                <th style="text-align:center;" width="20%">Narration and
+                                                <th style="text-align:center;">Student & Patient</th>
+                                                <th style="text-align:center;">Narration and
                                                     Note</th>
-                                                <th style="text-align:center;" width="6%">Payment Date</th>
-                                                <th style="text-align:center;" width="6%">Recept Date</th>
-                                                <th style="text-align:center;" width="11%">Payment</th>
-                                                <th style="text-align:center;" width="11%">Received</th>
-                                                <th style="text-align:center;" width="11%">Payment by</th>
-                                                {{-- <th style="text-align:center;" width="11%">RL</th> --}}
-                                                <th style="text-align:center;" width="2%">Action</th>
+                                                <th style="text-align:center;">Payment Date</th>
+                                                <th style="text-align:center;">Receipt Date</th>
+                                                <th style="text-align:center;">Payment</th>
+                                                <th style="text-align:center;">Received</th>
+                                                <th style="text-align:center;">Payment by</th>
+                                                <th style="text-align:center;">Action</th>
                                             </tr>
                                         </thead>
                                         <form id="entrydata" action="{{ route('admin.cash_book.store') }}" method="post"
@@ -85,9 +84,9 @@
                                                             value="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
                                                             onkeydown="return (event.keyCode!=13);" id="date">
                                                     </td>
-                                                    <td>
-                                                        <input type="date" name="date" class="form-control"
-                                                            onkeydown="return (event.keyCode!=13);" id="recept_date">
+                                                    <td >
+                                                        <select class="form-control" id="recept_date" name="recept_date" required>
+                                                        </select>
                                                     </td>
                                                     <td>
                                                         <input type="number" class="form-control" id="payment"
@@ -114,7 +113,7 @@
                                                         </td>
                                                         <td>{{ $cashBook->narration }}</td>
                                                         <td>{{ bdDate($cashBook->date) }}</td>
-                                                        <td></td>
+                                                        <td>{{ bdDate($cashBook->recept_date) }}</td>
                                                         <td>{{ $cashBook->debit }}</td>
                                                         <td>{{ $cashBook->credit }}</td>
                                                         <td>{{ $cashBook->payment_by }}</td>
@@ -206,18 +205,33 @@
                 $('#payment').removeAttr('disabled');
             }
         });
-        $('#recept_date').on('change', function() {
+        $('#user').on('change', function() {
             const user_id = $('#user').val();
-            const recept_date = $(this).val();
+            $.ajax({
+                url: "{{ route('admin.cash_book.get_receipt_date') }}",
+                type: 'GET',
+                data: {
+                    user_id: user_id,
+                },
+                success: function(res) {
+                    
+                    let options = '<option value="">Select</option>';
+                    $.each(res.receiptDate, function(key, value) {
+                        options += '<option value="' + value.recept_date + '" data-id="' + value.id + '">' + value.recept_date + '</option>';
+                    });
+                    $('#recept_date').html(options);
+                }
+            })
+        })
+        $('#recept_date').on('change', function() {
+            const id = $(this).find(':selected').data('id');
             $.ajax({
                 url: "{{ route('admin.cash_book.get_balance') }}",
                 type: 'GET',
                 data: {
-                    user_id: user_id,
-                    recept_date: recept_date
+                    id: id
                 },
                 success: function(data) {
-                    console.log(user_id);
                     $('#payment').val(data);
                 }
             })
