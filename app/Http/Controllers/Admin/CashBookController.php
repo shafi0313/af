@@ -26,53 +26,14 @@ class CashBookController extends Controller
 
     public function office()
     {
-        // return DB::table('cash_books')->get();
-        // return DB::table('menu_manages')->where('short_details', 1)->where('completed', 1)->get();
-
-        // return 
-        // $items = MenuManage::select(
-        //         'cash_books.user_id',
-        //         'menu_manages.type',
-        //         'cash_books.recept_date as c_recept_date',
-        //         'menu_manages.recept_date',
-        //         'cash_books.debit',
-        //         'menu_manages.title'
-        //     )
-        //     ->join('cash_books', function (JoinClause $join) {
-        //         $join->on('menu_manages.type', '=', 'cash_books.user_id')
-        //         ->on( 'menu_manages.title', '=', 'cash_books.debit');
-        //     })
-        //     ->where('short_details', 1)
-        //     ->where('completed', 1)
-        //     ->get();
-// return
-            DB::table('cash_books')
-            ->join('menu_manages', function ($join) {
-                $join->on('menu_manages.type', '=', 'cash_books.user_id')
-                    ->on('menu_manages.title', '=', 'cash_books.debit');
-            })
-            ->where('short_details', 1)
-            ->where('completed', 1)
-            ->update(['cash_books.recept_date' => DB::raw('menu_manages.recept_date')]);
-            
-        
-            // foreach ($items as $item) {
-            //     // return $item;
-            //      CashBook::where('user_id', $item->user_id)
-            //         ->where('debit', $item->debit)
-            //         ->update(['recept_date' => $item->recept_date]);
-            // }
-
-        //     Alert::success('Success', 'Cash book entry posted successfully.');
-
-        // $periodLock = PeriodLock::first()->date;
-        // if ($periodLock >= date('Y-m-d')) {
-        //     Alert::info('Info', 'Period is locked.');
-        //     return back();
-        // }
-        // $data['basic_info'] = Basic_info_manage::where('id', 1)->first();
-        // $data['offices'] = CashBookOffice::all();
-        // return view('admin.cash_book.office', $data);
+        $periodLock = PeriodLock::first()->date;
+        if ($periodLock >= date('Y-m-d')) {
+            Alert::info('Info', 'Period is locked.');
+            return back();
+        }
+        $data['basic_info'] = Basic_info_manage::where('id', 1)->first();
+        $data['offices'] = CashBookOffice::all();
+        return view('admin.cash_book.office', $data);
     }
 
     public function officeStore(Request $request)
@@ -108,10 +69,11 @@ class CashBookController extends Controller
     public function getReceiptDate(Request $request)
     {
         if ($request->ajax()) {
+            $periodLock = PeriodLock::first()->date;
             preg_match('/\d+/', $request->user_id, $matches);
             $user_id = $matches[0];
             $cashBook = CashBook::where('user_id', $user_id)->where('user_type', 1)->where('is_post', 1)->pluck('recept_date')->toArray();
-            $receiptDate = MenuManage::where('type', $user_id)->where('short_details', 1)->where('completed', 1)->whereNotIn('recept_date',$cashBook)->get();
+            $receiptDate = MenuManage::where('type', $user_id)->where('recept_date','>',$periodLock)->where('short_details', 1)->where('completed', 1)->whereNotIn('recept_date', $cashBook)->get();
 
             return response()->json(['receiptDate' => $receiptDate]);
         }
