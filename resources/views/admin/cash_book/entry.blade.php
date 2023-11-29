@@ -61,8 +61,8 @@
                                             <input type="hidden" name="cash_book_office_id" value="{{ $office->id }}">
                                             <tbody>
                                                 <tr>
-                                                    <td style="width:12%">
-                                                        <select class="form-control" id="user" name="user" required>
+                                                    <td >
+                                                        <select class="form-control select2single" id="user" name="user" required>
                                                             @foreach ($students as $id => $student_name)
                                                                 <option value="{{ $id }}s">{{ $student_name }}
                                                                 </option>
