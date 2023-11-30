@@ -63,6 +63,13 @@
                         <span>Newsletter</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="{{ route('admin.missions.index') }}">
+                        <i class="material-icons">account_circle</i>
+                        <span>Mission</span>
+                    </a>
+                </li>
                 
                 {{-- <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin.registration') ? 'active' : '' }}"

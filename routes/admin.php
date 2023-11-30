@@ -1,21 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\CashBookController;
 use App\Http\Controllers\Admin\ApplicantController;
 use App\Http\Controllers\Admin\PeriodLockController;
 use App\Http\Controllers\Admin\FundRequetionController;
 use App\Http\Controllers\Admin\CashBookReportController;
-use App\Http\Controllers\Admin\RequestPaymentApprovalController;
 use App\Http\Controllers\Admin\PatientFundRequestController;
 use App\Http\Controllers\Admin\PatientFundApprovalController;
 use App\Http\Controllers\Admin\StudentFundRequetionController;
 use App\Http\Controllers\Admin\PatientPaymentApprovalController;
+use App\Http\Controllers\Admin\RequestPaymentApprovalController;
 
 Route::get('/period-lock', [PeriodLockController::class, 'index'])->name('period_lock.index');
 Route::post('/period-lock', [PeriodLockController::class, 'update'])->name('period_lock.update');
 
+Route::resource('missions', MissionController::class);
 Route::resource('applicant', ApplicantController::class);
 Route::post('applicant/accept', [ApplicantController::class, 'accept'])->name('applicant.accept');
 Route::post('applicant/reject', [ApplicantController::class, 'reject'])->name('applicant.reject');
