@@ -8,6 +8,7 @@ use Session;
 use App\User;
 use Validator;
 use App\News_manage;
+use App\Models\Mission;
 use App\Models\Division;
 use App\Basic_info_manage;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class homeController extends Controller
         $data['bani']      = DB::table('menu_manages')->where('type', 2)->orderby('id', 'desc')->get();
         $data['porichiti'] = DB::table('menu_manages')->where('type', 3)->orderby('id', 'desc')->get();
         $data['gallery']   = DB::table('menu_manages')->where('type', 5)->orderby('id', 'desc')->get();
+        $data['missions']   = Mission::all();
 
         return view('index', $data);
     }

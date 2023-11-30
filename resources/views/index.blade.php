@@ -235,7 +235,19 @@ p>
 				<span class="decor"><span class="inner"></span></span>
 			</div>
 			<div class="row single-service-style">
-				<div class="col-md-3 col-sm-6">
+				@foreach ($missions as $mission)
+					<div class="col-md-3 col-sm-6">
+						<div class="single-service-home">
+							<div class="content">
+								<h3>{!! $mission->icon !!} {{ $mission->title }}</h3>
+								<p>{{ $mission->content }}</p>
+								
+							</div>
+						</div>
+					</div>
+					
+				@endforeach
+				{{-- <div class="col-md-3 col-sm-6">
 					<div class="single-service-home">
 						<div class="content">
 							<h3><i class="flaticon-gesture-1"></i> Education</h3>
@@ -306,7 +318,7 @@ p>
 							
 						</div>
 					</div>
-				</div>
+				</div> --}}
 			</div>
 		</div>
 	</section>
