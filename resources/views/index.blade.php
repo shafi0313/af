@@ -375,71 +375,75 @@ p>
                 </ul>
             </div>
         </div>
-        
+        <style>
+			.image {
+				height: 300px;
+			}
+		</style>
         <div class="images-container">
             <div class="filter-list clearfix">
                 
                 <!--Image Box-->
                 <div class="image-box mix mix_all charity sponsorship volunteering">
                     <div class="inner-box">
-                        <figure class="image"><a href="img/gallery/n1.jpg" class="lightbox-image"><img src="{{ asset('front_end') }}/img/gallery/n1.jpg" alt=""></a></figure>
-                        <a href="img/gallery/n1.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
+                        <figure class="image"><a href="images/gallery/1.jpg" class="lightbox-image"><img src="{{ asset('images/gallery/1.jpg') }}" alt=""></a></figure>
+                        <a href="images/gallery/n1.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
                     </div>
                 </div>
                 
                 <!--Image Box-->
                 <div class="image-box mix mix_all charity sponsorship volunteering">
                     <div class="inner-box">
-                        <figure class="image"><a href="img/gallery/n2.jpg" class="lightbox-image"><img src="{{ asset('front_end') }}/img/gallery/n2.jpg" alt=""></a></figure>
-                        <a href="img/gallery/n2.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
+                        <figure class="image"><a href="images/gallery/n2.jpg" class="lightbox-image"><img src="{{ asset('images/gallery/2.jpg') }}" alt=""></a></figure>
+                        <a href="images/gallery/n2.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
                     </div>
                 </div>
                 
                 <!--Image Box-->
                 <div class="image-box mix mix_all child charity">
                     <div class="inner-box">
-                        <figure class="image"><a href="img/gallery/n3.jpg" class="lightbox-image"><img src="{{ asset('front_end') }}/img/gallery/n3.jpg" alt=""></a></figure>
-                        <a href="img/gallery/n3.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
+                        <figure class="image"><a href="images/gallery/n3.jpg" class="lightbox-image"><img src="{{ asset('images/gallery/3.jpg') }}" alt=""></a></figure>
+                        <a href="images/gallery/n3.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
                     </div>
                 </div>
                 
                 <!--Image Box-->
                 <div class="image-box mix mix_all child charity sponsorship">
                     <div class="inner-box">
-                        <figure class="image"><a href="img/gallery/n4.jpg" class="lightbox-image"><img src="{{ asset('front_end') }}/img/gallery/n4.jpg" alt=""></a></figure>
-                        <a href="img/gallery/n4.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
+                        <figure class="image"><a href="images/gallery/n4.jpg" class="lightbox-image"><img src="{{ asset('images/gallery/4.jpg') }}" alt=""></a></figure>
+                        <a href="images/gallery/n4.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
                     </div>
                 </div>
                 
                 <!--Image Box-->
                 <div class="image-box mix mix_all child sponsorship volunteering">
                     <div class="inner-box">
-                        <figure class="image"><a href="img/gallery/n5.jpg" class="lightbox-image"><img src="{{ asset('front_end') }}/img/gallery/n5.jpg" alt=""></a></figure>
-                        <a href="img/gallery/n5.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
+                        <figure class="image"><a href="images/gallery/n5.jpg" class="lightbox-image"><img src="{{ asset('images/gallery/5.jpg') }}" alt=""></a></figure>
+                        <a href="images/gallery/n5.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
                     </div>
                 </div>
                 
                 <!--Image Box-->
                 <div class="image-box mix mix_all child charity">
                     <div class="inner-box">
-                        <figure class="image"><a href="img/gallery/n6.jpg" class="lightbox-image"><img src="{{ asset('front_end') }}/img/gallery/n6.jpg" alt=""></a></figure>
-                        <a href="img/gallery/n6.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
+                        <figure class="image"><a href="images/gallery/n6.jpg" class="lightbox-image"><img src="{{ asset('images/gallery/6.jpg') }}" alt=""></a></figure>
+                        <a href="images/gallery/n6.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
                     </div>
                 </div>
                 
                 <!--Image Box-->
                 <div class="image-box mix mix_all child charity sponsorship volunteering">
                     <div class="inner-box">
-                        <figure class="image"><a href="img/gallery/n7.jpg" class="lightbox-image"><img src="{{ asset('front_end') }}/img/gallery/n7.jpg" alt=""></a></figure>
-                        <a href="img/gallery/n7.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
+                        <figure class="image"><a href="images/gallery/n7.jpg" class="lightbox-image"><img src="{{ asset('images/gallery/7.jpg') }}" alt=""></a></figure>
+                        <a href="images/gallery/n7.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
                     </div>
                 </div>
                 
                 <!--Image Box-->
                 <div class="image-box mix mix_all charity sponsorship volunteering">
                     <div class="inner-box">
-                        <figure class="image"><a href="img/gallery/n8.jpg" class="lightbox-image"><img src="{{ asset('front_end') }}/img/gallery/n8.jpg" alt=""></a></figure>
-                        <a href="img/gallery/n8.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
+                        <figure class="image"><a href="images/gallery/n8.jpg" class="lightbox-image"><img src="{{ asset('images/gallery/8.jpg') }}" alt=""></a></figure>
+                        <a href="images/gallery/n8.jpg" class="lightbox-image btn-zoom" title="Image Title Here"><span class="icon fa fa-dot-circle-o"></span></a>
                     </div>
                 </div>
                 
