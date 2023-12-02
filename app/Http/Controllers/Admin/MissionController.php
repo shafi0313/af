@@ -24,13 +24,16 @@ class MissionController extends Controller
             $missions = Mission::query();
             return DataTables::of($missions)
                 ->addIndexColumn()
+                ->addColumn('icon', function ($row) {
+                    return $row->icon;
+                })
                 ->addColumn('action', function ($row) {
                     $btn = '';
                     $btn .= view('button', ['type' => 'ajax-edit', 'route' => route('admin.missions.edit', $row->id), 'row' => $row]);
                     $btn .= view('button', ['type' => 'ajax-delete', 'route' => route('admin.missions.destroy', $row->id), 'row' => $row, 'src' => 'dt']);
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['icon', 'action'])
                 ->make(true);
         }
         $data['basic_info'] = Basic_info_manage::where('id', 1)->first();
