@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="field-label">Icon <span class="required">*</span></div>
-                            <input type="text" name="icon" class="form-control" value="{!! $mission->icon !!}" required>
+                            <input type="text" name="icon" class="form-control" value="{{ $mission->icon }}" required>
                         </div>
                         <div class="col-md-12">
                             <div class="field-label">Content <span class="required">*</span></div>
