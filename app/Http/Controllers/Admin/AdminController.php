@@ -1045,11 +1045,11 @@ class AdminController extends Controller
         $aprv_amnt = DB::table('order')->where('year', $request->year)->where('student_id', $request->type)->sum('aprv_amnt');
         $payment = DB::table('order')->where('year', $request->year)->where('student_id', $request->type)->sum('accmulative_amnt');
 
-        if($payment + $request->title > $aprv_amnt){
-            return back()->with('error', 'You can not request more than approved amount');
-            echo 3;
-            exit();
-        }
+        // if($payment + $request->title > $aprv_amnt){
+        //     return back()->with('error', 'You can not request more than approved amount');
+        //     echo 3;
+        //     exit();
+        // }
         
 
         if ($request->hasFile('ProductPic')) {

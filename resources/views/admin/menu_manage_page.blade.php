@@ -19,9 +19,7 @@
             <input type="hidden" name="id" id="id" value="">
             <div class="p-3 h-100 overflow-auto side-bar">
                 @php
-                    $students = DB::table('users')
-                        ->orderby('id', 'desc')
-                        ->get();
+                    $students = DB::table('users')->orderby('id', 'desc')->get();
                 @endphp
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
@@ -48,7 +46,7 @@
                     </div>
                 </div>
                 <input type="file" name="ProductPic" class="ImageUpload d-none">
-                <input type="text" id="itemId" name="itemId" class="d-none">           
+                <input type="text" id="itemId" name="itemId" class="d-none">
 
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
@@ -66,20 +64,22 @@
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label>Month Name and Other Fee Name</label>
-                        <input type="text" class="form-control w-100" name="month" id="month" placeholder="Month Name and Other Fee Name" required>
+                        <input type="text" class="form-control w-100" name="month" id="month"
+                            placeholder="Month Name and Other Fee Name" required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label>Monthly Fee Amount</label>
-                        <input type="text" class="form-control w-100" name="monthly_fee_amount" placeholder="Monthly Fee Amount" id="monthly_fee_amount"
-                            required>
+                        <input type="text" class="form-control w-100" name="monthly_fee_amount"
+                            placeholder="Monthly Fee Amount" id="monthly_fee_amount" required>
                     </div>
                 </div>
                 <div class="row px-0 mx-0 my-2">
                     <div class="form-group col-12 px-0 mb-2">
                         <label>Year</label>
-                        <input type="text" class="form-control w-100" name="year" placeholder="Year" id="year" required>
+                        <input type="text" class="form-control w-100" name="year" placeholder="Year" id="year"
+                            required>
                     </div>
                 </div>
 
